@@ -1,5 +1,5 @@
 server:
-  port: 8031
+  port: 8080
 spring:
   thymeleaf:
     cache: false
@@ -11,7 +11,7 @@ spring:
       enabled: true
   datasource:
     url: jdbc:mariadb://127.0.0.1:3306/blog_dev?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;serverTimezone=Asia/Seoul
-    username: cookers
+    username: root
     password:
   jpa:
     hibernate:

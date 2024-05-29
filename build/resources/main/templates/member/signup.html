@@ -1,62 +1,28 @@
-<html lang="ko">
+<div>회원가입</div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-    <title>능력단위평가 - 화면 구현</title>
-    <link rel="stylesheet" th:href="/css/signupPage.css">
-</head>
-
-<body>
-<div class="container">
-    <!-- 상단 바 만들기 -->
-    <div class="top_bar_section">
-        <div class="left_bar">
-            <div class="title">
-                <img src="https://github.com/PILSUNyou/PS_project_1/assets/156152342/13aa53b0-3ee2-4e38-a348-b37cfbf644af" alt="필선 로고">
-            </div>
-        </div>
-        <div class="right_bar">
-            마우스를 올려보세요 ! →　
-            <div class="nav_bar">
-                <ul>
-                    <li><a href="#">글 작성</a></li>
-                    <li><a href="#">리스트 보기</a></li>
-                    <li><a href="#">로그인</a></li>
-                    <li><a href="#">회원가입</a></li>
-                </ul>
-            </div>
-        </div>
+<form th:action="@{/member/signup}" method="POST">
+    <div>
+        <span>유저 아이디</span>
+        <input type="text" name="username" placeholder="아이디">
     </div>
-    <!-- 하단 바 만들기 -->
-    <div class="bottom_bar_section">
-        <div class="top_bar">
-            <div class="title">회 원 가 입</div>
-        </div>
-        <div class="middle_bar"></div>
-        <div class="bottom_bar">
-            <div class="nav_bar">
-                <div class="idpw_box">아이디</div>
-                <input type="text" size=40 >
-                <div class="idpw_box">패스워드</div>
-                <input type="text" size=40>
-                <div class="idpw_box">패스워드 확인</div>
-                <input type="text" size=40 >
-                <div class="idpw_box">이름</div>
-                <input type="text" size=40 >
-                <div class="idpw_box">이메일</div>
-                <input type="text" size=40 >
-                <div class=" a_login">
-                    <a href="#">회원 가입</a>
-                </div>
-            </div>
-        </div>
+    <div>
+        <span>유저 비밀번호</span>
+        <input type="password" name="password" placeholder="비밀번호">
     </div>
-</div>
-</div>
-</body>
+    <div>
+        <span>유저 비밀번호 확인</span>
+        <input type="password" name="password_confirm" placeholder="비밀번호 확인">
+    </div>
+    <div>
+        <span>닉네임</span>
+        <input type="text" name="nickname" placeholder="닉네임">
+    </div>
+    <div>
+        <span>이메일</span>
+        <input type="email" name="email" placeholder="이메일">
+    </div>
+    <div>
+        <button type="submit">로그인</button>
+    </div>
 
-</html>
+</form>
