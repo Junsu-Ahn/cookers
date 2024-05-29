@@ -10,5 +10,4 @@ public class CookersApplication {
 		System.out.println("test");
 		SpringApplication.run(CookersApplication.class, args);
 	}
-
 }

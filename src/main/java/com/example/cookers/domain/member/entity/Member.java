@@ -17,6 +17,7 @@ import org.hibernate.annotations.Comment;
 @AllArgsConstructor
 @ToString
 public class Member extends BaseEntity {
+
     @Comment("유저 아이디")
     @Column(unique = true)
     private String username;
@@ -24,6 +25,6 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String nickname;
     private String email;
-
-
+    private String providerTypeCode;
+    private String profile_url;
 }
