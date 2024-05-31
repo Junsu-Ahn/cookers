@@ -38,6 +38,20 @@ public class MemberService {
         return signup(username, "", nickname, "", providerTypeCode, profileImageUrl); // 최초 로그인 시 딱 한번 실행
     }
 
+    @Transactional
+    public Member signupGoogle(String username, String nickname, String email) {
+        // 구글 로그인으로부터 받은 정보로 Member 객체 생성
+        Member member = Member.builder()
+                .username(username)
+                .password("") // 구글 로그인으로부터 받은 정보만으로 회원가입이 이루어지므로 비밀번호는 필요하지 않음
+                .nickname(nickname)
+                .email(email)
+                .build();
+
+        // 회원 저장
+        return memberRepository.save(member);
+    }
+
     public Optional<Member> findByUsername(String username) {
         return memberRepository.findByusername(username);
     }

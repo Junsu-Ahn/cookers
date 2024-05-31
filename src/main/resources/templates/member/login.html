@@ -1,4 +1,11 @@
-<div>로그인</div>
+<head xmlns:th="http://www.w3.org/1999/xhtml">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘은 내가 요리사 ! 오내요</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" th:href="@{/css/Login.css}">
+</head>
 
 <form th:action="@{/member/login}" method="POST">
     <div>
@@ -15,5 +22,7 @@
 
     <div>
         <a href="/oauth2/authorization/kakao">카카오 로그인</a>
+        <a href="/oauth2/authorization/google">구글 로그인</a>
     </div>
+
 </form>

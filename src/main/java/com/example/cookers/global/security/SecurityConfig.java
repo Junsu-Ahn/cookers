@@ -16,32 +16,32 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .formLogin(
-                        formLogin -> formLogin
-                                .loginPage("/member/login")
-                                .defaultSuccessUrl("/")
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(new AntPathRequestMatcher("/oauth2/login/info")).authenticated() // 특정 경로에 대한 인증 설정
+                        .anyRequest().permitAll() // 나머지 요청은 모두 허용
+                )
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/member/login") // 로그인 페이지 지정
+                        .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트될 URL
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .loginPage("/member/login"))
-                .logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                                .logoutSuccessUrl("/")
-                                .invalidateHttpSession(true)
+                        .loginPage("/member/login")) // OAuth2 로그인 페이지 지정
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) // 로그아웃 요청 경로 지정
+                        .logoutSuccessUrl("/") // 로그아웃 후 리다이렉트될 URL
+                        .invalidateHttpSession(true) // 세션 무효화 설정
                 )
-                .csrf((csrf)-> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/**")))  // 이상한 경로로 접속시 차단
-        ;
-        return http.build();
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(new AntPathRequestMatcher("/**"))) // CSRF 보호 비활성화
+                .build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
