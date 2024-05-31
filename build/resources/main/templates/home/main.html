@@ -22,6 +22,9 @@
             <div class="user_page">
                 <a href="#">
                     <img src=/"https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인"></a>
+                <a sec:authorize="isAuthenticated()" href="/member/logout">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                </a>
             </div>
         </div>
     </div>
@@ -32,7 +35,7 @@
                     <a class="custom-nav nav-13" href="#">추 천</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="#">레시피</a>
+                    <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
                             <a class="custom-nav nav-13" href="#">밥요리</a>

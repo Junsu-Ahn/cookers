@@ -1,19 +1,14 @@
 package com.example.cookers.domain.recipe.controller;
 
-import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.service.MemberService;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.service.RecipeService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
