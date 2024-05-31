@@ -37,6 +37,13 @@ public class MemberController {
         memberService.signup(signForm.getUsername(), signForm.getPassword(), signForm.getNickname(), signForm.getEmail(), signForm.getTypeCode(), signForm.getProfile_url());
         return "redirect:/member/login";
     }
+
+    @PostMapping("/signup/google")
+    public String signupGoogle(@Valid GoogleSignForm signForm) {
+        memberService.signupGoogle(signForm.getUsername(), signForm.getNickname(), signForm.getEmail());
+        return "redirect:/member/login"; // 회원가입 후 메인 페이지로 이동하도록 수정
+    }
+
     @ToString
     @Getter
     @Setter
@@ -60,4 +67,21 @@ public class MemberController {
 
         private String profile_url;
     }
+
+    @ToString
+    @Getter
+    @Setter
+    public static class GoogleSignForm {
+        @NotBlank
+        private String username;
+
+        @NotBlank
+        private String nickname;
+
+        @NotBlank
+        private String email;
+
+        private String profileUrl;
+    }
+
 }

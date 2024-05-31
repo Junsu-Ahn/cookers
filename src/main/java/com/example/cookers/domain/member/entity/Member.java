@@ -3,6 +3,8 @@ package com.example.cookers.domain.member.entity;
 import com.example.cookers.global.jpa.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +29,11 @@ public class Member extends BaseEntity {
     private String email;
     private String providerTypeCode;
     private String profile_url;
+
+    // provider : google이 들어감
+    private String provider;
+
+    // providerId : 구굴 로그인 한 유저의 고유 ID가 들어감
+    private String providerId;
+
 }
