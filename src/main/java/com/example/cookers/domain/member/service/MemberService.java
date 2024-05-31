@@ -1,13 +1,16 @@
 package com.example.cookers.domain.member.service;
 
+import com.example.cookers.DataNotFoundException;
 import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.exception.DataException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.zip.DataFormatException;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +46,15 @@ public class MemberService {
     }
     public Optional<Member> findByUsernameAndProviderTypeCode(String username, String providerTypeCode) {
         return memberRepository.findByUsernameAndProviderTypeCode(username, providerTypeCode);
+    }
+
+    // (닉네임 가져오기) 필선 작성
+    public Member getMember(String name) {
+        Optional<Member> member = this.memberRepository.findByusername(name);
+        if (member.isPresent()){
+            return member.get();
+        } else{
+            throw new DataNotFoundException("Member not found");
+        }
     }
 }
