@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -24,4 +23,10 @@ public class RecipeController {
         model.addAttribute("recipeList", recipeList);
         return "recipe/list";
     }
+
+    @GetMapping("/recipe_create_form")
+    public String Create(RecipeCreateForm recipeCreateForm){
+        return "recipe/recipe_create_form";
+    }
+
 }
