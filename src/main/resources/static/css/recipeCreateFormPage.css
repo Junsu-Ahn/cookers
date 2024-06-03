@@ -172,7 +172,7 @@ body {
   border-radius: 15px;
   outline: none;
   padding-left: 10px;
-  background-color: rgb(233, 233, 233);
+  background-color: rgb(201, 200, 191);
 }
 
 .top_bar_section > .top_container > .nav_bar > .user_page {
@@ -184,16 +184,14 @@ body {
 .top_bar_section > .top_container > .nav_bar > .user_page {
   flex-grow: 1;
   flex-basis: 0;
-  align-content:center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
-.top_bar_section > .top_container > .nav_bar >.user_page > a {
-  display: inline-block;
-  margin-left: 120px;
-}
-
-.top_bar_section > .top_container > .nav_bar >.user_page > a> img{
-  width: 80px;
+.top_bar_section > .top_container > .nav_bar >.user_page > a > img {
+  width: 90px;
 }
 
 
@@ -349,7 +347,7 @@ body {
 
 .bottom_bar_section > .recipe_write > .recipe_write_bar > .text_bar > .text_write_bar > .text > input {
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   width: 500px;
@@ -362,7 +360,7 @@ body {
 .bottom_bar_section > .recipe_write > .recipe_write_bar > .text_bar > .text_write_bar > .text > textarea {
   resize: none;
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   padding-top: 10px;
@@ -455,7 +453,7 @@ font-size:20px;
 }
 .cooking_ingredients_information > .food_info > div > div > div > .main {
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   width: 200px;
@@ -467,7 +465,7 @@ font-size:20px;
 
 .cooking_ingredients_information > .food_info > div > div > div .sub {
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   width: 120px;
@@ -481,15 +479,6 @@ font-size:20px;
   flex-grow: 1;
   flex-basis: 0;
 }
-
-
-.bottom_bar_section > .recipe_write > .save_bar{
-  border: 1px solid blue;
-  box-sizing: border-box;
-  overflow-clip-margin: content-box;
-  overflow: clip;
-}
-
 
 .bottom_bar_section > .recipe_write > .cooking_sequence {
   border: 3px solid rgba(0,0,0, 0.4);
@@ -560,7 +549,7 @@ font-size:20px;
 .bottom_bar_section > .recipe_write > .cooking_sequence > .cooking_order > .make_step > .top_bar_step > .step_text_bar > textarea{
   resize: none;
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   padding-top: 10px;
@@ -573,8 +562,9 @@ font-size:20px;
 .bottom_bar_section > .recipe_write > .cooking_sequence > .cooking_order > .make_step > .top_bar_step > .step_img_bar{
   margin-top: 5px;
   margin-left: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   height: 100%;
+  border: 1px solid rgba(145,145,145,0.6);
 }
 
 .bottom_bar_section > .recipe_write > .cooking_sequence > .cooking_order > .make_step > .top_bar_step > .step_img_bar > #stepAddBox{
@@ -607,7 +597,7 @@ font-size:20px;
 .bottom_bar_section > .recipe_write > .cooking_sequence > .cooking_order > .make_step > .top_bar_tip > .tip_text_bar > textarea{
   resize: none;
   background: #f5f5f5;
-  border: 1px solid #e1e1e1;
+  border: 1px solid rgba(145,145,145,0.6);
   font-size: 16px;
   padding-left: 15px;
   padding-top: 10px;
@@ -624,21 +614,20 @@ font-size:20px;
 .save_container{
   width:250px;
   margin: auto;
-  color:white;
+  color:black;
   font-size:1rem;
   }
 
 .save_btn{
   display:block;
   font-size:1.5rem;
-  border:2px solid white;
+  border:2px solid black;
   border-radius:100px;
   width:40px;
   height:40px;
   padding:5px;
   margin: 10% auto;
   transition: .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-
 }
 
 .save_icon{
@@ -653,7 +642,7 @@ font-size:20px;
   width:125px;
   background-color: black;
    box-shadow: 0px 5px 5px rgba(0,0,0,0.2);
-  color: $blue;
+  color: white;
   transition:.3s;
 }
 
