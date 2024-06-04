@@ -73,6 +73,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
             return new CustomOAuth2User(member.getUsername(), member.getPassword(), authorityList);
         }
+        else if (providerTypeCode.equals("NAVER")) {
+            Map<String, Object> attributes = oAuth2User.getAttributes();
+            String oauthId = (String) attributes.get("sub");
+            String email = (String) attributes.get("email");
+            String nickname = (String) attributes.get("name");
+            String profileImageUrl = (String) attributes.get("profile_image");
+
+            String username = providerTypeCode + "__%s".formatted(oauthId);
+
+            Optional<Member> existingMember = memberService.findByUsername(username);
+            if (existingMember.isPresent()) {
+                return new CustomOAuth2User(existingMember.get().getUsername(), existingMember.get().getPassword(), new ArrayList<>());
+            }
+
+            Member member = memberService.whenSocialLogin(providerTypeCode, username, nickname, profileImageUrl);
+
+            List<GrantedAuthority> authorityList = new ArrayList<>();
+
+            return new CustomOAuth2User(member.getUsername(), member.getPassword(), authorityList);
+        }
 
         // 처리되지 않은 다른 OAuth2 로그인인 경우
         throw new OAuth2AuthenticationException(new OAuth2Error("unsupported_provider", "Unsupported OAuth2 provider: " + providerTypeCode, null));

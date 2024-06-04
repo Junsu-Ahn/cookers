@@ -23,6 +23,7 @@ public class MemberService {
                 .profile_url(url)
                 .nickname(nickname)
                 .email(email)
+                .provider(typeCode)
                 .build();
 
         return memberRepository.save(member);
@@ -30,7 +31,7 @@ public class MemberService {
 
     @Transactional
     public Member whenSocialLogin(String providerTypeCode, String username, String nickname, String profileImageUrl) {
-        Optional<Member> opMember = findByUsernameAndProviderTypeCode(username, providerTypeCode);
+        Optional<Member> opMember = findByUsername(username);
 
         if (opMember.isPresent()) return opMember.get();
 
@@ -57,5 +58,9 @@ public class MemberService {
     }
     public Optional<Member> findByUsernameAndProviderTypeCode(String username, String providerTypeCode) {
         return memberRepository.findByUsernameAndProviderTypeCode(username, providerTypeCode);
+    }
+    public Optional<Member> findById(long id)
+    {
+        return memberRepository.findById(id);
     }
 }

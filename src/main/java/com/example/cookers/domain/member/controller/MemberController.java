@@ -1,6 +1,7 @@
 package com.example.cookers.domain.member.controller;
 
 
+import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -43,6 +46,7 @@ public class MemberController {
         memberService.signupGoogle(signForm.getUsername(), signForm.getNickname(), signForm.getEmail());
         return "redirect:/member/login"; // 회원가입 후 메인 페이지로 이동하도록 수정
     }
+
 
     @ToString
     @Getter

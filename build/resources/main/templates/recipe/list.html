@@ -12,7 +12,7 @@
     <div class="top_container">
         <div class="nav_bar">
             <div class="main_logo">
-                <a href="#">
+                <a href="/">
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
@@ -20,8 +20,13 @@
                 <button class="custom-btn btn-13">검 색</button>
             </div>
             <div class="user_page">
-                <a href="#">
-                    <img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인"></a>
+                <a sec:authorize="isAnonymous()" href="/member/login">
+                    <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/member/logout">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                </a>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -29,7 +34,7 @@
         <div class="nav_bar">
             <ul class="">
                 <li>
-                    <a class="custom-nav nav-13" href="#">추 천</a>
+                    <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
                     <a class="custom-nav nav-13" href="#">레시피</a>
