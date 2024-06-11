@@ -34,7 +34,7 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String signup(@Valid SignForm signForm) {
-        memberService.signup(signForm.getUsername(), signForm.getPassword(), signForm.getNickname(), signForm.getEmail(), signForm.getTypeCode(), signForm.getProfile_url());
+        memberService.signup(signForm.getProviderTypeCode(), signForm.getUsername(), signForm.getPassword(), signForm.getPassword_confirm(), signForm.getNickname(), signForm.getEmail(), 0L, signForm.getProfile_url());
         return "redirect:/member/login";
     }
 
@@ -63,9 +63,11 @@ public class MemberController {
         @NotBlank
         private String email;
 
-        private String TypeCode;
+        private Long hit;
 
         private String profile_url;
+
+        private String providerTypeCode;
     }
 
     @ToString

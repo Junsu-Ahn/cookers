@@ -15,27 +15,32 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Member signup(String username, String password, String nickname, String email, String typeCode, String url){
+    public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url){
+        if (!password.equals(passwordConfirm)) {
+            throw new PasswordMismatchException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
         Member member = Member
                 .builder()
+                .providerTypeCode(providerTypeCode)
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .profile_url(url)
                 .nickname(nickname)
                 .email(email)
+                .hit(hit)
                 .build();
 
         return memberRepository.save(member);
     }
 
     @Transactional
-    public Member whenSocialLogin(String providerTypeCode, String username, String nickname, String profileImageUrl) {
+    public Member whenSocialLogin(String providerTypeCode, String username, String nickname, String profileImageUrl, String email) {
         Optional<Member> opMember = findByUsernameAndProviderTypeCode(username, providerTypeCode);
 
         if (opMember.isPresent()) return opMember.get();
 
         // 소셜 로그인를 통한 가입시 비번은 없다.
-        return signup(username, "", nickname, "", providerTypeCode, profileImageUrl); // 최초 로그인 시 딱 한번 실행
+        return signup(providerTypeCode, username,  "", "",nickname, email,0L, profileImageUrl); // 최초 로그인 시 딱 한번 실행
     }
 
     @Transactional
