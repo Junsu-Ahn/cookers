@@ -1,18 +1,12 @@
 package com.example.cookers.domain.recipe.entity;
 
 import com.example.cookers.global.jpa.BaseEntity;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 
 @Entity
 @Getter
@@ -20,15 +14,18 @@ import java.util.LinkedHashSet;
 @NoArgsConstructor
 @ToString
 public class Recipe extends BaseEntity {
-    private long id;
-    @Column(length = 200)  // VARCHAR(200)
-    private String recipe_title;
 
-    @Column(columnDefinition = "TEXT") // TEXT 개념
-    private String recipe_content;
+    private String title; // 레시피 제목
+    private String subject; // 레시피 소제목
+    private String content; // 레시피 내용
+    private String categoryValue; // 카테고리별 value값
 
-    @Column(unique = true) // TEXT 개념
-    private String nickname;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int hit; // 추천 수
 
-    private LocalDateTime createDate;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private int view; // 조회 수
+
+    @Column(unique = true)
+    private String nickname; // 닉네임
 }
