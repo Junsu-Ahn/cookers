@@ -81,14 +81,13 @@
     </div>
     <div class="bottom_container">
         <h1 class="title_menu" th:text="${categoryValue}">
-            <div>[[${paging.number}]]</div>
+            [[${recipes.number}]]
         </h1>
-
         <ul class="used_page">
             <li class="recipe_menu" th:each="recipe : ${recipes}" >
-                <a href="#">
+                <a th:href="@{|/recipe/detail/${recipe.id}|}">`
                     <div class="recipe_img">
-                        <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/73c2d12d-ceb8-47e8-ab8c-b35ba9f14443" style="width:100%" alt="레시피 이미지">
+                        <img th:src="@{|/file/${recipe.thumnailImg}|}" alt="메인 이미지" style="width: 210px; height: 210px;">
                     </div>
                     <div class="recipe_text">
                         <p class="s_text" th:text="${recipe.subject}"></p>
@@ -105,27 +104,37 @@
         </ul>
     </div>
     <!-- 페이징처리 시작 -->
-<!--    <div th:if="${!paging.isEmpty()}">-->
-<!--        <ul class="pagination justify-content-center">-->
-<!--            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">-->
-<!--                <a class="page-link"-->
-<!--                   th:href="@{|?page=${paging.number-1}|}">-->
-<!--                    <span>이전</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"-->
-<!--                th:if="${page >= paging.number-5 and page <= paging.number+5}"-->
-<!--                th:classappend="${page == paging.number} ? 'active'"-->
-<!--                class="page-item">-->
-<!--                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>-->
-<!--            </li>-->
-<!--            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">-->
-<!--                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">-->
-<!--                    <span>다음</span>-->
-<!--                </a>-->
-<!--            </li>-->
-<!--        </ul>-->
-<!--    </div>-->
+        <div th:if="${!recipes.isEmpty()}" style="margin: 40px;">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
+                    <a class="page-link" th:href="@{|${categoryValue}?page=0|}">
+                        <span>&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{|?page=${recipes.number-1}|}">
+                        <span> < </span>
+                    </a>
+                </li>
+                <li th:each="page: ${#numbers.sequence(0, recipes.totalPages-1)}"
+                    th:if="${page >= recipes.number-5 and page <= recipes.number+5}"
+                    th:classappend="${page == recipes.number} ? 'active'"
+                    class="page-item">
+                    <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!recipes.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${recipes.number+1}|}">
+                        <span> > </span>
+                    </a>
+                </li>
+                <li class="page-item arrow_2" th:classappend="${recipes.number == recipes.totalPages-1} ? 'disabled'">
+                    <a class="page-link" th:href="@{|${categoryValue}?page=${recipes.totalPages - 1}|}">
+                        <span>&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     <!-- 페이징처리 끝 -->
 </div>
 <script th:src="@{/listjs/listPage.js}"></script>
