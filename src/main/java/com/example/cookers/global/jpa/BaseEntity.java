@@ -1,9 +1,7 @@
 package com.example.cookers.global.jpa;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -15,8 +13,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @SuperBuilder
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@Getter
+@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // @CreateDate, @LastModifyDate, @Id를 사용하기 위해 써준다.
 public class BaseEntity {
 
     @Id
@@ -28,4 +28,6 @@ public class BaseEntity {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+
+    private String thumnailImg;
 }
