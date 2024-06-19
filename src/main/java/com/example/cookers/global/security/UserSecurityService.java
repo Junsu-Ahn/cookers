@@ -4,6 +4,7 @@ import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +30,9 @@ public class UserSecurityService implements UserDetailsService {
         }
         Member member = _user.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // role 필드를 사용하여 권한 설정
+        authorities.add(new SimpleGrantedAuthority(member.getRole().name()));
 
         return new User(member.getUsername(), member.getPassword(), authorities);
     }

@@ -1,0 +1,15 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>프로필</h1>
+    <p>유저 닉네임 : <span th:text="${member.nickname}"></span></p>
+    <p>작성한 레시피 수 : <span th:text="${recipeCount}">0</span></p>
+    <p>레시피 총 추천 수 : <span th:text="${totalHits}">0</span></p>
+    <a href="/recipe/list" class="btn btn-primary">레시피 목록 보기</a>
+</div>
+</body>

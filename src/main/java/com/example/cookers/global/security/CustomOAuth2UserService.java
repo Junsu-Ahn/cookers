@@ -37,7 +37,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             Map attributesProperties = (Map) attributes.get("properties");
             String nickname = (String) attributesProperties.get("nickname");
             String profileImageUrl = (String) attributesProperties.get("profile_image");
-            String email = (String) attributesProperties.get("email");
+            String email = (String) ((Map<String, Object>) attributes.get("kakao_account")).get("email");
             String username = providerTypeCode + "__%s".formatted(oauthId);
 
             Optional<Member> existingMember = memberService.findByUsername(username);

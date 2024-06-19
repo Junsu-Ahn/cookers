@@ -1,5 +1,14 @@
 server:
   port: 8010
+  connection-timeout: 5000
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 2048
+  tomcat:
+    max-http-post-size: 10485760 # 최대 HTTP POST 크기를 10MB로 설정
+    max-swallow-size: 10485760 # 최대 연속 읽기 크기를 10MB로 설정
+
 spring:
   thymeleaf:
     cache: false
@@ -10,9 +19,10 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/cookers_dev?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://127.0.0.1:3306/cookers_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: root
     password:
   jpa:
     hibernate:
-      ddl-auto: create # DB 스키마 자동생성, 앱이 재실행되어도 데이터는 유지된다.
+      ddl-auto: update
+    show-sql: true # SQL 쿼리를 콘솔에 출력
