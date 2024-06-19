@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8010
   connection-timeout: 5000
   compression:
     enabled: true
