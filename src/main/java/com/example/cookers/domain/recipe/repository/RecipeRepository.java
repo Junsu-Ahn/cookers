@@ -19,4 +19,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     @Query("SELECT r FROM Recipe r WHERE r.title LIKE %:keyword% OR r.content LIKE %:keyword%")
     Page<Recipe> searchByTitleOrContent(@Param("keyword") String keyword, Pageable pageable);
 
+    @Query("SELECT r FROM Recipe r WHERE r.title LIKE %:keyword% OR r.content LIKE %:keyword%")
+    Page<Recipe> searchByTitleOrContent(@Param("keyword") String keyword, Pageable pageable);
+
 }

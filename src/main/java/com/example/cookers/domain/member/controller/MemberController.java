@@ -40,6 +40,7 @@ import java.util.Random;
 @RequestMapping("/member")
 public class MemberController {
 
+    private final RecipeService recipeService;
     private final MemberService memberService;
     private final EmailService emailService;
     private final PasswordEncoder passwordEncoder;
@@ -77,7 +78,6 @@ public class MemberController {
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String loginPage() {
-
         return "member/login";
     }
 
