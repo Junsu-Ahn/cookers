@@ -297,8 +297,10 @@ a{
 
 .bottom_bar_section > .bottom_container > .used_page > .recipe_menu >a > .recipe_img {
   width: 210px;
+  height: 210px;
   overflow: hidden;
   border-radius: 30px;
+  margin-bottom: 10px;
 }
 
 .bottom_bar_section > .bottom_container > .used_page > .recipe_menu >a > .recipe_text > div {
@@ -358,4 +360,12 @@ a{
   font-weight: 800;
   font-size: 1.1rem;
   color: dodgerblue;
+}
+
+.page-item {
+    padding: 2px;
+}
+.page-link{
+    border-radius: 20px;
+    padding-bottom: 10px;
 }

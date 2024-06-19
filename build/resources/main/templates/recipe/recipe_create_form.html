@@ -1,4 +1,4 @@
-<head>
+<head xmlns="http://www.w3.org/1999/html">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘은 내가 요리사 ! 오내요</title>
@@ -71,7 +71,7 @@
         </div>
     </div>
 </div>
-<div class="bottom_bar_section">
+<form class="bottom_bar_section" method="post" enctype="multipart/form-data">
     <div class="top_container">
     </div>
     <div class="recipe_write">
@@ -84,38 +84,39 @@
             <div class="text_bar">
                 <div class="text_write_bar">
                     <div class="text title_bar">
-                        <p>레시피 제목</p>
-                        <input type="text" placeholder="ex) 김치볶음밥 만들기">
+                        <p >레시피 제목</p>
+                        <input type="text" name="title"  placeholder="ex) 김치볶음밥 만들기">
+                    </div>
+                    <div class="text subtitle_bar">
+                        <p >레시피 소제목</p>
+                        <input type="text" name="subject" placeholder="ex) 누구나 간편하게 만들 수 있는 레시피 !">
                     </div>
                     <div class="text presentation">
                         <p>요리 소개</p>
-                        <textarea name="cook_intro" id="cook_intro" placeholder="이 레시피에 대한 소개를 해주세요 !
-
-ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛있게 먹어주심을 바라며 레시피 공유드려요 !"></textarea>
+                        <textarea name="content" id="content" placeholder="이 레시피에 대한 소개를 해주세요 ! ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛있게 먹어주심을 바라며 레시피 공유드려요 !"></textarea>
 
                     </div>
                     <div class="text category">
                         <p>카테고리</p>
-                        <select name="요리 종류 선택" id="요리 종류 선택">
-                            <option value="">종류별</option>
-                            <option value="1">밥요리</option>
-                            <option value="2">국 & 찌개</option>
-                            <option value="3">면요리</option>
-                            <option value="4">튀김요리</option>
-                            <option value="5">볶음요리</option>
-                            <option value="6">찜 & 조림</option>
-                            <option value="7">샐러드</option>
-                            <option value="8">밑반찬</option>
-                            <option value="9">간식 & 분식</option>
-                            <option value="10">디저트</option>
-                            <option value="11">명절음식</option>
-                            <option value="12">기타요리</option>
+                        <select for="categoryValue" name="categoryValue" id="categoryValue">
+                            <option value="밥요리">밥요리</option>
+                            <option value="국 & 찌개">국 & 찌개</option>
+                            <option value="면요리">면요리</option>
+                            <option value="튀김요리">튀김요리</option>
+                            <option value="볶음요리">볶음요리</option>
+                            <option value="찜 & 조림">찜 & 조림</option>
+                            <option value="샐러드">샐러드</option>
+                            <option value="밑반찬">밑반찬</option>
+                            <option value="간식 & 분식">간식 & 분식</option>
+                            <option value="디저트">디저트</option>
+                            <option value="명절음식">명절음식</option>
+                            <option value="기타요리">기타요리</option>
                         </select>
                         <span><i class="fa-regular fa-face-smile"></i> 분류를 바르게 설정해주시면, 이용자들이 쉽게 레시피를 검색할 수 있어요.</span>
                     </div>
                     <div class="text recipe_level">
                         <p>요리 난이도</p>
-                        <div class="star_rating">
+                        <div for="recipeLevel" name="recipeLevel" id="recipeLevel" class="star_rating">
                             <span class="star on" value="1"> </span>
                             <span class="star" value="2"> </span>
                             <span class="star" value="3"> </span>
@@ -125,11 +126,15 @@ ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛�
                         <span><i class="fa-regular fa-face-smile"></i> 요리의 난이도를 별로 표현해 주세요.</span>
                     </div>
                 </div>
-                <div class="image_bar">
+                <form action="/recipe/recipe_create" class="image_bar" enctype="multipart/form-data">
                     <div id="divMainPhotoBox" is_over="0">
-                        <img id="mainPhotoHolder" onclick="browseMainFile()" src="https://recipe1.ezmember.co.kr/img/pic_none4.gif" alt="이미지" style="width: 250px; height: 250px; cursor:pointer">
+                        <div class="input_1">
+                            <img id="preview" src="https://recipe1.ezmember.co.kr/img/pic_none4.gif">
+                        </div>
+                        <img id="upload_main_image" alt="">
+                        <input type="file" name="thumbnail" accept="image/png, image/gif, image/jpeg" onchange="readURL(this);">
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="cooking_ingredients_information">
@@ -151,7 +156,6 @@ ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛�
                     </div>
                     <button id="plus_btn_1" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
                 </div>
-
                 <div class="food_seasoning_bar">
                     <div class="main_name">
                         <p>[ 양념 ]</p>
@@ -164,15 +168,13 @@ ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛�
                         </div>
                     </div>
                     <button id="plus_btn_2" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
-
                 </div>
             </div>
         </div>
         <div class="cooking_sequence">
             <div class="title_bar">
                 <p>요리 순서</p>
-                <span><i class="fa-regular fa-face-smile"></i> 순서에 맞게 요리 순서를 정렬해 주세요 ! 요리의 맛이 좌우될 수 있는 중요한 부분은 빠짐없이 적어주세요.
-          </span>
+                <span><i class="fa-regular fa-face-smile"></i> 순서에 맞게 요리 순서를 정렬해 주세요 ! 요리의 맛이 좌우될 수 있는 중요한 부분은 빠짐없이 적어주세요.</span>
                 <br>
                 <span>&nbsp&nbsp&nbsp ex) 10분간 익혀주세요 → 10분간 약불로 익혀주세요.</span>
                 <br>
@@ -190,8 +192,12 @@ ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛�
                             <textarea name="step_text[]" id="step_text_1" placeholder="ex) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
                         </div>
                         <div class="step_img_bar">
-                            <div id="divStepPhotoBox_1" is_over="0">
-                                <img id="stepPhotoHolder_1" onclick="browseStepFile(1)" src="https://github.com/Junsu-Ahn/cookers/assets/156152342/aed09051-deec-48df-a4eb-3114ba0b27d6" alt="이미지" style="width: 236px; height: 236px; cursor:pointer">
+                            <div class="PhotoBox" id="divStepPhotoBox_1" is_over="0">
+                                <div class="input_1" value="1">
+                                    <img id="preview1" src="https://github.com/Junsu-Ahn/cookers/assets/156152342/aed09051-deec-48df-a4eb-3114ba0b27d6" style="width: 236px; height: 236px;">
+                                </div>
+                                <img id="upload_main_image" alt="">
+                                <input type="file" name="file" accept="/image/png" onchange="readURL1(this);">
                             </div>
                         </div>
                     </div>
@@ -204,14 +210,14 @@ ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛�
             </div>
             <button class="step_add_btn" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
         </div>
-    </div>
-</div>
-<div class="save_container">
-    <a href="#" class="save_btn">
-        <div class="save_icon">
-            <i class="fa fa-floppy-o"></i>
+        <div class="save_container">
+            <button class="save_btn" type="submit" style="cursor: pointer;">
+                <div class="save_icon">
+                    <i class="fa fa-floppy-o"></i>
+                </div>
+            </button>
         </div>
-    </a>
-</div>
+    </div>
+</form>
 <script th:src="@{/createformjs/recipeCreateFormPage.js}"></script>
 </body>

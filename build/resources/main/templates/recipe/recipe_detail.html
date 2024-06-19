@@ -24,7 +24,7 @@
             <div class="user_page">
                 <a href="#">
                     <img src="https://recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인"></a>
-                <a href="#"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -72,29 +72,95 @@
 
     </div>
     <div class="container_bar">
-        <div class="main_img_box">
-            <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/27c87073-461b-4a2e-8c18-ea88431e7610" alt="메인 이미지">
-        </div>
-        <div class="title_level">
-            <div class="title_bar">
-                <p>제목</p>
-                <p></p>
+        <div class="top_text-menu">
+            <div class="main_img_box">
+                <img th:src="@{|/file/${recipe.thumnailImg}|}" alt="썸네일 이미지">
             </div>
-            <div class="level_bar">
-                <p>난이도</p>
-                <p></p>
+            <div class="title_level">
+                <div class="title_bar">
+                    <h3 class="start_text">제목</h3>
+                    <div class="end_text" th:text="${recipe.title}">
+
+                    </div>
+                </div>
+                <div class="level_bar">
+                    <h3 class="start_text">난이도</h3>
+                    <div class="end_text" th:text="${recipe.recipeLevel}">
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="text_body_box">
-            <div class="text_body_bar">
-                <p>내용</p>
-                <p></p>
+            <div class="text_body_box">
+                <div class="text_body_bar">
+                    <h3 class="start_text">내용</h3>
+                    <div class="end_text" th:text="${recipe.content}">
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="nickname_box">
-        <span class="nickname_bar">
-          요리왕 A룡
-        </span>
+            <div class="good_box">
+                <div class="heart-btn">
+                    <div class="content">
+                        <span class="heart"></span>
+                        <span class="text">추천</span>
+                        <span class="numb"></span>
+                    </div>
+                </div>
+                <div class="nickname_box">
+            <span class="nickname_bar" th:text="${member.nickname}">
+            </span>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="middle_text_menu">
+        <div class="title_bar">
+            <h1>재료</h1>
+            <p>Ingredients</p>
+        </div>
+        <div class="food_info">
+            <div class="food_ingredients_bar">
+                <div class="main_name">
+                    <p>[ 식자재 ]</p>
+                </div>
+                <div class="ingredients bor_1">
+                    <div>김치</div>
+                    <div>1포기</div>
+                </div>
+            </div>
+            <div class="food_seasoning_bar">
+                <div class="main_name">
+                    <p>[ 양념 ]</p>
+                </div>
+                <div class="seasoning bor_1">
+                    <div>고추장</div>
+                    <div>1큰술</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_text_menu">
+        <div class="title_bar">
+            <h1>조리순서</h1>
+            <p>Steps</p>
+        </div>
+        <div class="cooking_order">
+            <div class="recipe_text_bar">
+                <p>감자를 볶아 준다.</p>
+            </div>
+            <div class="recipe_img_bar">
+                <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/27c87073-461b-4a2e-8c18-ea88431e7610" alt="이미지">
+            </div>
+            <div class="tip_bar"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/ba71f8b8-f8ed-4a72-9662-459baad3585f" alt="팁">
+                <div class="tip_text">
+                    김치는 오래 볶으면 타요 !
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="move_category">
+        <button onclick="history.back(-1)" class="category_btn ct_ctn"><span>가잣!</span><span>목록으로</span></button>
+    </div>
+</div>
+<script th:src="@{/recipedetailjs/recipeDetailPage.js}"></script>
 </body>

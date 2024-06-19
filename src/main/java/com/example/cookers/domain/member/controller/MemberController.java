@@ -1,7 +1,9 @@
 package com.example.cookers.domain.member.controller;
 
 
+import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.service.MemberService;
+import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -10,15 +12,20 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/member")
 public class MemberController {
 
+    private final RecipeService recipeService;
     private final MemberService memberService;
 
     @PreAuthorize("isAnonymous()")
@@ -84,6 +91,22 @@ public class MemberController {
         private String email;
 
         private String profileUrl;
+    }
+
+    // 필선 작성
+    @GetMapping("/profile")
+    public String userProfile(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/member/login";
+        }
+        String username = principal.getName();
+        Member member = memberService.getMemberByUsername(username);
+        long recipeCount = recipeService.countUserRecipes(username);
+        long totalHits = recipeService.sumUserRecipeHits(username);
+        model.addAttribute("member", member);
+        model.addAttribute("recipeCount", recipeCount);
+        model.addAttribute("totalHits", totalHits);
+        return "member/profile";
     }
 
 }
