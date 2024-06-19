@@ -589,8 +589,19 @@ body {
   width: 1280px;
   margin-right: auto;
   margin-left: auto;
-  text-align: end;
   margin-bottom: 20px;
+  display: flex;
+}
+
+.bottom_bar_section > .move_category > .modify_btn{
+    flex-grow: 1;
+    margin-left: 40px;
+}
+
+.bottom_bar_section > .move_category > .back_btn{
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: end;
 }
 
 .category_btn {

@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8010
   connection-timeout: 5000
   compression:
     enabled: true
@@ -19,10 +19,9 @@ spring:
     restart:
       enabled: true
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/cookers_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    url: jdbc:mariadb://127.0.0.1:3306/cookers_dev?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true&amp;serverTimezone=Asia/Seoul
     username: root
     password:
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true # SQL 쿼리를 콘솔에 출력
+      ddl-auto: update # DB 스키마 자동생성, 앱이 재실행되어도 데이터는 유지된다.

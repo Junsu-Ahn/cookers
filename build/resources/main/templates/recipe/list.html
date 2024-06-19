@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
-<body style="background-image:url('https://cdn.crowdpic.net/detail-thumb/thumb_d_37453125BCADF055749599B7726A6ED7.jpg')">
+<body style="background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e')">
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
@@ -21,8 +21,10 @@
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
-                <input type="text" placeholder="레시피 검색">
-                <button class="custom-btn btn-13">검 색</button>
+                <form action="#" th:action="@{/recipe/search}" method="get">
+                    <input type="text" name="keyword" placeholder="레시피 검색" th:value="${keyword}">
+                    <button class="custom-btn btn-13" type="submit">검 색</button>
+                </form>
             </div>
             <div class="user_page" >
                 <a sec:authorize="isAnonymous()" href="/member/login">
@@ -42,7 +44,7 @@
                     <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="/recipe/list/밥요리">레시피</a>
+                    <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
                             <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
@@ -63,7 +65,6 @@
                             <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
                         </li>
                     </ul>
-
                 </li>
                 <li>
                     <a class="custom-nav nav-13" href="#">쉐프랭킹</a>
@@ -76,26 +77,21 @@
     </div>
 </div>
 <div class="bottom_bar_section">
-    <div class="top_container">
-
-    </div>
+    <div class="top_container"></div>
     <div class="bottom_container">
-        <h1 class="title_menu" th:text="${categoryValue}">
-            [[${recipes.number}]]
-        </h1>
+        <h1 class="title_menu" th:text="${categoryValue} != null ? ${categoryValue} : 전체보기"></h1>
         <ul class="used_page">
-            <li class="recipe_menu" th:each="recipe : ${recipes}" >
-                <a th:href="@{|/recipe/detail/${recipe.id}|}">`
+            <li class="recipe_menu" th:each="recipe : ${recipes}">
+                <a th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
                     <div class="recipe_img">
-                        <img th:src="@{|/file/${recipe.thumnailImg}|}" alt="메인 이미지" style="width: 210px; height: 210px;">
+                        <img th:src="@{${recipe.filepath}}" alt="메인 이미지" style="width: 210px; height: 210px;">
                     </div>
                     <div class="recipe_text">
                         <p class="s_text" th:text="${recipe.subject}"></p>
                         <div>
                             <p class="b_text" th:text="${recipe.title}"></p>
                             <div class="icon"><i class="fa-solid fa-eye"></i>
-                                <div class="view" th:text="${recipe.view}">
-                                </div>
+                                <div class="view" th:text="${recipe.view}"></div>
                             </div>
                         </div>
                     </div>
@@ -112,8 +108,7 @@
                 </a>
             </li>
             <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link"
-                   th:href="@{|?page=${recipes.number-1}|}">
+                <a class="page-link" th:href="@{|?page=${recipes.number-1}|}">
                     <span> < </span>
                 </a>
             </li>

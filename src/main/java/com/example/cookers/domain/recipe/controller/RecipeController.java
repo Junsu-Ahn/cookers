@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -224,6 +225,34 @@ public class RecipeController {
         model.addAttribute("recipes", recipes);
         model.addAttribute("keyword", keyword);
         return "recipe/list";
+    }
+
+    // 레시피 수정하기
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String recipeModify(@Valid RecipeForm recipeForm, BindingResult bindingResult,
+                                 Principal principal, @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            return "recipe_form";
+        }
+        Recipe recipe = this.recipeService.getRecipe(id);
+        if (!recipe.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.recipeService.modify(recipe, recipeForm.getSubject(), recipeForm.getContent());
+        return String.format("redirect:/recipe/detail/%s", id);
+    }
+
+    // 레시피 삭제하기
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String recipeDelete(Principal principal, @PathVariable("id") Long id) {
+        Recipe recipe = this.recipeService.getRecipe(id);
+        if (!recipe.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.recipeService.delete(recipe);
+        return "redirect:/";
     }
 
 }

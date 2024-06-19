@@ -1,4 +1,4 @@
-<head xmlns="http://www.w3.org/1999/html">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘은 내가 요리사 ! 오내요</title>
@@ -71,9 +71,9 @@
         </div>
     </div>
 </div>
-<form class="bottom_bar_section" method="post" enctype="multipart/form-data">
-    <div class="top_container">
-    </div>
+<form class="bottom_bar_section" action="/recipe/recipe_create_form" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    <div class="top_container"></div>
     <div class="recipe_write">
         <div class="title_bar">
             <p>
@@ -84,21 +84,20 @@
             <div class="text_bar">
                 <div class="text_write_bar">
                     <div class="text title_bar">
-                        <p >레시피 제목</p>
-                        <input type="text" name="title"  placeholder="ex) 김치볶음밥 만들기">
+                        <p>레시피 제목</p>
+                        <input type="text" name="title" placeholder="ex) 김치볶음밥 만들기">
                     </div>
                     <div class="text subtitle_bar">
-                        <p >레시피 소제목</p>
+                        <p>레시피 소제목</p>
                         <input type="text" name="subject" placeholder="ex) 누구나 간편하게 만들 수 있는 레시피 !">
                     </div>
                     <div class="text presentation">
                         <p>요리 소개</p>
                         <textarea name="content" id="content" placeholder="이 레시피에 대한 소개를 해주세요 ! ex) 어려서부터 맛있게 먹은 김치볶음밥을 다들 간단하고 맛있게 먹어주심을 바라며 레시피 공유드려요 !"></textarea>
-
                     </div>
                     <div class="text category">
                         <p>카테고리</p>
-                        <select for="categoryValue" name="categoryValue" id="categoryValue">
+                        <select name="categoryValue" id="categoryValue">
                             <option value="밥요리">밥요리</option>
                             <option value="국 & 찌개">국 & 찌개</option>
                             <option value="면요리">면요리</option>
@@ -116,25 +115,25 @@
                     </div>
                     <div class="text recipe_level">
                         <p>요리 난이도</p>
-                        <div for="recipeLevel" name="recipeLevel" id="recipeLevel" class="star_rating">
-                            <span class="star on" value="1"> </span>
-                            <span class="star" value="2"> </span>
-                            <span class="star" value="3"> </span>
-                            <span class="star" value="4"> </span>
-                            <span class="star" value="5"> </span>
+                        <div class="star_rating" id="recipeLevel">
+                            <span class="star" data-value="1"></span>
+                            <span class="star" data-value="2"></span>
+                            <span class="star" data-value="3"></span>
+                            <span class="star" data-value="4"></span>
+                            <span class="star" data-value="5"></span>
                         </div>
+                        <input type="hidden" name="recipeLevel" id="recipeLevelInput">
                         <span><i class="fa-regular fa-face-smile"></i> 요리의 난이도를 별로 표현해 주세요.</span>
                     </div>
                 </div>
-                <form action="/recipe/recipe_create" class="image_bar" enctype="multipart/form-data">
-                    <div id="divMainPhotoBox" is_over="0">
+                <div class="image_bar">
+                    <div id="divMainPhotoBox">
                         <div class="input_1">
                             <img id="preview" src="https://recipe1.ezmember.co.kr/img/pic_none4.gif">
                         </div>
-                        <img id="upload_main_image" alt="">
-                        <input type="file" name="thumbnail" accept="image/png, image/gif, image/jpeg" onchange="readURL(this);">
+                        <input type="file" name="thumbnail" accept="image/png, image/gif, image/jpeg" onchange="readURL(this, 'preview');">
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <div class="cooking_ingredients_information">
@@ -149,25 +148,26 @@
                     </div>
                     <div id="ingredients">
                         <div class="ingredients_name hide_on_btn">
-                            <input class="main" type="text" placeholder="ex) 김치">
-                            <input class="sub" type="text" placeholder=" g,ml(단위)">
-                            <button class="minus_btn " type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark"></i></button>
+                            <input class="main" type="text" name="ingredients[]" placeholder="ex) 김치">
+                            <input class="sub" type="text" name="ingredientUnits[]" placeholder=" g,ml(단위)">
+                            <button class="minus_btn" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark"></i></button>
                         </div>
                     </div>
-                    <button id="plus_btn_1" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+                    <button id="plus_btn_1" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
                 </div>
+
                 <div class="food_seasoning_bar">
                     <div class="main_name">
                         <p>[ 양념 ]</p>
                     </div>
                     <div id="seasoning">
                         <div class="seasoning_name hide_on_btn">
-                            <input class="main" type="text" placeholder=" ex) 고추장">
-                            <input class="sub" type="text" placeholder="  g,ml(단위)">
+                            <input class="main" type="text" name="seasonings[]" placeholder=" ex) 고추장">
+                            <input class="sub" type="text" name="seasoningUnits[]" placeholder="  g,ml(단위)">
                             <button class="minus_btn" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-xmark"></i></button>
                         </div>
                     </div>
-                    <button id="plus_btn_2" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+                    <button id="plus_btn_2" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
                 </div>
             </div>
         </div>
@@ -182,39 +182,36 @@
                 <br>
                 <span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 돼지고기의 핏물을 제거해주세요. → 뼈가 있는 돼지고기는 30분정도 찬물이 담긴 볼에 담가 핏물을 빼줍니다.</span>
             </div>
-            <div class="cooking_order">
-                <div class="make_step">
+            <div class="cooking_order" id="steps">
+                <div class="make_step" data-index="0">
                     <div class="top_bar_step">
-                        <div class="step_name_bar">
-                            Step1
-                        </div>
+                        <div class="step_name_bar">Step1</div>
                         <div class="step_text_bar">
-                            <textarea name="step_text[]" id="step_text_1" placeholder="ex) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
+                            <textarea name="steps[0].stepText" placeholder="ex) 소고기는 기름기를 떼어내고 적당한 크기로 썰어주세요."></textarea>
                         </div>
                         <div class="step_img_bar">
                             <div class="PhotoBox" id="divStepPhotoBox_1" is_over="0">
-                                <div class="input_1" value="1">
+                                <div class="input_1">
                                     <img id="preview1" src="https://github.com/Junsu-Ahn/cookers/assets/156152342/aed09051-deec-48df-a4eb-3114ba0b27d6" style="width: 236px; height: 236px;">
                                 </div>
-                                <img id="upload_main_image" alt="">
-                                <input type="file" name="file" accept="/image/png" onchange="readURL1(this);">
+                                <input type="file" name="stepImages" accept="image/png, image/gif, image/jpeg" onchange="readURL(this, 'preview1');">
                             </div>
                         </div>
                     </div>
                     <div class="top_bar_tip">
                         <div class="tip_name_bar"><i class="fa-solid fa-star"></i> 꿀 팁</div>
-                        <div class="tip_text_bar"><textarea name="step_text[]" id="step_text_1" placeholder="ex) 고기요리는 소금보다 설탕을 먼저 넣어야 단맛이 겉돌지 않고 육질이 부드러워져요"></textarea></div>
+                        <div class="tip_text_bar">
+                            <textarea name="steps[0].stepTipText" placeholder="ex) 고기요리는 소금보다 설탕을 먼저 넣어야 단맛이 겉돌지 않고 육질이 부드러워져요"></textarea>
+                        </div>
                     </div>
                     <button class="step_del_btn" type="button" value="삭제"><i class="fa-solid fa-circle-xmark"></i></button>
                 </div>
             </div>
-            <button class="step_add_btn" type="button" value="추가" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
+            <button class="step_add_btn" type="button" style="cursor: pointer;"><i class="fa-solid fa-circle-plus"></i> 추가</button>
         </div>
         <div class="save_container">
             <button class="save_btn" type="submit" style="cursor: pointer;">
-                <div class="save_icon">
-                    <i class="fa fa-floppy-o"></i>
-                </div>
+                <div class="save_icon"><i class="fa fa-floppy-o"></i></div>
             </button>
         </div>
     </div>

@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @SpringBootTest
 class CookersApplicationTests {
@@ -21,6 +24,38 @@ class CookersApplicationTests {
 
 	@Autowired
 	MemberService memberService;
+
+	@Test
+	void 멤버_생성() {
+		List<String> nicknames = Arrays.asList(
+				"맛있는향기", "요리의여왕", "요리의달인", "맛의연금술사", "달콤한주방",
+				"행복한밥상", "요리천재", "맛의마법사", "주방의요정", "요리사랑",
+				"맛의비법", "요리비책", "요리사꿈나무", "달콤한비밀", "요리의신",
+				"맛있는레시피", "주방의마술사", "맛있는이야기", "행복한주방", "요리하는즐거움",
+				"초보요리사", "요리초보", "주방초보", "요리입문", "맛의초보",
+				"새내기요리사", "요리수련생", "주방새내기", "요리도전", "맛초보",
+				"요리고수", "맛의고수", "주방의달인", "요리명인", "맛의명인",
+				"주방고수", "요리전문가", "맛의장인", "요리마스터", "주방장인",
+				"푸른하늘", "초록잎새", "물방울향기", "꽃잎향기", "은하수길",
+				"무지개다리", "해바라기", "달토끼", "구름산책", "별구름"
+		);
+
+		Collections.shuffle(nicknames);
+
+		for (int i = 1; i <= 50; i++) {
+			String username = String.format("user%d", i);
+			String password = String.format("user%d", i); // 테스트용 비밀번호
+			String passwordConfirm = String.format("user%d", i); // 비밀번호 확인
+			String nickname = nicknames.get(i - 1);
+			String email = String.format("user%d@example.com", i);
+			String typeCode = ""; // 예시 타입 코드
+			String url = "";
+			Long hit = 0L;
+
+			memberService.signup("", username, password, passwordConfirm, nickname, email, hit, url);
+			// public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url){
+		}
+	}
 
 //	@Test
 //	void 카테고리별로_레시피출력() throws IOException {
@@ -142,32 +177,5 @@ class CookersApplicationTests {
 
 //	}
 
-	@Test
-	void 멤버_생성() {
-		for (int i = 1; i <= 50; i++) {
-			String username = String.format("user%d", i);
-			String password = String.format("user%d", i); // 테스트용 비밀번호
-			String passwordConfirm = String.format("user%d", i); // 비밀번호 확인
-			String nickname = String.format("nickname%d", i);
-			String email = String.format("user%d@example.com", i);
-			String typeCode = ""; // 예시 타입 코드
-			String url = "";
-			Long hit = 0L;
-
-			memberService.signup("", username, password, passwordConfirm, nickname, email, hit, url);
-			// public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url){
-		}
-	}
-
-//	@Test
-//	void 카테고리_페이징() {
-//		for (int i =1; i<= 12; i++){
-//			String title = String.format("제목 %d", i);
-//			String subject = String.format("소제목 %d", i);
-//			String content = String.format("내용 %d", i);
-//			String nickname = String.format("user%d", i);
-//			recipeService.create(title, subject, content, nickname);
-//		}
-//	}
 
 }

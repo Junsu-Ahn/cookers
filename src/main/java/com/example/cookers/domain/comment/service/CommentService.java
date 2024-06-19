@@ -27,6 +27,10 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
+    // 댓글 삭제하기
+    public void delete(Comment comment) {
+        this.commentRepository.delete(comment);
+    }
 
 
 }

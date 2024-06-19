@@ -176,6 +176,15 @@ public class RecipeService {
         return recipeRepository.searchByTitleOrContent(keyword, pageable);
     }
 
-    // 조회수
+    public void modify(Recipe recipe, String subject, String content) {
+        recipe.setSubject(subject);
+        recipe.setContent(content);
+        recipe.setModifiedDate(LocalDateTime.now());
+        this.recipeRepository.save(recipe);
+    }
+
+    public void delete(Recipe recipe) {
+        this.recipeRepository.delete(recipe);
+    }
 
 }
