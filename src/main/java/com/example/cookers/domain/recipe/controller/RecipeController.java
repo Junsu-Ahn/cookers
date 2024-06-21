@@ -1,5 +1,7 @@
 package com.example.cookers.domain.recipe.controller;
 
+import com.example.cookers.domain.comment.entity.Comment;
+import com.example.cookers.domain.comment.service.CommentService;
 import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
@@ -13,17 +15,22 @@ import com.example.cookers.domain.recipe.repository.RecipeRepository;
 import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,9 +45,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @RequestMapping("/recipe")
 public class RecipeController {
+    private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
 
     @Value("${custom.fileDirPath}")
     private String fileDirPath;
+
+    @Autowired
+    private final CommentService commentService;
 
     @Autowired
     private final MemberRepository memberRepository;
@@ -226,4 +237,121 @@ public class RecipeController {
         return "recipe/list";
     }
 
+    // 레시피 수정하기
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{id}")
+    public String recipeModify(RecipeForm recipeForm, @PathVariable("id") Long id,
+                               @RequestParam("thumbnail") MultipartFile thumbnail,
+                               @RequestParam(value = "stepImages", required = false) List<MultipartFile> stepImages,
+                               Principal principal) {
+        Recipe recipe = this.recipeService.getRecipe(id);
+        if(!recipe.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+
+        recipeForm.setTitle(recipe.getTitle());
+        recipeForm.setSubject(recipe.getSubject());
+        recipeForm.setContent(recipe.getContent());
+        recipeForm.setCategoryValue(recipe.getCategoryValue());
+        recipeForm.setRecipeLevel(recipe.getRecipeLevel());
+
+        // 썸네일 이미지 처리
+        if (thumbnail != null && !thumbnail.isEmpty()) {
+            try {
+                String originalFilename = thumbnail.getOriginalFilename();
+                String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+                Path imagePath = Paths.get(fileDirPath, newFilename);
+                Files.createDirectories(imagePath.getParent());
+                Files.write(imagePath, thumbnail.getBytes());
+                recipe.setFilename(originalFilename);
+                recipe.setFilepath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
+
+                // 로그 출력
+                System.out.println("Thumbnail saved at: " + imagePath.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "recipe/recipe_create_form";
+            }
+        }
+
+        // 요리 단계 처리
+        List<MakingStep> steps = new ArrayList<>();
+        for (int i = 0; i < recipeForm.getSteps().size(); i++) {
+            MakingStepForm stepForm = recipeForm.getSteps().get(i);
+            MakingStep step = new MakingStep();
+            step.setStepNumber(stepForm.getStepNumber());
+            step.setStepText(stepForm.getStepText());
+            step.setStepTipText(stepForm.getStepTipText());
+
+            // 단계 이미지 처리
+            if (stepImages != null && stepImages.size() > i && !stepImages.get(i).isEmpty()) {
+                try {
+                    String originalFilename = stepImages.get(i).getOriginalFilename();
+                    String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+                    Path imagePath = Paths.get(fileDirPath, newFilename);
+                    Files.createDirectories(imagePath.getParent());
+                    Files.write(imagePath, stepImages.get(i).getBytes());
+                    step.setImageFilename(originalFilename);
+                    step.setImageFilePath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
+
+                    // 로그 출력
+                    System.out.println("Step image saved at: " + imagePath.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "recipe/recipe_create_form";
+                }
+            }
+
+            steps.add(step);
+        }
+
+        // 재료 처리
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (int i = 0; i < recipeForm.getIngredients().size(); i++) {
+            Ingredient ingredient = new Ingredient();
+            ingredient.setName(recipeForm.getIngredients().get(i));
+            ingredient.setUnit(recipeForm.getIngredientUnits().get(i));
+            ingredients.add(ingredient);
+        }
+
+        // 양념 처리
+        List<Seasoning> seasonings = new ArrayList<>();
+        for (int i = 0; i < recipeForm.getSeasonings().size(); i++) {
+            Seasoning seasoning = new Seasoning();
+            seasoning.setName(recipeForm.getSeasonings().get(i));
+            seasoning.setUnit(recipeForm.getSeasoningUnits().get(i));
+            seasonings.add(seasoning);
+        }
+
+        recipeService.saveRecipe(recipe, steps, ingredients, seasonings);
+
+        return "recipe_create_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{id}")
+    public String recipeModify(@Valid RecipeForm recipeForm, BindingResult bindingResult,
+                                 Principal principal, @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()) {
+            return "recipe_create_form";
+        }
+        Recipe recipe = this.recipeService.getRecipe(id);
+        if (!recipe.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.recipeService.modify(recipe, recipeForm.getTitle(),recipeForm.getSubject(), recipeForm.getContent(), recipeForm.getCategoryValue(), recipeForm.getRecipeLevel());
+        return String.format("redirect:/recipe/detail/%s", id);
+    }
+
+    // 레시피 삭제하기
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String recipeDelete(Principal principal, @PathVariable("id") Long id) {
+        Recipe recipe = this.recipeService.getRecipe(id);
+        if (!recipe.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.recipeService.delete(recipe);
+        return "redirect:/";
+    }
 }
