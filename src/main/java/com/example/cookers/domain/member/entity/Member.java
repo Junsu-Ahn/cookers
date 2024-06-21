@@ -6,7 +6,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity

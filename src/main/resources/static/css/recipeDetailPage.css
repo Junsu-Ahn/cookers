@@ -758,6 +758,14 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
     margin-bottom: 20px;
 }
 
+.comment_section .title_bar > .text-danger{
+    align-content: center;
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #cf140a;
+}
+
 .comment_section h1 {
     font-size: 24px;
     font-weight: bold;

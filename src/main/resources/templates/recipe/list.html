@@ -103,7 +103,7 @@
     <div th:if="${!recipes.isEmpty()}" style="margin: 40px;">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue}?page=0|}">
+                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=0|}">
                     <span>&laquo;</span>
                 </a>
             </li>
@@ -124,7 +124,7 @@
                 </a>
             </li>
             <li class="page-item arrow_2" th:classappend="${recipes.number == recipes.totalPages-1} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue}?page=${recipes.totalPages - 1}|}">
+                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=${recipes.totalPages - 1}|}">
                     <span>&raquo;</span>
                 </a>
             </li>
