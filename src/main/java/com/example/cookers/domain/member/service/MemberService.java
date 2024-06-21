@@ -33,7 +33,7 @@ public class MemberService {
     public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url) {
 
         if (!password.equals(passwordConfirm)) {
-            throw new PasswordMismatchException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            throw new PasswordMismatchException("비밀번호가 서로 다릅니다.");
         }
 
         if (memberRepository.existsByUsername(username)) {
@@ -85,6 +85,13 @@ public class MemberService {
 
         // 소셜 로그인를 통한 가입시 비번은 없다.
         return signup(providerTypeCode, username,  "", "",nickname, email, 0L, profileImageUrl); // 최초 로그인 시 딱 한번 실행
+    }
+
+    @Transactional
+    public void deleteMemberByAdmin(String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원을 찾을 수 없습니다. ID: " + username));
+        memberRepository.delete(member);
     }
 
 
@@ -143,4 +150,11 @@ public class MemberService {
         }
         return totalHits;
     }
+
+    public void save(Member member) {
+        memberRepository.save(member);
+    }
+
+    public void delete(Member member) {memberRepository.delete(member);}
+
 }

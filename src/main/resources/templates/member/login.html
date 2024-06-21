@@ -6,6 +6,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" th:href="@{/css/Login.css}">
 </head>
+<style>
+    .find {
+        text-align: center; /* Center align the buttons */
+        margin-top: 10px; /* Add margin at the top */
+    }
+
+    .find a {
+        display: inline-block; /* Display buttons inline */
+        margin-right: 10px; /* Add margin between the buttons */
+    }
+
+    .find button {
+        width: auto; /* Adjust button width */
+    }
+</style>
 <body>
 <div class="top_bar_section">
     <div class="main_logo">
@@ -28,6 +43,14 @@
         <div class="signup">
             <a href="/member/signup">
                 <button type="button">회원가입</button>
+            </a>
+        </div>
+        <div class="find">
+            <a href="/member/findId">
+                <button type="button">아이디 찾기</button>
+            </a>
+            <a href="/member/findPw">
+                <button type="button">비밀번호 찾기</button>
             </a>
         </div>
         <div class="login">
