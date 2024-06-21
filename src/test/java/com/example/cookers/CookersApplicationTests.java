@@ -154,7 +154,7 @@ class CookersApplicationTests {
 			String url = "";
 			Long hit = 0L;
 
-			memberService.signup("", username, password, passwordConfirm, nickname, email, hit, url);
+			memberService.signup("", username, password, passwordConfirm, nickname, email, hit, null);
 			// public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url){
 		}
 	}

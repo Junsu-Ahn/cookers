@@ -18,6 +18,7 @@
             <th>Email</th>
             <th>Role</th>
             <th>Total Hits</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,20 @@
             <td th:text="${member.email}"></td>
             <td th:text="${member.role != null ? member.role.name() : ''}"></td>
             <td th:text="${member.hit}"></td>
+            <td>
+                <!-- <form th:action="@{/member/admin/deleteMember/{username}(username=${member.username})}" method="POST"
+                      onsubmit="return confirm('정말로 회원을 탈퇴시키겠습니까?');">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit">탈퇴</button>
+                </form>
+                 GetMapping 용
+                  -->
+                <a th:href="@{/member/admin/deleteMember/{username}(username=${member.username})}"
+                   th:attr="onclick='return confirm(\'정말로 회원을 탈퇴시키겠습니까?\')'"
+                   class="btn btn-danger">탈퇴</a>
+
+
+            </td>
         </tr>
         </tbody>
     </table>

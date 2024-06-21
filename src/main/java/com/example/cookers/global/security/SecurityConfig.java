@@ -13,7 +13,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -31,6 +33,7 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/member/login") // 로그인 페이지 지정
                         .defaultSuccessUrl("/") // 로그인 성공 후 리다이렉트될 URL
+
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/member/login")) // OAuth2 로그인 페이지 지정
@@ -41,6 +44,9 @@ public class SecurityConfig {
                 )
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(new AntPathRequestMatcher("/**"))) // CSRF 보호 비활성화
+//                .csrf(csrf -> csrf
+//                        .ignoringRequestMatchers("/oauth2/login/info", "/admin/**")) // CSRF 보호 제외 경로 설정
+//                .addFilterBefore(new HiddenHttpMethodFilter(), CsrfFilter.class) // HTTP 메소드 허용 필터 추가
                 .build();
     }
 

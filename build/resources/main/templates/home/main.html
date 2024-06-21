@@ -24,11 +24,14 @@
                     <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
                 </a>
                 <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img th:src="${profileImageUrl}" alt="로그아웃">
+                    <img th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                         th:src="@{'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="관리자 프로필 이미지">
+                    <img th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                         th:src="${profileImageUrl != null ? profileImageUrl : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/f018fbd0-1c17-4901-8fec-51d50102a4d8'}" alt="로그아웃">
                 </a>
                 <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
                 <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/member/admin/memberList">
-                    <img src="https://example.com/path/to/your/image" alt="Admin Member List">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/134615615/8634d640-17fe-4371-899a-0abdde174a48" alt="Admin Member List">
                 </a>
             </div>
         </div>

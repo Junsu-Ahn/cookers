@@ -38,4 +38,7 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private Set<RecipeRecommendation> recipeRecommendations;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Recipe> recipes = new HashSet<>();
 }
