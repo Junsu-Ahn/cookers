@@ -32,7 +32,7 @@ public class Recipe extends BaseEntity {
 
     private String categoryValue; // 카테고리별 value값
 
-    private int recipeLevel; // 레시피의 난이도
+        private int recipeLevel; // 레시피의 난이도
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MakingStep> steps; // 요리 단계

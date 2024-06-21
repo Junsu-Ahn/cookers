@@ -33,6 +33,7 @@ public class Member extends BaseEntity {
     private String nickname;
     private String email;
     private String providerTypeCode;
+    private String profile_url;
 
     @Enumerated(EnumType.STRING)
     private Role role;
