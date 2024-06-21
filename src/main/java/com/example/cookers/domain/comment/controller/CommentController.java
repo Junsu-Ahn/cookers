@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class CommentController {
 
     private final CommentService commentService;
     private final MemberService memberService;
+
     private final RecipeService recipeService;
 
     // 댓글 작성하기

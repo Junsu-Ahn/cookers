@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class CookersApplication {
 	public static void main(String[] args) {
-				SpringApplication.run(CookersApplication.class, args);
+		SpringApplication.run(CookersApplication.class, args);
 	}
 }
