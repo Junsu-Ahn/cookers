@@ -157,4 +157,28 @@ public class MemberService {
 
     public void delete(Member member) {memberRepository.delete(member);}
 
+    // 추가//
+    @Transactional
+    public Member updateMember(String username, String nickname, String email, String profile_url) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        member.setNickname(nickname);
+        member.setEmail(email);
+        member.setProfile_url(profile_url);
+        return memberRepository.save(member);
+    }
+
+    public Optional<Member> findByusername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
+    public void deleteMember(String username) {
+        Optional<Member> memberOptional = memberRepository.findByUsername(username);
+        if (memberOptional.isPresent()) {
+            memberRepository.delete(memberOptional.get());
+        } else {
+            throw new IllegalArgumentException("회원을 찾을 수 없습니다.");
+        }
+    }
+    //여기까지
 }

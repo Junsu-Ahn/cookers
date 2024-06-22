@@ -41,4 +41,12 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Recipe> recipes = new HashSet<>();
+
+    // 추가 //
+    public void update(String nickname, String email, String profile_url) {
+        this.nickname = nickname;
+        this.email = email;
+        this.profile_url = profile_url;
+    }
+    // 여기까지 //
 }

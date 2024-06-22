@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보 수정</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/editjs/edit.js"></script> <!-- JavaScript 파일을 연결합니다. -->
+    <link rel="stylesheet" th:href="@{/css/edit.css}">
+</head>
+<body>
+<div class="top_bar_section">
+    <div class="logo">
+        <a href="/">
+            <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
+    </div>
+</div>
+<div class="container">
+
+    <h1>회원 정보 수정</h1>
+    <form th:action="@{/member/edit}" method="post" id="editForm">
+        <div class="form-group">
+            <label for="nickname">닉네임:</label>
+            <input type="text" class="form-control" id="nickname" name="nickname" th:value="${member.nickname}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">이메일:</label>
+            <input type="email" class="form-control" id="email" name="email" th:value="${member.email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="profile_url">프로필 URL:</label>
+            <input type="text" class="form-control" id="profile_url" name="profile_url" th:value="${member.profile_url}">
+        </div>
+
+        <button type="button" class="btn btn-primary save-button">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
+        <button type="button" class="btn btn-danger delete-button">탈퇴하기</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
+    </form>
+</div>
+</body>
+</html>
+

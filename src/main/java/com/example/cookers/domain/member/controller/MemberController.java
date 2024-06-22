@@ -9,6 +9,7 @@ import com.example.cookers.domain.member.service.PasswordMismatchException;
 import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -269,7 +270,54 @@ public class MemberController {
             // 삭제 실패 시 에러 메시지를 회원 목록 페이지로 전달
             return "redirect:/admin/members?error=true";
         }
+
+
     }
+    // 추가
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/edit")
+    public String editProfilePage(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Member member = memberService.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+        model.addAttribute("member", member);
+
+        return "member/edit";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/edit")
+    public String editProfile(@Valid EditForm editForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = auth.getName();
+            Member member = memberService.findByUsername(username)
+                    .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+            model.addAttribute("member", member);
+            return "member/edit"; // 유효성 검사 오류 발생 시 다시 입력 폼으로 이동
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
+
+        return "redirect:/member/edit?success";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/delete")
+    public String deleteMember() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        memberService.deleteMember(username);  // 회원 삭제 로직
+        SecurityContextHolder.clearContext();  // 로그아웃 처리
+        return "redirect:/?deleteSuccess";  // 메인 페이지로 리다이렉트
+    }
+
+
+    // 여기까지
 
 
 
@@ -317,5 +365,22 @@ public class MemberController {
 
         private String profileUrl;
     }
+
+    // 추가//
+    @ToString
+    @Getter
+    @Setter
+    public static class EditForm {
+        @NotBlank(message = "닉네임을 입력해주세요.")
+        private String nickname;
+
+        @NotBlank(message = "이메일을 입력해주세요.")
+        @Email(message = "올바른 이메일 형식이 아닙니다.")
+        private String email;
+
+        private String profile_url;
+        // 기타 수정할 필드들
+    }
+    // 여기까지 //
 
 }

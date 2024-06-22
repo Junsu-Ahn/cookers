@@ -1,0 +1,100 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랭킹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" th:href="@{/css/member_profile.css}">
+
+</head>
+
+<body style="background-image:url('https://img.freepik.com/free-photo/white-texture_1160-788.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1718496000&semt=ais_user')">
+<div class="top_bar_section">
+    <div class="top_container">
+        <div class="nav_bar">
+            <div class="main_logo">
+                <a href="/">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
+            </div>
+            <div class="search_bar">
+                <input type="text" placeholder="레시피 검색">
+                <button class="custom-btn btn-13">검 색</button>
+            </div>
+            <div class="user_page">
+                <a sec:authorize="isAnonymous()" href="/member/login">
+                    <img src=/"https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                </a>
+                <a sec:authorize="isAuthenticated()" href="/member/logout">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="middle_container">
+        <div class="nav_bar">
+            <ul class="">
+                <li>
+                    <a class="custom-nav nav-13" href="#">추 천</a>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
+                    <ul>
+                        <li>
+                            <a class="custom-nav nav-13" href="#">밥요리</a>
+                            <a class="custom-nav nav-13" href="#">국 & 찌개</a>
+                            <a class="custom-nav nav-13" href="#">면요리</a>
+                            <a class="custom-nav nav-13" href="#">튀김요리</a>
+                        </li>
+                        <li>
+                            <a class="custom-nav nav-13" href="#">볶음요리</a>
+                            <a class="custom-nav nav-13" href="#">찜 & 조림</a>
+                            <a class="custom-nav nav-13" href="#">샐러드</a>
+                            <a class="custom-nav nav-13" href="#">밑반찬</a>
+                        </li>
+                        <li>
+                            <a class="custom-nav nav-13" href="#">간식 & 분식</a>
+                            <a class="custom-nav nav-13" href="#">디저트</a>
+                            <a class="custom-nav nav-13" href="#">명절음식</a>
+                            <a class="custom-nav nav-13" href="#">기타요리</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="/ranking">쉐프랭킹</a>
+                </li>
+                <li>
+                    <a class="custom-nav nav-13" href="#">스토어</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- 프로필 내용-->
+<main>
+    <div class="profile-section">
+        <div class="profile-background"></div>
+        <div class="profile-pic">
+            <img th:src="@{'/images/profile/' + ${member.nickname} + '.png'}" alt="프로필 사진">
+        </div>
+        <div class="profile-content">
+            <h1 th:text="${member.nickname} + ' 님의 레시피 목록'">멤버 프로필</h1>
+        </div>
+    </div>
+    <div class="recipes-section">
+        <h2>레시피 목록</h2>
+        <div class="recipes">
+            <ul>
+                <li th:each="recipe : ${recipes}">
+                    <h3 th:text="${recipe.title}"></h3>
+                    <p th:text="${recipe.subject}"></p>
+                    <p th:text="${recipe.content}"></p>
+                    <p th:text="${recipe.nickname}"></p>
+                    <p th:text="${recipe.categoryValue}"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+</body>
