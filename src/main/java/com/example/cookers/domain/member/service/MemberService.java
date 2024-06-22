@@ -26,6 +26,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
+    private final RecipeRepository recipeRepository;
 
 
     public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url) {

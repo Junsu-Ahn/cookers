@@ -1,20 +1,14 @@
 package com.example.cookers;
 
-import com.example.cookers.domain.member.entity.Member;
-import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
-import com.example.cookers.domain.recipe.entity.Ingredient;
-import com.example.cookers.domain.recipe.entity.MakingStep;
-import com.example.cookers.domain.recipe.entity.Recipe;
-import com.example.cookers.domain.recipe.entity.Seasoning;
 import com.example.cookers.domain.recipe.service.RecipeService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
@@ -151,7 +145,7 @@ class CookersApplicationTests {
 //
 //			recipeService.create(title, subject, content, nickname, categoryValue, hit, thumbnail);
 //		}
-//
+
 //		for (int i =1; i<= 2; i++){ // 2 ~ 3
 //			String title = String.format("제목 %d", i);
 //			String subject = String.format("소제목 %d", i);

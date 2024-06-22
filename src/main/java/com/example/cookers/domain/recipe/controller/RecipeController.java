@@ -218,6 +218,8 @@ public class RecipeController {
         return "redirect:/"; // 메인화면으로 리다이렉트
     }
 
+
+
     // 카테고리별로 리스트 확인하기
     @GetMapping("/list/{categoryValue}")
     public String recipePage(@PathVariable("categoryValue") String categoryValue, Model model, @RequestParam(value="page", defaultValue="0") int page, @RequestParam Map<String, String> params, HttpServletRequest request, HttpSession session) {

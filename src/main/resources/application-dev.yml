@@ -24,5 +24,5 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true # SQL 쿼리를 콘솔에 출력
