@@ -270,206 +270,117 @@ a{
   z-index: 2;
 }
 
-/* 메인메뉴 배너 슬라이드*/
+/* ranking.css */
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
 
-.slider{
-  text-align : center;
-}
-.slide img {
-    max-width: 100%; /* 이미지의 최대 너비를 100%로 설정 */
-    height: auto; /* 비율에 맞추어 자동으로 높이를 조정 */
-}
-
-
-.bottom_bar_section {
-    margin-bottom: 50px; /* 배너 아래 간격 추가 */
 }
 
-/* 인기 레시피*/
-.slider_container {
-    position: relative;
-    overflow: hidden;
-    margin-top: 20px;
-  background-color: #f8f8f8;
+header {
+    background-color: #ff5722;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
 }
 
-.slider_wrapper {
-    display: flex;
+h1 {
+    margin: 20px 0;
+    text-align: center;
 }
 
-.slider_track {
-   display: flex;
-    justify-content: center;
-    width: fit-content;
-    margin: 0 auto;
-  transition: transform 0.5s ease;
-}
-
-.recipe_card {
-    flex: 0 0 auto;
-    margin-right: 20px;
-    width: 250px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0;
-}
-
-.recipe_card img {
-    width: 100%;
-    border-radius: 5px;
-}
-
-.recipe_card h3 {
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-.recipe_card p {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #666;
-}
-
-.prev_btn, .next_btn {
-    position: absolute;
-    top: 50%;
-    transform:
-translateY(-50%);
-    background: transparent;
-    border: none;
-    font-size: 30px;
-    color: #666;
-    cursor: pointer;
-}
-.next_btn {
-    right: 0;
-}
-
-.recipe_section {
-    background-color: rgba(255, 255, 255, 0.6);
+main {
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
 }
 
-.recipe_section h2 {
-    font-size: 28px;
-    font-weight: bold;
-    color: #5D8A5D;
-    text-transform: uppercase; /* 대문자로 변환 */
-    margin-bottom: 20px;
-    text-align : center;
-
-}
-
-
-
-/* 인기 레시피와 최신 레시피 사이의 간격을 조정 */
-/* 전체 컨테이너 스타일 */
-.popular-recipes-container {
+.ranking-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* 카드 간격 */
-    justify-content: space-between; /* 카드 사이 간격을 균등하게 분배 */
+    justify-content: center;
+    gap: 20px;
+    max-width: 1240px; /* 최대 너비 지정 */
+    margin: 0 auto; /* 가운데 정렬을 위해 */
+}
+
+.ranking-card {
+    width: calc(15% - 40px); /* 한 줄에 5개의 카드가 정렬되도록 설정 */
     margin: 20px;
-}
-
-/* 인기 레시피 섹션 스타일 */
-.popular-recipes-section {
-    text-align: center;
-    margin: 140px 0; /* 섹션 위아래 여백 */
-}
-
-.popular-recipes-section h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333; /* 제목 색상 */
-}
-
-/* 인기 레시피 카드 스타일 */
-.popular-recipe-card {
-    background-color: #f5f5f5; /* 배경색 */
     padding: 20px;
-    margin: 5px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    flex: 1 1 calc(50% - 40px); /* 두 개씩 정렬하기 위한 너비, 간격 조정 */
-    display: flex; /* 내부 요소들을 플렉스로 정렬 */
-    align-items: center; /* 이미지와 텍스트를 수직으로 가운데 정렬 */
-    box-sizing: border-box; /* 여백을 포함한 크기 조정 */
-}
-
-/* 인기 레시피 카드 이미지 스타일 */
-.popular-recipe-card .recipe-image img {
-    width: 100px; /* 이미지 너비 */
-    height: 100px; /* 이미지 높이 */
-    border-radius: 5px; /* 이미지 모서리 둥글게 */
-}
-
-/* 인기 레시피 카드 정보 스타일 */
-.popular-recipe-card .recipe-info {
-    margin-left: 20px; /* 이미지와 텍스트 간격 */
-}
-
-.popular-recipe-card .recipe-info h3 {
-    margin-bottom: 10px; /* 제목 아래 여백 */
-}
-
-.popular-recipe-card .recipe-info p {
-    margin-bottom: 5px; /* 단락 아래 여백 */
-}
-
-
-
-
-
-
-/* footer */
-footer {
-    background-color: #3c3935;
-    padding: 20px 50px; /* 상하 여백 추가 */
-    border-top: 2px solid #fff; /* 상단에 흰색 선 추가 */
-    border-bottom: 2px solid #fff; /* 하단에 흰색 선 추가 */
-    border-top: 2px solid #000; /* 상단에 검정 선 추가 */
-    clear: both; /* 이전 float 요소들이 푸터에 영향을 주지 않도록 */
-    margin-top: 250px; /* 본문과의 간격 추가 */
-}
-
-
-footer img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    margin-top: 15px;
-}
-
-.foo_div {
-    float: left;
-    margin-right: 20px; /* 오른쪽 여백 추가 */
-}
-
-.foo_div1 {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding-top: 10px; /* 상단 여백 추가 */
-    padding-bottom: 10px; /* 하단 여백 추가 */
-    margin-bottom: 10px; /* 하단 마진 추가 */
-    border-top: 2px solid #000; /* 검정 선 추가 */
+    transition: transform 0.3s ease;
 }
 
-.foo_div1 span {
-    font-size: 15px;
-    color: white;
+.ranking-card:hover {
+    transform: translateY(-5px);
 }
 
-.foo_div1 p {
-    margin-top: 5px;
-    color: white;
+.ranking-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* 프로필 사진을 둥글게 만듭니다. */
+    display: block;
+    margin: 0 auto 10px; /* 가운데 정렬하고 아래 여백 추가 */
 }
 
-.foo_div1 img {
-    width: 25px;
-    height: 25px;
-    margin-top: 10px;
+.ranking-card .nickname {
+    font-weight: bold;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.ranking-card .rank {
+    font-size: 24px;
+    color: #ff5722;
+}
+
+.ranking-card .hit {
+    color: #666666;
+}
+
+
+ /* 페이지 네이션 */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination ul {
+    list-style: none;
+    display: inline-flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a, .pagination span {
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #ff5722;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #ffccbc;
+}
+
+.pagination .current {
+    font-weight: bold;
+    background-color: #ffccbc;
+    cursor: default;
+}
+
+.pagination .disabled span {
+    color: #ddd;
+    background-color: #f8f8f8;
+    cursor: not-allowed;
 }

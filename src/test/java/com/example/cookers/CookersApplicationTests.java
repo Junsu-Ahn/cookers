@@ -150,9 +150,9 @@ class CookersApplicationTests {
 			String passwordConfirm = String.format("user%d", i); // 비밀번호 확인
 			String nickname = String.format("nickname%d", i);
 			String email = String.format("user%d@example.com", i);
+			String url = "profile1.png";
 			String typeCode = ""; // 예시 타입 코드
-			String url = "";
-			Long hit = 0L;
+			Long hit = (long)i;
 
 			memberService.signup("", username, password, passwordConfirm, nickname, email, hit, null);
 			// public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url){
