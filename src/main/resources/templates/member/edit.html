@@ -3,37 +3,46 @@
     <title>회원 정보 수정</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="/editjs/edit.js"></script> <!-- JavaScript 파일을 연결합니다. -->
     <link rel="stylesheet" th:href="@{/css/edit.css}">
 </head>
 <body>
 <div class="top_bar_section">
-    <div class="logo">
-        <a href="/">
-            <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
+    <div class="main_logo">
+        <div class='box'>
+            <div class='wave -one'></div>
+            <div class='wave -two'></div>
+            <div class='wave -three'></div>
+            <div class='wave -four'></div>
+            <div class='title'><a href="/"><img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a></div>
+        </div>
     </div>
 </div>
 <div class="container">
-
     <h1>회원 정보 수정</h1>
-    <form th:action="@{/member/edit}" method="post" id="editForm">
+    <form th:action="@{/member/edit}" th:object="${member}" method="post" id="editForm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nickname">닉네임:</label>
-            <input type="text" class="form-control" id="nickname" name="nickname" th:value="${member.nickname}" required>
+            <input type="text" class="form-control" id="nickname" name="nickname" th:field="*{nickname}" required>
         </div>
 
         <div class="form-group">
             <label for="email">이메일:</label>
-            <input type="email" class="form-control" id="email" name="email" th:value="${member.email}" required>
+            <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
         </div>
 
-        <div class="form-group">
-            <label for="profile_url">프로필 URL:</label>
-            <input type="text" class="form-control" id="profile_url" name="profile_url" th:value="${member.profile_url}">
+        <div class="image_bar">
+            <div id="divMainPhotoBox">
+                <div class="input_1">
+                    <label>프로필 변경:</label>
+                    <img id="preview" th:src="${member.profileImg != null ? member.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필">
+                </div>
+                <input type="file" name="profileImg" accept="image/png, image/gif, image/jpeg" id="profileImgInput" style="cursor: pointer;">
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary save-button">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
-        <button type="button" class="btn btn-danger delete-button">탈퇴하기</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
+        <button type="button" class="btn btn-secondary default-profile-button">기본 프로필로 변경</button>
+        <button type="submit" class="btn btn-primary save-button" style="margin-left:790px;">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
+        <button type="button" class="btn btn-danger delete-button">회원탈퇴</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
     </form>
 </div>
+<script th:src="@{/editjs/edit.js}"></script>
 </body>

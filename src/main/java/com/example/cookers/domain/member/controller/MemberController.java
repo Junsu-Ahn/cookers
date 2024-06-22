@@ -2,6 +2,7 @@ package com.example.cookers.domain.member.controller;
 
 
 import com.example.cookers.domain.Email.EmailService;
+import com.example.cookers.domain.member.dto.EditForm;
 import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
@@ -10,18 +11,14 @@ import com.example.cookers.domain.ranking.service.RankingService;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -64,6 +61,7 @@ public class MemberController {
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
         private final MemberRepository memberRepository;
+
         @ModelAttribute
         public void addAttributes(Model model, Principal principal) {
             if (principal != null) {
@@ -71,12 +69,26 @@ public class MemberController {
                 Optional<Member> memberOptional = memberRepository.findByUsername(username);
                 if (memberOptional.isPresent()) {
                     Member member = memberOptional.get();
-                    String profileImageUrl = member.getProfile_url();
+                    String profileImageUrl = member.getThumnailImg();
                     model.addAttribute("profileImageUrl", profileImageUrl);
                 }
             }
         }
     }
+
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            String username = auth.getName();
+            Member member = memberService.findByUsername(username).orElse(null);
+            if (member != null) {
+                model.addAttribute("currentMember", member);
+            }
+        }
+    }
+
+
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String loginPage() {
@@ -139,7 +151,7 @@ public class MemberController {
                     signForm.getNickname(),
                     signForm.getEmail(),
                     0L,
-                    signForm.getProfile_url()
+                    signForm.getThumnailImg()
             );
         } catch (DataIntegrityViolationException e) {
             model.addAttribute("message", e.getMessage());
@@ -278,47 +290,53 @@ public class MemberController {
     }
     // 추가
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit")
-    public String editProfilePage(Model model) {
+    public String editMemberForm(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Member member = memberService.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
         model.addAttribute("member", member);
-
         return "member/edit";
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit")
-    public String editProfile(@Valid EditForm editForm, BindingResult bindingResult, Model model) {
+    public String editProfile(@Valid @ModelAttribute EditForm editForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String username = auth.getName();
             Member member = memberService.findByUsername(username)
-                    .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+                    .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
             model.addAttribute("member", member);
-            return "member/edit"; // 유효성 검사 오류 발생 시 다시 입력 폼으로 이동
+            return "member/edit";
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
+        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfileImg());
 
-        return "redirect:/member/edit?success";
+        return "redirect:/"; // 메인 화면으로 리디렉션
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/setDefaultProfile")
+    public String setDefaultProfile() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        memberService.setDefaultProfile(username);
+
+        return "redirect:/"; // 메인 화면으로 리디렉션
+    }
+
     @PostMapping("/delete")
+    @ResponseBody
     public String deleteMember() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        memberService.deleteMember(username);  // 회원 삭제 로직
-        SecurityContextHolder.clearContext();  // 로그아웃 처리
-        return "redirect:/?deleteSuccess";  // 메인 페이지로 리다이렉트
-    }
+        memberService.deleteMember(username);
+        SecurityContextHolder.clearContext(); // 로그아웃 처리
 
+        return "success"; // 클라이언트에 성공 메시지 전송
+    }
 
     // 여기까지
 
@@ -343,7 +361,7 @@ public class MemberController {
 
         private Long hit;
 
-        private String profile_url;
+        private String thumnailImg;
 
         private String providerTypeCode;
 
@@ -366,23 +384,6 @@ public class MemberController {
         private String profileUrl;
     }
 
-    // 추가//
-    @ToString
-    @Getter
-    @Setter
-    public static class EditForm {
-        @NotBlank(message = "닉네임을 입력해주세요.")
-        private String nickname;
-
-        @NotBlank(message = "이메일을 입력해주세요.")
-        @Email(message = "올바른 이메일 형식이 아닙니다.")
-        private String email;
-
-        private String profile_url;
-        // 기타 수정할 필드들
-    }
-    // 여기까지 //
-
     // 필선
     // 레시피 노트 들어가기
     @ModelAttribute
@@ -404,33 +405,4 @@ public class MemberController {
 
         return "ranking/member_profile"; // member_profile.html로 이동
     }
-
-    // 회원 정보 수정으로 들어가기
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/edit")
-//    public String editProfilePage(Model model, Principal principal) {
-//        String username = principal.getName();
-//        Member currentMember = memberService.findByUsername(username)
-//                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-//
-//        model.addAttribute("member", currentMember);
-//        return "member/edit"; // edit.html 페이지로 이동
-//    }
-//
-//    @PreAuthorize("isAuthenticated()")
-//    @PostMapping("/edit")
-//    public String editProfile(@Valid EditForm editForm, BindingResult bindingResult, Principal principal, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            String username = principal.getName();
-//            Member member = memberService.findByUsername(username)
-//                    .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
-//            model.addAttribute("member", member);
-//            return "member/edit"; // 유효성 검사 오류 발생 시 다시 입력 폼으로 이동
-//        }
-//
-//        String username = principal.getName();
-//        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
-//
-//        return "redirect:/member/edit?success";
-//    }
 }

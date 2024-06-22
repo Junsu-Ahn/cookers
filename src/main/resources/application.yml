@@ -71,4 +71,4 @@ spring:
           starttls:
             enable: true
 custom:
-  fileDirPath: C:/work/cookersmember/src/main/resources/static/imagefile/post
+  fileDirPath: /work/cookersmember/src/main/resources/static/imagefile/post

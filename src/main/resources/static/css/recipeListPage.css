@@ -258,6 +258,7 @@ a{
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a> img{
   width: 80px;
+  height: 80px;
 }
 
 
@@ -306,7 +307,7 @@ a{
   width: 1239px;
   visibility:hidden;
   opacity:0;
-  transition:linear 100ms;
+  transition:linear 500ms;
 }
 
 .top_bar_section > .middle_container > .nav_bar > ul > li > ul > li{
@@ -332,7 +333,7 @@ a{
 
 .top_bar_section > .middle_container > .nav_bar > ul > li:nth-child(2):hover > ul{
   visibility:visible;
-  transition:linear 100ms;
+  transition:linear 500ms;
   opacity:1;
   z-index: 2;
 }

@@ -258,6 +258,7 @@ a{
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a> img{
   width: 80px;
+  height: 80px;
 }
 
 
@@ -358,22 +359,22 @@ width:70%;
   top: 0;
   left: 0;
   z-index: -1;
+  overflow: hidden;
   filter: brightness(90%); /* 어둡게 처리 예시 */
 }
 
 .profile-pic {
   margin-top: 200px;
-  border: 5px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
   width: 150px;
   height: 150px;
-  overflow: hidden;
   display: inline-block;
 }
 
 .profile-pic img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
 }
 
 .profile-content {

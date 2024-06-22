@@ -31,12 +31,13 @@
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b0693f56-339e-4b19-9c69-49bce1e6a43f" alt="로그인">
                 </a>
                 <a sec:authorize="isAuthenticated()" id="userIcon" style="cursor: pointer;">
-                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="프로필">
+                    <img th:src="${currentMember != null && currentMember.profileImg != null ? currentMember.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필">
                 </a>
-                <div class="arrow-up"></div>
-                <ul class="user_two_menu">
-                    <li><a href="#">레시피 노트</a></li>
-                    <li><a href="#">회원 정보 수정</a></li>
+                </a>
+                <div class="arrow-up" th:if="${currentMember} != null"></div>
+                <ul class="user_two_menu" th:if="${currentMember} != null">
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{'/member/' + ${currentMember.nickname}}">레시피 노트</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/member/edit}">회원 정보 수정</a></li>
                     <li><a href="/member/logout">로그아웃</a></li>
                 </ul>
                 <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
@@ -50,7 +51,7 @@
                     <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="/recipe/list/밥요리">레시피</a>
+                    <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
                             <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
@@ -82,6 +83,7 @@
         </div>
     </div>
 </div>
+
 <div class="bottom_bar_section">
     <div class="top_container"></div>
     <div class="bottom_container">
