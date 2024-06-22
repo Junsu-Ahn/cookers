@@ -6,29 +6,25 @@ import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
 import com.example.cookers.domain.member.service.PasswordMismatchException;
+import com.example.cookers.domain.ranking.service.RankingService;
+import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.service.RecipeService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -40,6 +36,7 @@ import java.util.Random;
 @RequestMapping("/member")
 public class MemberController {
 
+    private final RankingService rankingService;
     private final RecipeService recipeService;
     private final MemberService memberService;
     private final EmailService emailService;
@@ -319,9 +316,6 @@ public class MemberController {
 
     // 여기까지
 
-
-
-
     @ToString
     @Getter
     @Setter
@@ -383,4 +377,54 @@ public class MemberController {
     }
     // 여기까지 //
 
+    // 필선
+    // 레시피 노트 들어가기
+    @ModelAttribute
+    public void addCommonAttributes(Model model, Principal principal) {
+        if (principal != null) {
+            String username = principal.getName();
+            Member member = memberService.getMemberByUsername(username);
+            model.addAttribute("currentMember", member);
+        }
+    }
+
+    @GetMapping("/{nickname}")
+    public String showMemberProfilePage(@PathVariable(name = "nickname") String nickname, Model model) {
+        Member member = rankingService.getMemberByNickname(nickname);
+        List<Recipe> recipes = rankingService.getRecipesByNickname(nickname);
+
+        model.addAttribute("member", member);
+        model.addAttribute("recipes", recipes);
+
+        return "ranking/member_profile"; // member_profile.html로 이동
+    }
+
+    // 회원 정보 수정으로 들어가기
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/edit")
+//    public String editProfilePage(Model model, Principal principal) {
+//        String username = principal.getName();
+//        Member currentMember = memberService.findByUsername(username)
+//                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+//
+//        model.addAttribute("member", currentMember);
+//        return "member/edit"; // edit.html 페이지로 이동
+//    }
+//
+//    @PreAuthorize("isAuthenticated()")
+//    @PostMapping("/edit")
+//    public String editProfile(@Valid EditForm editForm, BindingResult bindingResult, Principal principal, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            String username = principal.getName();
+//            Member member = memberService.findByUsername(username)
+//                    .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+//            model.addAttribute("member", member);
+//            return "member/edit"; // 유효성 검사 오류 발생 시 다시 입력 폼으로 이동
+//        }
+//
+//        String username = principal.getName();
+//        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
+//
+//        return "redirect:/member/edit?success";
+//    }
 }

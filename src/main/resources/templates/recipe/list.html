@@ -18,21 +18,27 @@
         <div class="nav_bar">
             <div class="main_logo">
                 <a href="/">
-                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b5308413-bb20-43cf-a3f1-0943e760943c" alt="메인메뉴"></a>
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
                 <form action="#" th:action="@{/recipe/search}" method="get">
                     <input type="text" name="keyword" placeholder="레시피 검색" th:value="${keyword}">
-                    <button class="custom-btn btn-13" type="submit">검 색</button>
+                    <button class="custom-btn btn-13" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
             </div>
-            <div class="user_page" >
+            <div class="user_page">
                 <a sec:authorize="isAnonymous()" href="/member/login">
-                    <img src="https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b0693f56-339e-4b19-9c69-49bce1e6a43f" alt="로그인">
                 </a>
-                <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                <a sec:authorize="isAuthenticated()" id="userIcon" style="cursor: pointer;">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="프로필">
                 </a>
+                <div class="arrow-up"></div>
+                <ul class="user_two_menu">
+                    <li><a href="#">레시피 노트</a></li>
+                    <li><a href="#">회원 정보 수정</a></li>
+                    <li><a href="/member/logout">로그아웃</a></li>
+                </ul>
                 <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
@@ -44,7 +50,7 @@
                     <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
+                    <a class="custom-nav nav-13" href="/recipe/list/밥요리">레시피</a>
                     <ul>
                         <li>
                             <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
@@ -67,7 +73,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="#">쉐프랭킹</a>
+                    <a class="custom-nav nav-13" href="/ranking">쉐프랭킹</a>
                 </li>
                 <li>
                     <a class="custom-nav nav-13" href="#">스토어</a>

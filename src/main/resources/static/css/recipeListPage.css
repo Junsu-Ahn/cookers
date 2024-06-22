@@ -148,7 +148,7 @@ a{
 }
 
 .top_bar_section > .top_container > .nav_bar > .main_logo > a >img{
-  width: 110px;
+  width: 230px;
   height: 110px;
 }
 
@@ -175,10 +175,15 @@ a{
   background-color: rgb(233, 233, 233);
 }
 
-.top_bar_section > .top_container > .nav_bar > .user_page {
-  flex-grow: 1;
-  flex-basis: 0;
-  align-content:center;
+.top_bar_section > .top_container >.nav_bar > .search_bar > input{
+  width: 400px;
+  height: 50px;
+  font-size: 20px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 
 .top_bar_section > .top_container > .nav_bar > .user_page {
@@ -188,11 +193,74 @@ a{
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
+}
+
+.top_bar_section > .top_container > .nav_bar > .user_page > a > img {
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 50px;
+}
+
+/*프로필 2차 메뉴*/
+.user_page .user_two_menu, .user_page .arrow-up {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 200ms linear, visibility 0s linear 200ms;
+    position: absolute;
+    z-index: 2;
+}
+
+.user_page .user_two_menu.visible, .user_page .arrow-up.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms linear, visibility 0s linear 0s;
+}
+
+.user_page .user_two_menu {
+    border: 2px solid #85B054;
+    left: 13%;
+    top: 100px; /* 위치 조정 */
+}
+
+.user_page .user_two_menu > li {
+    border-top: 2px solid #85B054;
+  border-bottom: 2px solid #85B054;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user_page .user_two_menu > li > a {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 10px;
+}
+
+.user_page .user_two_menu > li > a:hover {
+    background-color: #eaeaea;
+}
+
+.user_page .arrow-up {
+    position: absolute;
+    left: 28%;
+    bottom: 10px; /* 위치 조정 */
+    width: 0;
+    height: 0;
+    border-bottom: 20px solid #85B054; /* 화살표 */
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
 }
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a > img {
   width: 90px;
 }
+
+.top_bar_section > .top_container > .nav_bar >.user_page > a> img{
+  width: 80px;
+}
+
+
 
 .top_bar_section > .middle_container > .nav_bar {
   background-color: rgb(125, 30, 17);
@@ -267,7 +335,6 @@ a{
   transition:linear 500ms;
   opacity:1;
   z-index: 2;
-  width
 }
 
 /*  하단 게시판 만들기 */

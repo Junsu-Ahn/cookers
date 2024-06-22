@@ -1,7 +1,14 @@
 package com.example.cookers;
 
+import com.example.cookers.domain.member.entity.Member;
+import com.example.cookers.domain.member.repository.MemberRepository;
 import com.example.cookers.domain.member.service.MemberService;
+import com.example.cookers.domain.recipe.entity.Ingredient;
+import com.example.cookers.domain.recipe.entity.MakingStep;
+import com.example.cookers.domain.recipe.entity.Recipe;
+import com.example.cookers.domain.recipe.entity.Seasoning;
 import com.example.cookers.domain.recipe.service.RecipeService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +30,7 @@ class CookersApplicationTests {
 	MemberService memberService;
 
 	@Autowired
-	private MemberRepository memberRepository;
+	MemberRepository memberRepository;
 
 	@BeforeEach
 	void setUp() {
@@ -32,7 +39,7 @@ class CookersApplicationTests {
 
 
 	@Test
-	void 멤버_생성() {
+	void 멤버_생성_1() {
 		List<String> nicknames = Arrays.asList(
 				"맛있는향기", "요리의여왕", "요리의달인", "맛의연금술사", "달콤한주방",
 				"행복한밥상", "요리천재", "맛의마법사", "주방의요정", "요리사랑",
@@ -237,7 +244,7 @@ class CookersApplicationTests {
 //	}
 
 	@Test
-	void 멤버_생성() {
+	void 멤버_생성_2() {
 		for (int i = 1; i <= 50; i++) {
 			String username = String.format("user%d", i);
 			String password = String.format("user%d", i); // 테스트용 비밀번호

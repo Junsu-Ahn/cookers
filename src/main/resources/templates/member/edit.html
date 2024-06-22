@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원 정보 수정</title>
@@ -34,10 +32,8 @@
             <input type="text" class="form-control" id="profile_url" name="profile_url" th:value="${member.profile_url}">
         </div>
 
-        <button type="button" class="btn btn-primary save-button">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
+        <button type="submit" class="btn btn-primary save-button">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
         <button type="button" class="btn btn-danger delete-button">탈퇴하기</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
     </form>
 </div>
 </body>
-</html>
-

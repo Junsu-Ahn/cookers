@@ -30,4 +30,8 @@ public class Comment extends BaseEntity {
 
     @Column(nullable = false)
     private String content;
+
+    @JoinColumn
+    @ManyToOne
+    private Member author;
 }

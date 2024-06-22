@@ -5,10 +5,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
+    <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
-<body style="background-image:url('')">
+<body>
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
@@ -17,16 +19,25 @@
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
-                <input type="text" placeholder="레시피 검색">
-                <button class="custom-btn btn-13">검 색</button>
+                <form action="#" th:action="@{/recipe/search}" method="get">
+                    <input type="text" name="keyword" placeholder="레시피 검색" th:value="${keyword}">
+                    <button class="custom-btn btn-13" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
             <div class="user_page">
                 <a sec:authorize="isAnonymous()" href="/member/login">
-                    <img src=/"https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b0693f56-339e-4b19-9c69-49bce1e6a43f" alt="로그인">
                 </a>
-                <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                <a sec:authorize="isAuthenticated()" id="userIcon" style="cursor: pointer;">
+                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="프로필">
                 </a>
+                <div class="arrow-up" th:if="${currentMember} != null"></div>
+                <ul class="user_two_menu" th:if="${currentMember} != null">
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{'/member/' + ${currentMember.nickname}}">레시피 노트</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/member/edit}">회원 정보 수정</a></li>
+                    <li><a href="/member/logout">로그아웃</a></li>
+                </ul>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -68,10 +79,9 @@
             </ul>
         </div>
     </div>
-
-
-    <div class="bottom_container"></div>
 </div>
+
+<div class="bottom_container"></div>
 <div class="bottom_bar_section">
     <div class="slider">
         <div class="slide">

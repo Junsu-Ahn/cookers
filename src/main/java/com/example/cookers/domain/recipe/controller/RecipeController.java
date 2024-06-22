@@ -69,7 +69,6 @@ public class RecipeController {
     @Autowired
     private final MemberService memberService;
 
-
     // 추천수 만들기
     @PostMapping("/recommend")
     @ResponseBody
