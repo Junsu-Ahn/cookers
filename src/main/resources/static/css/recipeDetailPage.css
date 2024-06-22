@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 /* 버튼 커스텀 */
 .custom-btn {
   width: 80px;
@@ -589,8 +593,20 @@ body {
   width: 1280px;
   margin-right: auto;
   margin-left: auto;
-  text-align: end;
-  margin-bottom: 20px;
+  display: flex;
+  align-content: center;
+}
+
+.bottom_bar_section > .move_category > .modify_btn{
+display: flex;
+    flex-grow: 1;
+    margin-left: 40px;
+}
+
+.bottom_bar_section > .move_category > .back_btn{
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: end;
 }
 
 .category_btn {
@@ -718,7 +734,7 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
   background-color: white;
   width: 1280px;
   border-radius: 30px;
-  margin: 20px auto;
+  margin: 0px auto 20px ;
   display: flex;
   flex-direction:column;
 }
@@ -781,6 +797,27 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
     background-color: #f9f9f9;
     border-radius: 10px;
     border: 1px solid #ddd;
+    display: flex;
+}
+
+.comment_section .card-body > .left_bar{
+    flex-grow: 1;
+}
+
+.comment_section .card-body > .left_bar > .card-text {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.comment_section .card-body > .btn-danger{
+    align-content: center;
+    border-radius: 30px;
+    padding: 0px 5px;
+    font-size: 25px;
+}
+
+.comment_section .card-body > .btn-danger {
+    display: inline-block;
 }
 
 .comment_section .card-text {
@@ -822,3 +859,10 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
 .comment_section input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+ #warning-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-left: 5px;
+        }

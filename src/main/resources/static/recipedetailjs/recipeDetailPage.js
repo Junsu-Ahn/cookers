@@ -24,30 +24,41 @@ $(document).ready(function() {
             console.error('Invalid delete URI:', deleteUri);
         }
     });
- function deleteComment(element) {
-            var uri = element.getAttribute("data-uri");
-            var csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
-            var csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+        console.log('Document is ready'); // 디버깅용 로그
 
-            if (confirm("정말 삭제하시겠습니까?")) {
-                fetch(uri, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        [csrfHeader]: csrfToken
-                    }
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert("댓글이 삭제되었습니다.");
-                        location.reload();
-                    } else {
-                        response.text().then(text => alert(text));
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            }
+        // 초기 상태 설정
+        if ($('#content').val().trim() === '') {
+            $('#submit-button').prop('disabled', true);
+            $('#warning-message').show();
+        } else {
+            $('#submit-button').prop('disabled', false);
+            $('#warning-message').hide();
         }
+
+        $('#content').on('input', function() {
+            console.log('Content input event triggered'); // 디버깅용 로그
+            if ($(this).val().trim() === '') {
+                console.log('Content is empty'); // 디버깅용 로그
+                $('#submit-button').prop('disabled', true);
+                $('#warning-message').show();
+            } else {
+                console.log('Content is not empty'); // 디버깅용 로그
+                $('#submit-button').prop('disabled', false);
+                $('#warning-message').hide();
+            }
+        });
+
+        $('#submit-button').on('click', function(event) {
+            console.log('Submit button clicked'); // 디버깅용 로그
+            if ($('#content').val().trim() === '') {
+                console.log('Content is empty on submit'); // 디버깅용 로그
+                $('#warning-message').show();
+                event.preventDefault(); // 폼 제출을 막음
+            } else {
+                console.log('Content is not empty on submit'); // 디버깅용 로그
+                $('#warning-message').hide();
+            }
+        });
 
     $('.content').click(function() {
         var $heart = $(this).find('.heart');

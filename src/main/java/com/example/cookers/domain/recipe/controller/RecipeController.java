@@ -13,6 +13,10 @@ import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.entity.Seasoning;
 import com.example.cookers.domain.recipe.repository.RecipeRepository;
 import com.example.cookers.domain.recipe.service.RecipeService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -102,9 +106,12 @@ public class RecipeController {
 
     // 레시피 디테일
     @GetMapping("/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Long id) {
+    public String detail(Model model, @PathVariable("id") Long id, HttpSession session) {
         Recipe recipe = this.recipeService.getRecipe(id);
         model.addAttribute("recipe", recipe);
+
+        String referer = (String) session.getAttribute("prevPage");
+        model.addAttribute("referer", referer);
         return "recipe/recipe_detail";
     }
 
@@ -214,17 +221,34 @@ public class RecipeController {
 
     // 카테고리별로 리스트 확인하기
     @GetMapping("/list/{categoryValue}")
-    public String recipePage(@PathVariable("categoryValue") String categoryValue, Model model, @RequestParam(value="page", defaultValue="0") int page) {
+    public String recipePage(@PathVariable("categoryValue") String categoryValue, Model model, @RequestParam(value="page", defaultValue="0") int page, @RequestParam Map<String, String> params, HttpServletRequest request, HttpSession session) {
         Page<Recipe> recipes = recipeService.getRecipesByCategoryValue(categoryValue, page);
         model.addAttribute("categoryValue", categoryValue);
         model.addAttribute("recipes", recipes);
+        listInitSesstion(params, request,session);
         return "recipe/list";
     }
 
+    void listInitSesstion(@RequestParam Map<String, String> params, HttpServletRequest request, HttpSession session){
+        StringBuilder referer = new StringBuilder(request.getRequestURL().toString());
+        if (!params.isEmpty()) {
+            referer.append("?");
+            params.forEach((key, value) -> referer.append(key).append("=").append(value).append("&"));
+            referer.setLength(referer.length() - 1); // 마지막 & 제거
+        }
+        session.setAttribute("prevPage", referer.toString());
+
+        System.out.println("referer : " + referer.toString());
+    }
+
+
     @GetMapping("/list")
-    public String listRecipes(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String listRecipes(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam Map<String, String> params, HttpServletRequest request, HttpSession session) {
         Page<Recipe> recipes = recipeService.findAllRecipes(page);
         model.addAttribute("recipes", recipes);
+
+        listInitSesstion(params, request,session);
+
         return "recipe/list";
     }
 
