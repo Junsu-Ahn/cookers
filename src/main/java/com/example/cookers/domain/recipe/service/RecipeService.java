@@ -1,14 +1,13 @@
 package com.example.cookers.domain.recipe.service;
 
 
+import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
-import com.example.cookers.domain.recipe.controller.RecipeController;
 import com.example.cookers.domain.recipe.entity.*;
 import com.example.cookers.domain.recipe.repository.*;
+import com.example.cookers.global.DataNotFoundException;
 import com.example.cookers.global.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
-import com.example.cookers.global.DataNotFoundException;
-import com.example.cookers.domain.member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -46,25 +45,16 @@ public class RecipeService {
     @Value("${custom.fileDirPath}")
     private String fileDirPath;
 
-    // 추천수
-//    public Long incrementHit(Long recipeId) {
-//        Recipe recipe = recipeRepository.findById(recipeId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Recipe not found"));
-//        recipe.setHit(recipe.getHit() + 1);
-//        recipeRepository.save(recipe);
-//        return recipe.getHit();
-//    }
-
     @Transactional
-    public Long toggleRecommendCount(Long recipeId, String username) {
-        Recipe recipe = recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new ResourceNotFoundException("Recipe not found"));
-        Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("Member not found"));
+        public Long toggleRecommendCount(Long recipeId, String username) {
+            Recipe recipe = recipeRepository.findById(recipeId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Recipe not found"));
+            Member member = memberRepository.findByUsername(username)
+                    .orElseThrow(() -> new ResourceNotFoundException("Member not found"));
 
-        Optional<RecipeRecommendation> recommendationOpt = recipeRecommendationRepository.findByMemberAndRecipe(member, recipe);
+            Optional<RecipeRecommendation> recommendationOpt = recipeRecommendationRepository.findByMemberAndRecipe(member, recipe);
 
-        if (recommendationOpt.isPresent()) {
+            if (recommendationOpt.isPresent()) {
             recipeRecommendationRepository.deleteByMemberAndRecipe(member, recipe);
             recipe.setHit(recipe.getHit() - 1);
         } else {
@@ -176,6 +166,20 @@ public class RecipeService {
         return recipeRepository.searchByTitleOrContent(keyword, pageable);
     }
 
-    // 조회수
+    // 레시피 수정하기
+    public void modify(Recipe recipe,String title, String subject, String content, String categoryValue, int recipeLevel) {
+        recipe.setTitle(title);
+        recipe.setSubject(subject);
+        recipe.setContent(content);
+        recipe.setModifyDate(LocalDateTime.now());
+        recipe.setCategoryValue(categoryValue);
+        recipe.setRecipeLevel(recipeLevel);
+        this.recipeRepository.save(recipe);
+    }
+
+    // 레시피 삭제하기
+    public void delete(Recipe recipe) {
+        this.recipeRepository.delete(recipe);
+    }
 
 }

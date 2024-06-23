@@ -1,3 +1,23 @@
+$(document).ready(function() {
+    $('#userIcon').click(function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        $('.user_two_menu').toggleClass('visible');
+        $('.arrow-up').toggleClass('visible');
+    });
+
+    $(document).click(function(event) {
+        if (!$(event.target).closest('#userIcon, .user_two_menu').length) {
+            $('.user_two_menu').removeClass('visible');
+            $('.arrow-up').removeClass('visible');
+        }
+    });
+
+    $('.user_two_menu').click(function(event) {
+        event.stopPropagation();
+    });
+});
+
 const COUNT_PER_PAGE = 6; // 페이지 당 보여줄 게시물 수
 const numberButtonWrapper = document.querySelector('.number-button-wrapper'); // 페이지네이션 버튼 wrapper
 const ul = document.querySelector('ul'); // 게시물을 담을 unordered list

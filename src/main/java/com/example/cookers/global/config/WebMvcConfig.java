@@ -16,4 +16,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/file/**")
                 .addResourceLocations("file:///" + fileDirPath + "/");
     }
+
+    public String getFileDirPath() {
+        return fileDirPath;
+    }
 }

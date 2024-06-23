@@ -10,25 +10,39 @@ import com.example.cookers.domain.recipe.repository.RecipeRepository;
 import com.example.cookers.global.DataNotFoundException;
 import com.example.cookers.global.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+
 public class MemberService {
     private final MemberRepository memberRepository;
+
     private final PasswordEncoder passwordEncoder;
+
     private final EmailService emailService;
 
+    private final RecipeRepository recipeRepository;
+
+    @Value("${custom.fileDirPath}")
+    private String fileDirPath;
+
+    private static final String DEFAULT_PROFILE_IMAGE_URL = "https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f";
 
     public Member signup(String providerTypeCode, String username, String password, String passwordConfirm, String nickname, String email, Long hit, String url) {
 
@@ -50,7 +64,7 @@ public class MemberService {
                 .providerTypeCode(providerTypeCode)
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .profile_url(url)
+                .thumnailImg(url)
                 .nickname(nickname)
                 .email(email)
                 .hit(hit)
@@ -158,27 +172,56 @@ public class MemberService {
     public void delete(Member member) {memberRepository.delete(member);}
 
     // 추가//
+
+
     @Transactional
-    public Member updateMember(String username, String nickname, String email, String profile_url) {
+    public Member updateMember(String username, String nickname, String email, MultipartFile profileImg) {
         Member member = memberRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+
         member.setNickname(nickname);
         member.setEmail(email);
-        member.setProfile_url(profile_url);
+
+        if (profileImg != null && !profileImg.isEmpty()) {
+            String fileUrl = saveFile(profileImg);
+            member.setProfileImg(fileUrl);
+        }
+
         return memberRepository.save(member);
+    }
+
+    @Transactional
+    public void setDefaultProfile(String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+        member.setProfileImg(DEFAULT_PROFILE_IMAGE_URL);
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void deleteMember(String username) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+        memberRepository.delete(member);
+    }
+
+    private String saveFile(MultipartFile file) {
+        try {
+            Path rootLocation = Paths.get(fileDirPath);
+            if (!Files.exists(rootLocation)) {
+                Files.createDirectories(rootLocation);
+            }
+            String filename = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            Path destinationFile = rootLocation.resolve(filename);
+            Files.copy(file.getInputStream(), destinationFile, StandardCopyOption.REPLACE_EXISTING);
+            return "/imagefile/post/" + filename;
+        } catch (IOException e) {
+            throw new RuntimeException("파일 저장에 실패했습니다.", e);
+        }
     }
 
     public Optional<Member> findByusername(String username) {
         return memberRepository.findByUsername(username);
-    }
-
-    public void deleteMember(String username) {
-        Optional<Member> memberOptional = memberRepository.findByUsername(username);
-        if (memberOptional.isPresent()) {
-            memberRepository.delete(memberOptional.get());
-        } else {
-            throw new IllegalArgumentException("회원을 찾을 수 없습니다.");
-        }
     }
     //여기까지
 }

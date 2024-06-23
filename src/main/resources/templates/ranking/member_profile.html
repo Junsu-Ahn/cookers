@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" th:href="@{/css/member_profile.css}">
+    <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 
@@ -18,16 +20,26 @@
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a>
             </div>
             <div class="search_bar">
-                <input type="text" placeholder="레시피 검색">
-                <button class="custom-btn btn-13">검 색</button>
+                <form action="#" th:action="@{/recipe/search}" method="get">
+                    <input type="text" name="keyword" placeholder="레시피 검색" th:value="${keyword}">
+                    <button class="custom-btn btn-13" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
             <div class="user_page">
                 <a sec:authorize="isAnonymous()" href="/member/login">
-                    <img src=/"https:/recipe1.ezmember.co.kr/img/ico_user.png" alt="로그인">
+                    <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b0693f56-339e-4b19-9c69-49bce1e6a43f" alt="로그인">
                 </a>
-                <a sec:authorize="isAuthenticated()" href="/member/logout">
-                    <img src="http://k.kakaocdn.net/dn/OgRyt/btsGCuMdVmT/U9X1ZKLWtR5KpEab9oh7ek/img_640x640.jpg" alt="로그아웃">
+                <a sec:authorize="isAuthenticated()" id="userIcon" style="cursor: pointer;">
+                    <img th:src="${currentMember != null && currentMember.profileImg != null ? currentMember.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필">
                 </a>
+                </a>
+                <div class="arrow-up" th:if="${currentMember} != null"></div>
+                <ul class="user_two_menu" th:if="${currentMember} != null">
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{'/member/' + ${currentMember.nickname}}">레시피 노트</a></li>
+                    <li><a sec:authorize="isAuthenticated()" th:href="@{/member/edit}">회원 정보 수정</a></li>
+                    <li><a href="/member/logout">로그아웃</a></li>
+                </ul>
+                <a href="/recipe/recipe_create_form"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/00255179-03e9-4a7e-a8c8-d49ef5db619c" alt="글쓰기"></a>
             </div>
         </div>
     </div>
@@ -35,28 +47,28 @@
         <div class="nav_bar">
             <ul class="">
                 <li>
-                    <a class="custom-nav nav-13" href="#">추 천</a>
+                    <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
                 <li>
                     <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
-                            <a class="custom-nav nav-13" href="#">밥요리</a>
-                            <a class="custom-nav nav-13" href="#">국 & 찌개</a>
-                            <a class="custom-nav nav-13" href="#">면요리</a>
-                            <a class="custom-nav nav-13" href="#">튀김요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/국 & 찌개">국 & 찌개</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/면요리">면요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/튀김요리">튀김요리</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="#">볶음요리</a>
-                            <a class="custom-nav nav-13" href="#">찜 & 조림</a>
-                            <a class="custom-nav nav-13" href="#">샐러드</a>
-                            <a class="custom-nav nav-13" href="#">밑반찬</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/볶음요리">볶음요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/찜 & 조림">찜 & 조림</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/샐러드">샐러드</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/밑반찬">밑반찬</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="#">간식 & 분식</a>
-                            <a class="custom-nav nav-13" href="#">디저트</a>
-                            <a class="custom-nav nav-13" href="#">명절음식</a>
-                            <a class="custom-nav nav-13" href="#">기타요리</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/간식 & 분식">간식 & 분식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/디저트">디저트</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/명절음식">명절음식</a>
+                            <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
                         </li>
                     </ul>
                 </li>
@@ -76,7 +88,7 @@
     <div class="profile-section">
         <div class="profile-background"></div>
         <div class="profile-pic">
-            <img th:src="@{'/images/profile/' + ${member.nickname} + '.png'}" alt="프로필 사진">
+            <img th:src="${member.profileImg != null ? member.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필 사진">
         </div>
         <div class="profile-content">
             <h1 th:text="${member.nickname} + ' 님의 레시피 목록'">멤버 프로필</h1>
@@ -97,4 +109,5 @@
         </div>
     </div>
 </main>
+<script th:src="@{/memberprofilejs/memberProfilePage.js}"></script>
 </body>

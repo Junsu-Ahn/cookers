@@ -277,55 +277,59 @@ body {
   border: 3px solid rgba(0,0,0, 0.4);
   border-radius: 30px;
 }
-.good_box > .heart-btn > .content {
-            padding: 13px 16px;
-            display: flex;
-            border: 2px solid #eae2e1;
-            border-radius: 30px;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        .content.heart-active {
-            border-color: #f9b9c4;
-            background: #fbd0d8;
-        }
-        .heart {
-            position: absolute;
-            background: url("https://github.com/Junsu-Ahn/cookers/assets/156152342/a7efe207-f751-48e4-a5bb-9eed2ffae23c") no-repeat;
-            background-position: left;
-            background-size: 2900%;
-            height: 90px;
-            width: 90px;
-            top: 50%;
-            left: 21%;
-            transform: translate(-50%,-50%);
-            transition: all 0.3s ease;
-        }
-        .heart.heart-active {
-            background-position: right;
-            animation: heartBeat 0.8s steps(28) 1;
-        }
-        @keyframes heartBeat {
-            0% {
-                background-position: left;
-            }
-            100% {
-                background-position: right;
-            }
-        }
-.content > .numb {
-    align-items: center;
-    padding: 0px 20px;
-    font-weight: bold;
-    font-size: 20px;
+.good_box > .heart-btn > .content{
+  padding: 13px 16px;
+  display: flex;
+  border: 2px solid #eae2e1;
+  border-radius: 30px;
+  cursor: pointer;
 }
-
-.content > .text{
+.content.heart-active{
+  border-color: #f9b9c4;
+  background: #fbd0d8;
+}
+.heart{
+  position: absolute;
+  background: url("https://github.com/Junsu-Ahn/cookers/assets/156152342/a7efe207-f751-48e4-a5bb-9eed2ffae23c") no-repeat;
+  background-position: left;
+  background-size: 2900%;
+  height: 90px;
+  width: 90px;
+  top: 50%;
+  left: 21%;
+  transform: translate(-50%,-50%);
+}
+.text{
   font-size: 21px;
-  margin-left: 50px;
+  margin-left: 30px;
   color: grey;
+}
+.numb:before{
+  content: '12';
+  font-size: 21px;
+  margin-left: 7px;
+  font-weight: 600;
+  color: #9C9496;
 
+}
+.numb.heart-active:before{
+  content: '13';
+  color: #000;
+}
+.text.heart-active{
+  color: #000;
+}
+.heart.heart-active{
+  animation: animate .8s steps(28) 1;
+  background-position: right;
+}
+@keyframes animate {
+  0%{
+    background-position: left;
+  }
+  100%{
+    background-position: right;
+  }
 }
 
 
@@ -375,7 +379,6 @@ body {
 }
 
 .container_bar > .top_text-menu > .title_level > .level_bar{
-  display: flex;
   flex-grow: 1;
   flex-basis: 0;
   padding: 10px;
@@ -463,44 +466,34 @@ body {
   color: rgb(204, 204, 204);
 }
 
-.middle_text_menu > .food_info {
+.middle_text_menu > .food_info{
   display: flex;
 }
 
-.middle_text_menu > .food_info > .food_ingredients_bar,
-.middle_text_menu > .food_info > .food_seasoning_bar {
+.middle_text_menu > .food_info > .food_ingredients_bar{
   padding: 26px 30px;
   flex-grow: 1;
   flex-basis: 0;
 }
 
-.middle_text_menu > .food_info > div > .main_name {
-  font-size: 20px;
+.middle_text_menu > .food_info > div > .main_name{
+font-size:20px;
   font-weight: bold;
   line-height: 5px;
-}
-
-.middle_text_menu > .food_info > div > .bor_1 {
-  display: flex;
+  }
+.middle_text_menu > .food_info > div  > .bor_1{
+  display:flex;
   padding: 10px 5px;
   color: rgb(51, 51, 51);
   border-bottom: 1px solid rgb(236, 236, 236);
 }
 
-.middle_text_menu > .food_info > div > .bor_1 > div:nth-child(1),
-.middle_text_menu > .food_info > div > .bor_1 > div:nth-child(2) {
-  flex-basis: 0;
+.middle_text_menu > .food_info > div  > .bor_1 > div:nth-child(1){
+  flex-grow: 2;
+}
+.middle_text_menu > .food_info > div  > .bor_1 > div:nth-child(2){
   flex-grow: 1;
-  display: flex;
-  align-items: center;
-}
 
-.middle_text_menu > .food_info > div > .bor_1 > div:nth-child(1) {
-  justify-content: flex-start;
-}
-
-.middle_text_menu > .food_info > div > .bor_1 > div:nth-child(2) {
-  justify-content: flex-end;
 }
 .middle_text_menu > .food_info > .food_seasoning_bar{
 
@@ -533,29 +526,12 @@ body {
 
 .bottom_text_menu > .cooking_order{
   display: flex;
-  width: 1320px;
   margin-top: 15px;
-  padding: 6px 10px 60px 50px;
+  padding: 6px 10px 60px 100px;
+  flex-wrap: wrap;
 }
 
-.step_number {
-    width: 40px;
-    height: 40px;
-    background-color: #f8d7da;
-    color: #721c24;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    margin-right: 15px;
-}
-
-.bottom_text_menu > .cooking_order > .step_content {
-    display: flex;
-    flex-wrap: wrap;
-}
-.bottom_text_menu > .cooking_order > .step_content > .recipe_text_bar {
+.bottom_text_menu > .cooking_order > .recipe_text_bar {
   width: 800px;
   font-size: 22px;
   color:rgb(51, 51, 51);
@@ -564,23 +540,23 @@ body {
   padding-left: 10px;
 }
 
-.bottom_text_menu > .cooking_order > .step_content > .recipe_img_bar {
+.bottom_text_menu > .cooking_order > .recipe_img_bar {
   flex-grow: 1px;
   padding-left: 20px;
 
 }
 
-.bottom_text_menu > .cooking_order > .step_content > .recipe_img_bar > img {
+.bottom_text_menu > .cooking_order > .recipe_img_bar > img {
   border-radius: 30px;
   width: 300px;
   height: 300px;
 }
 
-.bottom_text_menu > .cooking_order > .step_content > .tip_bar {
+.bottom_text_menu > .cooking_order > .tip_bar {
  margin-top: 10px;
   flex-grow: 1;
 }
-.bottom_text_menu > .cooking_order > .step_content > .tip_bar > .tip_text{
+.bottom_text_menu > .cooking_order > .tip_bar > .tip_text{
   padding: 5px 10px;
   color: rgb(100, 100, 100);
 }
@@ -590,7 +566,6 @@ body {
   margin-right: auto;
   margin-left: auto;
   text-align: end;
-  margin-bottom: 20px;
 }
 
 .category_btn {
@@ -679,138 +654,4 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
   -webkit-transform: rotateX(-90deg);
   -moz-transform: rotateX(-90deg);
   transform: rotateX(-90deg);
-}
-
-.text.recipe_level {
-    display: flex;
-    align-items: center;
-}
-
-.text.recipe_level p {
-    margin: 0;
-    white-space: nowrap;
-}
-
-.star_rating {
-    display: flex;
-    align-items: center;
-    background-color: black;
-    border-radius: 30px;
-    padding: 5px 10px;
-    margin-left: 10px; /* 난이도 텍스트와 별 사이 간격 조절 */
-}
-
-.star {
-    width: 35px;
-    height: 35px;
-    margin-right: 10px;
-    background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png') no-repeat;
-    background-size: 100%;
-    box-sizing: border-box;
-}
-
-.star.on {
-    background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png') no-repeat;
-    background-size: 100%;
-}
-
-.comment_section {
-  background-color: white;
-  width: 1280px;
-  border-radius: 30px;
-  margin: 20px auto;
-  display: flex;
-  flex-direction:column;
-}
-
-.comment_section > .title_bar{
-  line-height: 8px;
-  padding: 26px 30px;
-  display: flex;
-}
-.comment_section > .title_bar > p {
-  font-style: italic;
-  margin-left: 7px;
-  line-height: 35px;
-  font-size: 14px;
-  color: rgb(204, 204, 204);
-}
-
-/* 댓글 섹션 스타일 */
-.comment_section {
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-}
-
-.comment_section .title_bar {
-    margin-bottom: 20px;
-}
-
-.comment_section h1 {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.comment_section p {
-    font-size: 16px;
-    color: #888;
-}
-
-.comment_section .comment_container {
-    width: 1150px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.comment_section .card {
-    margin-bottom: 10px;
-}
-
-.comment_section .card-body {
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-}
-
-.comment_section .card-text {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.comment_section .badge {
-    font-size: 12px;
-    color: #888;
-}
-
-.comment_section form {
-    margin-top: 20px;
-}
-
-.comment_section textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    font-size: 14px;
-    resize: none;
-}
-
-.comment_section input[type="submit"] {
-    display: block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.comment_section input[type="submit"]:hover {
-    background-color: #0056b3;
 }

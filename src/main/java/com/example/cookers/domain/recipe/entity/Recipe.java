@@ -22,16 +22,17 @@ import java.util.Set;
 @ToString
 public class Recipe extends BaseEntity {
 
-    @Column(unique = true)
     private String title; // 레시피 제목
 
     private String subject; // 레시피 소제목
 
     private String content; // 레시피 내용
 
+    private String nickname; // 레시피 내용
+
     private String categoryValue; // 카테고리별 value값
 
-    private int recipeLevel; // 레시피의 난이도
+        private int recipeLevel; // 레시피의 난이도
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MakingStep> steps; // 요리 단계

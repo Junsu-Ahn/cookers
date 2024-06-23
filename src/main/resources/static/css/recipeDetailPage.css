@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 /* 버튼 커스텀 */
 .custom-btn {
   width: 80px;
@@ -150,17 +154,31 @@ body {
 }
 
 .top_bar_section > .top_container > .nav_bar > .main_logo > a >img{
-  max-width: 100%;
-  max-height: 100%;
+  width: 230px;
+  height: 110px;
 }
 
 .top_bar_section > .top_container > .nav_bar > .search_bar {
+  display: flex;
+}
 
+.top_bar_section > .top_container > .nav_bar > .search_bar >form{
   flex-grow: 1;
   flex-basis: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.top_bar_section > .top_container >.nav_bar > .search_bar > form > input{
+  width: 400px;
+  height: 50px;
+  font-size: 20px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
 }
 
 .top_bar_section > .top_container >.nav_bar > .search_bar > input{
@@ -171,7 +189,7 @@ body {
   border-radius: 15px;
   outline: none;
   padding-left: 10px;
-  background-color: rgb(201, 200, 191);
+  background-color: rgb(233, 233, 233);
 }
 
 .top_bar_section > .top_container > .nav_bar > .user_page {
@@ -181,10 +199,72 @@ body {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  position: relative;
+}
+
+.top_bar_section > .top_container > .nav_bar > .user_page > a > img {
+  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 50px;
+}
+
+/*프로필 2차 메뉴*/
+.user_page .user_two_menu, .user_page .arrow-up {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 200ms linear, visibility 0s linear 200ms;
+    position: absolute;
+    z-index: 2;
+}
+
+.user_page .user_two_menu.visible, .user_page .arrow-up.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms linear, visibility 0s linear 0s;
+}
+
+.user_page .user_two_menu {
+    border: 2px solid #85B054;
+    left: 13%;
+    top: 100px; /* 위치 조정 */
+}
+
+.user_page .user_two_menu > li {
+    border-top: 2px solid #85B054;
+  border-bottom: 2px solid #85B054;
+    background-color: white;
+    display: flex;
+    text-align: center;
+    font-weight: bold;
+}
+
+.user_page .user_two_menu > li > a {
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 10px;
+}
+
+.user_page .user_two_menu > li > a:hover {
+    background-color: #eaeaea;
+}
+
+.user_page .arrow-up {
+    position: absolute;
+    left: 28%;
+    bottom: 10px; /* 위치 조정 */
+    width: 0;
+    height: 0;
+    border-bottom: 20px solid #85B054; /* 화살표 */
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
 }
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a > img {
   width: 90px;
+}
+
+.top_bar_section > .top_container > .nav_bar >.user_page > a> img{
+  width: 80px;
+  height: 80px;
 }
 
 
@@ -589,8 +669,20 @@ body {
   width: 1280px;
   margin-right: auto;
   margin-left: auto;
-  text-align: end;
-  margin-bottom: 20px;
+  display: flex;
+  align-content: center;
+}
+
+.bottom_bar_section > .move_category > .modify_btn{
+display: flex;
+    flex-grow: 1;
+    margin-left: 40px;
+}
+
+.bottom_bar_section > .move_category > .back_btn{
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: end;
 }
 
 .category_btn {
@@ -718,7 +810,7 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
   background-color: white;
   width: 1280px;
   border-radius: 30px;
-  margin: 20px auto;
+  margin: 0px auto 20px ;
   display: flex;
   flex-direction:column;
 }
@@ -747,6 +839,14 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
     margin-bottom: 20px;
 }
 
+.comment_section .title_bar > .text-danger{
+    align-content: center;
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #cf140a;
+}
+
 .comment_section h1 {
     font-size: 24px;
     font-weight: bold;
@@ -773,6 +873,27 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
     background-color: #f9f9f9;
     border-radius: 10px;
     border: 1px solid #ddd;
+    display: flex;
+}
+
+.comment_section .card-body > .left_bar{
+    flex-grow: 1;
+}
+
+.comment_section .card-body > .left_bar > .card-text {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.comment_section .card-body > .btn-danger{
+    align-content: center;
+    border-radius: 30px;
+    padding: 0px 5px;
+    font-size: 25px;
+}
+
+.comment_section .card-body > .btn-danger {
+    display: inline-block;
 }
 
 .comment_section .card-text {
@@ -814,3 +935,10 @@ background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(100,100,100,1) 100%)
 .comment_section input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+ #warning-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+            margin-left: 5px;
+        }
