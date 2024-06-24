@@ -65,6 +65,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .thumnailImg(url)
+                .profileImg(url)
                 .nickname(nickname)
                 .email(email)
                 .hit(hit)
@@ -218,10 +219,6 @@ public class MemberService {
         } catch (IOException e) {
             throw new RuntimeException("파일 저장에 실패했습니다.", e);
         }
-    }
-
-    public Optional<Member> findByusername(String username) {
-        return memberRepository.findByUsername(username);
     }
     //여기까지
 }

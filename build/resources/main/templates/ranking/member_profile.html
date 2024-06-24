@@ -1,18 +1,17 @@
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>오늘은 내가 요리사 ! 오내요</title>
+    <title>랭킹</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!--    Bootstrap CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/recipeListPage.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/member_profile.css}">
     <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
-<body style="background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e')">
+<body style="background-image:url('https://img.freepik.com/free-photo/white-texture_1160-788.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1718496000&semt=ais_user')">
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
@@ -84,61 +83,31 @@
     </div>
 </div>
 
-<div class="bottom_bar_section">
-    <div class="top_container"></div>
-    <div class="bottom_container">
-        <h1 class="title_menu" th:text="${categoryValue} != null ? ${categoryValue} : 전체보기"></h1>
-        <ul class="used_page">
-            <li class="recipe_menu" th:each="recipe : ${recipes}">
-                <a th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
-                    <div class="recipe_img">
-                        <img th:src="@{${recipe.filepath}}" alt="메인 이미지" style="width: 210px; height: 210px;">
-                    </div>
-                    <div class="recipe_text">
-                        <p class="s_text" th:text="${recipe.subject}"></p>
-                        <div>
-                            <p class="b_text" th:text="${recipe.title}"></p>
-                            <div class="icon"><i class="fa-solid fa-eye"></i>
-                                <div class="view" th:text="${recipe.view}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+<!-- 프로필 내용-->
+<main>
+    <div class="profile-section">
+        <div class="profile-background"></div>
+        <div class="profile-pic">
+            <img th:src="${member.profileImg != null ? member.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필 사진">
+        </div>
+        <div class="profile-content">
+            <h1 th:text="${member.nickname} + ' 님의 레시피 목록'">멤버 프로필</h1>
+        </div>
     </div>
-    <!-- 페이징처리 시작 -->
-    <div th:if="${!recipes.isEmpty()}" style="margin: 40px;">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=0|}">
-                    <span>&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${recipes.number-1}|}">
-                    <span> < </span>
-                </a>
-            </li>
-            <li th:each="page: ${#numbers.sequence(0, recipes.totalPages-1)}"
-                th:if="${page >= recipes.number-5 and page <= recipes.number+5}"
-                th:classappend="${page == recipes.number} ? 'active'"
-                class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-            </li>
-            <li class="page-item" th:classappend="${!recipes.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${recipes.number+1}|}">
-                    <span> > </span>
-                </a>
-            </li>
-            <li class="page-item arrow_2" th:classappend="${recipes.number == recipes.totalPages-1} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=${recipes.totalPages - 1}|}">
-                    <span>&raquo;</span>
-                </a>
-            </li>
-        </ul>
+    <div class="recipes-section">
+        <h2>레시피 목록</h2>
+        <div class="recipes">
+            <ul>
+                <li th:each="recipe : ${recipes}">
+                    <h3 th:text="${recipe.title}"></h3>
+                    <p th:text="${recipe.subject}"></p>
+                    <p th:text="${recipe.content}"></p>
+                    <p th:text="${recipe.nickname}"></p>
+                    <p th:text="${recipe.categoryValue}"></p>
+                </li>
+            </ul>
+        </div>
     </div>
-    <!-- 페이징처리 끝 -->
-</div>
-<script th:src="@{/listjs/listPage.js}"></script>
+</main>
+<script th:src="@{/memberprofilejs/memberProfilePage.js}"></script>
 </body>

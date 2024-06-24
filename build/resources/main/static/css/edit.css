@@ -1,0 +1,144 @@
+body,ul,li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.top_bar_section {
+  height: 150px;
+}
+.top_bar_section > .main_logo{
+margin-bottom: 20px;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  background
+  width: 100%;
+  height: 150px;
+  border-radius: 5px;
+  box-shadow: 0 2px 30px rgba(black, .2);
+  background: lighten(#f0f4c3, 10%);
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.wave {
+  opacity: .4;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  background: #0af;
+  width: 500px;
+  height: 500px;
+  margin-left: -250px;
+  margin-top: -250px;
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: drift 3000ms infinite linear;
+}
+.wave.-four {
+  animation: drift 10000ms infinite linear;
+  opacity: .1;
+  background: skyblue;
+}
+.wave.-three {
+  animation: drift 5000ms infinite linear;
+}
+
+.wave.-two {
+  animation: drift 7000ms infinite linear;
+  opacity: .1;
+  background: yellow;
+}
+
+.box:after {
+  content: '';
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(#e8a, 1), rgba(#def, 0) 80%, rgba(white, .5));
+  z-index: 11;
+  transform: translate3d(0, 0, 0);
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  line-height: 50px;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: 24px;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}
+
+.find{
+    text-align: center; /* Center align the buttons */
+    margin-top: 10px; /* Add margin at the top */
+}
+
+.find a {
+    display: inline-block; /* Display buttons inline */
+    margin-right: 10px; /* Add margin between the buttons */
+}
+
+.find button {
+    width: auto; /* Adjust button width */
+}
+
+.container > form > .image_bar > div > img{
+  border: 1px solid #e1e1e1;
+}
+
+.container > form > .image_bar > #divMainPhotoBox >.input_1 {
+  width: 100px;
+  height: 100px;
+  position:absolute;
+}
+
+.container > form > .image_bar > #divMainPhotoBox >.input_1 >img {
+  height: 250px;
+  width: 250px;
+  border-radius: 20px;
+}
+
+.container > form > .image_bar > #divMainPhotoBox  > input {
+  position:absolute;
+  opacity: 0;
+  height: 250px;
+  width: 250px;
+}
+
+.container > form > .btn {
+    margin-top: 300px;
+}
