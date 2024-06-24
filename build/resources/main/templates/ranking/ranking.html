@@ -1,18 +1,17 @@
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘은 내가 요리사 ! 오내요</title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <!--    Bootstrap CSS-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/recipeListPage.css}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/ranking.css}">
     <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 </head>
 
-<body style="background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e')">
+<body style="background-image:url('https://img.freepik.com/free-photo/white-texture_1160-788.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1718496000&semt=ais_user')">
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
@@ -84,61 +83,61 @@
     </div>
 </div>
 
-<div class="bottom_bar_section">
-    <div class="top_container"></div>
-    <div class="bottom_container">
-        <h1 class="title_menu" th:text="${categoryValue} != null ? ${categoryValue} : 전체보기"></h1>
-        <ul class="used_page">
-            <li class="recipe_menu" th:each="recipe : ${recipes}">
-                <a th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
-                    <div class="recipe_img">
-                        <img th:src="@{${recipe.filepath}}" alt="메인 이미지" style="width: 210px; height: 210px;">
+<main>
+    <h1>랭킹</h1>
+    <div class="ranking-cards">
+        <div class="ranking-container">
+            <!-- 반복되는 카드 블록 -->
+            <div th:each="member, i : ${rankedMembersPage.content}" class="ranking-card">
+                <a th:href="@{'/ranking/member/' + ${member.nickname}}">
+                    <div class="rank" th:text="${i.index + 1}">1</div>
+                    <div class="profile-pic">
+                        <img th:src="${member.profileImg != null ? member.profileImg : 'https://github.com/Junsu-Ahn/cookers/assets/134615615/5c0de0e0-b917-47ae-94d4-d8ad366dce7f'}" alt="프로필 사진">
                     </div>
-                    <div class="recipe_text">
-                        <p class="s_text" th:text="${recipe.subject}"></p>
-                        <div>
-                            <p class="b_text" th:text="${recipe.title}"></p>
-                            <div class="icon"><i class="fa-solid fa-eye"></i>
-                                <div class="view" th:text="${recipe.view}"></div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="nickname" th:text="${member.nickname}">요리하는즐거움</div>
+                    <div class="hit">추천수: <span th:text="${member.hit}">0</span></div>
                 </a>
+            </div>
+            <!-- // 반복되는 카드 블록 -->
+        </div>
+    </div>
+
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+        <ul>
+            <!-- 처음 페이지로 이동 -->
+            <li th:if="${rankedMembersPage.totalPages > 5 && !rankedMembersPage.first}">
+                <a th:href="@{|/ranking?page=0|}">&laquo; 처음</a>
+            </li>
+
+            <!-- 이전 페이지로 이동 -->
+            <li th:if="${rankedMembersPage.hasPrevious()}">
+                <a th:href="@{|/ranking?page=${rankedMembersPage.number - 1}|}">이전</a>
+            </li>
+            <li th:unless="${rankedMembersPage.hasPrevious()}" class="disabled">
+                <span>이전</span>
+            </li>
+
+            <!-- 페이지 번호 표시 -->
+            <li th:each="i : ${#numbers.sequence(0, rankedMembersPage.totalPages - 1)}">
+                <a th:if="${i != rankedMembersPage.number}" th:href="@{|/ranking?page=${i}|}" th:text="${i + 1}"></a>
+                <span th:if="${i == rankedMembersPage.number}" class="current" th:text="${i + 1}"></span>
+            </li>
+
+            <!-- 다음 페이지로 이동 -->
+            <li th:if="${rankedMembersPage.hasNext()}">
+                <a th:href="@{|/ranking?page=${rankedMembersPage.number + 1}|}">다음</a>
+            </li>
+            <li th:unless="${rankedMembersPage.hasNext()}" class="disabled">
+                <span>다음</span>
+            </li>
+
+            <!-- 마지막 페이지로 이동 -->
+            <li th:if="${rankedMembersPage.totalPages > 5 && !rankedMembersPage.last}">
+                <a th:href="@{|/ranking?page=${rankedMembersPage.totalPages - 1}|}">마지막 &raquo;</a>
             </li>
         </ul>
     </div>
-    <!-- 페이징처리 시작 -->
-    <div th:if="${!recipes.isEmpty()}" style="margin: 40px;">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=0|}">
-                    <span>&laquo;</span>
-                </a>
-            </li>
-            <li class="page-item" th:classappend="${!recipes.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${recipes.number-1}|}">
-                    <span> < </span>
-                </a>
-            </li>
-            <li th:each="page: ${#numbers.sequence(0, recipes.totalPages-1)}"
-                th:if="${page >= recipes.number-5 and page <= recipes.number+5}"
-                th:classappend="${page == recipes.number} ? 'active'"
-                class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-            </li>
-            <li class="page-item" th:classappend="${!recipes.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${recipes.number+1}|}">
-                    <span> > </span>
-                </a>
-            </li>
-            <li class="page-item arrow_2" th:classappend="${recipes.number == recipes.totalPages-1} ? 'disabled'">
-                <a class="page-link" th:href="@{|${categoryValue != null ? categoryValue : '/recipe/list'}?page=${recipes.totalPages - 1}|}">
-                    <span>&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <!-- 페이징처리 끝 -->
-</div>
-<script th:src="@{/listjs/listPage.js}"></script>
+</main>
+<script th:src="@{/rankingjs/rankingPage.js}"></script>
 </body>
