@@ -1,6 +1,5 @@
 package com.example.cookers.domain.recipe.controller;
 
-import com.example.cookers.domain.comment.entity.Comment;
 import com.example.cookers.domain.comment.service.CommentService;
 import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.repository.MemberRepository;
@@ -14,9 +13,7 @@ import com.example.cookers.domain.recipe.entity.Seasoning;
 import com.example.cookers.domain.recipe.repository.RecipeRepository;
 import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,8 +24,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -146,25 +141,6 @@ public class RecipeController {
         recipe.setHit(0L); // 초기 hit 값 설정
         recipe.setView(0); // 초기 view 값 설정
 
-        // 썸네일 이미지 처리
-        if (thumbnail != null && !thumbnail.isEmpty()) {
-            try {
-                String originalFilename = thumbnail.getOriginalFilename();
-                String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
-                Path imagePath = Paths.get(fileDirPath, newFilename);
-                Files.createDirectories(imagePath.getParent());
-                Files.write(imagePath, thumbnail.getBytes());
-                recipe.setFilename(originalFilename);
-                recipe.setFilepath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
-
-                // 로그 출력
-                System.out.println("Thumbnail saved at: " + imagePath.toString());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "recipe/recipe_create_form";
-            }
-        }
-
         // 요리 단계 처리
         List<MakingStep> steps = new ArrayList<>();
         for (int i = 0; i < recipeForm.getSteps().size(); i++) {
@@ -183,7 +159,7 @@ public class RecipeController {
                     Files.createDirectories(imagePath.getParent());
                     Files.write(imagePath, stepImages.get(i).getBytes());
                     step.setImageFilename(originalFilename);
-                    step.setImageFilePath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
+                    step.setImageFilePath("/imagefile/post/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
 
                     // 로그 출력
                     System.out.println("Step image saved at: " + imagePath.toString());
@@ -214,7 +190,7 @@ public class RecipeController {
             seasonings.add(seasoning);
         }
 
-        recipeService.saveRecipe(recipe, steps, ingredients, seasonings);
+        recipeService.saveRecipeWithThumbnail(recipe, thumbnail, steps, ingredients, seasonings);
         return "redirect:/"; // 메인화면으로 리다이렉트
     }
 
@@ -289,7 +265,7 @@ public class RecipeController {
                 Files.createDirectories(imagePath.getParent());
                 Files.write(imagePath, thumbnail.getBytes());
                 recipe.setFilename(originalFilename);
-                recipe.setFilepath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
+                recipe.setFilepath("/imagefile/post/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
 
                 // 로그 출력
                 System.out.println("Thumbnail saved at: " + imagePath.toString());
@@ -317,7 +293,7 @@ public class RecipeController {
                     Files.createDirectories(imagePath.getParent());
                     Files.write(imagePath, stepImages.get(i).getBytes());
                     step.setImageFilename(originalFilename);
-                    step.setImageFilePath("/file/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
+                    step.setImageFilePath("/imagefile/post/" + newFilename); // WebMvcConfig 설정과 일치하도록 수정
 
                     // 로그 출력
                     System.out.println("Step image saved at: " + imagePath.toString());
@@ -379,4 +355,17 @@ public class RecipeController {
         this.recipeService.delete(recipe);
         return "redirect:/";
     }
+
+    // 메인메뉴에 레시피 불러오기
+//    @GetMapping("/recipes")
+//    public String showRecipes(Model model) {
+//        List<Recipe> popularRecipes = recipeService.getPopularRecipes();
+//        List<Recipe> latestRecipes = recipeService.getLatestRecipes();
+//
+//        model.addAttribute("popularRecipes", popularRecipes);
+//        model.addAttribute("latestRecipes", latestRecipes);
+//
+//        return "recipes";
+//    }
+
 }

@@ -1,5 +1,6 @@
 /* 버튼 커스텀 */
 .custom-btn {
+  box-sizing: border-box;
   width: 50px;
   height: 50px;
   color: #fff;
@@ -123,7 +124,7 @@ padding-top: 20px;
 
 .top_bar_section > .top_container > .nav_bar > .search_bar {
   display: flex;
-  flex-grow: 1;
+  padding-top: 20px;
 }
 
 .top_bar_section > .top_container > .nav_bar > .search_bar >form{
@@ -328,8 +329,7 @@ padding-top: 20px;
   transition:linear 500ms;
   opacity:1;
   z-index: 2;
-  background-color:  rgba(0,0,0,0.9);
-  /*background-image:url('https://github.com/Junsu-Ahn/cookers/assets/156152342/86fbae00-9571-48c2-96dc-eea624e4660e');*/
+  background-color:  rgba(0,0,0,0.7);
   transform: scale(1.05);
 }
 
@@ -422,7 +422,6 @@ translateY(-50%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     margin-bottom: 45px;
     width: 1240px;
-    box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
 }
@@ -513,22 +512,23 @@ translateY(-50%);
     font-weight: bold;
 }
 
-
-
-
-
 /* footer */
 footer {
     background-color: #3c3935;
     padding: 20px 50px; /* 상하 여백 추가 */
     clear: both; /* 이전 float 요소들이 푸터에 영향을 주지 않도록 */
     margin-top: 40px; /* 본문과의 간격 추가 */
-    display: flex;
-
 }
 
+footer > .foot_container {
+    width: 1240px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 
-footer img {
+
+}
+footer > .foot_container > .foo_div2 > div >  img {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -556,9 +556,8 @@ flex-grow: 1;
     flex-basis: 0;
      border-top: 2px solid #fff; /* 검정 선 추가 */
      text-align: end;
-     height:110px;
+     height: 100px;
      align-content: end;
-
 }
 .foo_div2 div:nth-child(1) {
       margin-top: 10px;
