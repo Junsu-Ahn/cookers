@@ -10,28 +10,21 @@ import com.example.cookers.domain.member.service.PasswordMismatchException;
 import com.example.cookers.domain.ranking.service.RankingService;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.service.RecipeService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -306,7 +299,7 @@ public class MemberController {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
+        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfileImg());
 
         return "redirect:/member/edit?success";
     }
