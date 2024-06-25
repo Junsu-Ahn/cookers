@@ -74,6 +74,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .thumnailImg(url)
+                .profileImg(url)
                 .nickname(nickname)
                 .email(email)
                 .hit(hit)

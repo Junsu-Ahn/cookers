@@ -13,9 +13,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
+
 .top_bar_section {
   height: 150px;
-  margin-bottom: 20px;
 }
 .top_bar_section > .main_logo{
 margin-bottom: 20px;
@@ -112,6 +112,10 @@ form {
 }
 
 form {
+    margin-bottom: 15px;
+}
+
+form div:nth-child(2) {
     margin-bottom: 15px;
 }
 

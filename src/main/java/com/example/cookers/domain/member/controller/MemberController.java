@@ -64,32 +64,20 @@ public class MemberController {
     @ControllerAdvice
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
-        private final MemberRepository memberRepository;
+        private final MemberRepository memberService;
 
         @ModelAttribute
-        public void addAttributes(Model model, Principal principal) {
-            if (principal != null) {
-                String username = principal.getName();
-                Optional<Member> memberOptional = memberRepository.findByUsername(username);
-                if (memberOptional.isPresent()) {
-                    Member member = memberOptional.get();
-                    String profileImageUrl = member.getThumnailImg();
-                    model.addAttribute("profileImageUrl", profileImageUrl);
+        public void addAttributes(Model model) {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+                String username = auth.getName();
+                Member member = memberService.findByUsername(username).orElse(null);
+                if (member != null) {
+                    model.addAttribute("currentMember", member);
                 }
             }
         }
-    }
 
-    @ModelAttribute
-    public void addAttributes(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-            String username = auth.getName();
-            Member member = memberService.findByUsername(username).orElse(null);
-            if (member != null) {
-                model.addAttribute("currentMember", member);
-            }
-        }
     }
 
 
