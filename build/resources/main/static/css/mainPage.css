@@ -188,9 +188,9 @@ padding-top: 20px;
 }
 
 .user_page .user_two_menu {
-    border: 2px solid #85B054;
-    left: 20%;
-    top: 100px; /* 위치 조정 */
+     border: 2px solid #85B054;
+     left: 52%;
+     top: 100px; /* 위치 조정 */
 }
 
 .user_page .user_two_menu > li {
@@ -213,14 +213,16 @@ padding-top: 20px;
 }
 
 .user_page .arrow-up {
-    position: absolute;
-    left: 34%;
-    bottom: 10px; /* 위치 조정 */
-    width: 0;
-    height: 0;
-    border-bottom: 20px solid #85B054; /* 화살표 */
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
+
+        position: absolute;
+        left: 66%;
+        bottom: 10px; /* 위치 조정 */
+        width: 0;
+        height: 0;
+        border-bottom: 20px solid #85B054; /* 화살표 */
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+
 }
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a > img {
