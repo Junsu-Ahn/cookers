@@ -10,7 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
-
 <body style="background-image:url('https://img.freepik.com/free-photo/white-texture_1160-788.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1718496000&semt=ais_user')">
 <div class="top_bar_section">
     <div class="top_container">
@@ -45,7 +44,7 @@
     </div>
     <div class="middle_container">
         <div class="nav_bar">
-            <ul class="">
+            <ul class="before_after">
                 <li>
                     <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
@@ -53,22 +52,22 @@
                     <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/국 & 찌개">국 & 찌개</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/면요리">면요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/튀김요리">튀김요리</a>
+                            <a class="two_btn" href="/recipe/list/밥요리">밥요리</a>
+                            <a class="two_btn" href="/recipe/list/국 & 찌개">국 & 찌개</a>
+                            <a class="two_btn" href="/recipe/list/면요리">면요리</a>
+                            <a class="two_btn" href="/recipe/list/튀김요리">튀김요리</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/볶음요리">볶음요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/찜 & 조림">찜 & 조림</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/샐러드">샐러드</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/밑반찬">밑반찬</a>
+                            <a class="two_btn" href="/recipe/list/볶음요리">볶음요리</a>
+                            <a class="two_btn" href="/recipe/list/찜 & 조림">찜 & 조림</a>
+                            <a class="two_btn" href="/recipe/list/샐러드">샐러드</a>
+                            <a class="two_btn" href="/recipe/list/밑반찬">밑반찬</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/간식 & 분식">간식 & 분식</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/디저트">디저트</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/명절음식">명절음식</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
+                            <a class="two_btn" href="/recipe/list/간식 & 분식">간식 & 분식</a>
+                            <a class="two_btn" href="/recipe/list/디저트">디저트</a>
+                            <a class="two_btn" href="/recipe/list/명절음식">명절음식</a>
+                            <a class="two_btn" href="/recipe/list/기타요리">기타요리</a>
                         </li>
                     </ul>
                 </li>
@@ -76,7 +75,7 @@
                     <a class="custom-nav nav-13" href="/ranking">쉐프랭킹</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="#">스토어</a>
+                    <a class="custom-nav nav-13" href="https://emart.ssg.com/?ckwhere=emart">스토어</a>
                 </li>
             </ul>
         </div>
@@ -97,15 +96,11 @@
     <div class="recipes-section">
         <h2>레시피 목록</h2>
         <div class="recipes">
-            <ul>
-                <li th:each="recipe : ${recipes}">
-                    <h3 th:text="${recipe.title}"></h3>
-                    <p th:text="${recipe.subject}"></p>
-                    <p th:text="${recipe.content}"></p>
-                    <p th:text="${recipe.nickname}"></p>
-                    <p th:text="${recipe.categoryValue}"></p>
-                </li>
-            </ul>
+            <a th:each="recipe : ${recipes}" class="recipe-card" th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
+                <img th:src="@{${recipe.filepath}}" alt="Recipe Image" style="width: 210px; height: 210px;">
+                <h3 th:text="${recipe.title}"></h3>
+                <p>조회수: <span th:text="${recipe.view}"></span></p>
+            </a>
         </div>
     </div>
 </main>

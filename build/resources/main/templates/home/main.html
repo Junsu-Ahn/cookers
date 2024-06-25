@@ -7,10 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/mainPage.css}">
     <script src="https://kit.fontawesome.com/6a4a75455d.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
 </head>
 
-<body>
+<body style="background-image:url('https://img.freepik.com/free-photo/white-texture_1160-788.jpg?size=626&ext=jpg&ga=GA1.1.1788614524.1718496000&semt=ais_user')">
 <div class="top_bar_section">
     <div class="top_container">
         <div class="nav_bar">
@@ -44,7 +43,7 @@
     </div>
     <div class="middle_container">
         <div class="nav_bar">
-            <ul class="">
+            <ul class="before_after">
                 <li>
                     <a class="custom-nav nav-13" href="/">메 인</a>
                 </li>
@@ -52,22 +51,22 @@
                     <a class="custom-nav nav-13" href="/recipe/list">레시피</a>
                     <ul>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/밥요리">밥요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/국 & 찌개">국 & 찌개</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/면요리">면요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/튀김요리">튀김요리</a>
+                            <a class="two_btn" href="/recipe/list/밥요리">밥요리</a>
+                            <a class="two_btn" href="/recipe/list/국 & 찌개">국 & 찌개</a>
+                            <a class="two_btn" href="/recipe/list/면요리">면요리</a>
+                            <a class="two_btn" href="/recipe/list/튀김요리">튀김요리</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/볶음요리">볶음요리</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/찜 & 조림">찜 & 조림</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/샐러드">샐러드</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/밑반찬">밑반찬</a>
+                            <a class="two_btn" href="/recipe/list/볶음요리">볶음요리</a>
+                            <a class="two_btn" href="/recipe/list/찜 & 조림">찜 & 조림</a>
+                            <a class="two_btn" href="/recipe/list/샐러드">샐러드</a>
+                            <a class="two_btn" href="/recipe/list/밑반찬">밑반찬</a>
                         </li>
                         <li>
-                            <a class="custom-nav nav-13" href="/recipe/list/간식 & 분식">간식 & 분식</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/디저트">디저트</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/명절음식">명절음식</a>
-                            <a class="custom-nav nav-13" href="/recipe/list/기타요리">기타요리</a>
+                            <a class="two_btn" href="/recipe/list/간식 & 분식">간식 & 분식</a>
+                            <a class="two_btn" href="/recipe/list/디저트">디저트</a>
+                            <a class="two_btn" href="/recipe/list/명절음식">명절음식</a>
+                            <a class="two_btn" href="/recipe/list/기타요리">기타요리</a>
                         </li>
                     </ul>
                 </li>
@@ -75,7 +74,7 @@
                     <a class="custom-nav nav-13" href="/ranking">쉐프랭킹</a>
                 </li>
                 <li>
-                    <a class="custom-nav nav-13" href="#">스토어</a>
+                    <a class="custom-nav nav-13" href="https://emart.ssg.com/?ckwhere=emart">스토어</a>
                 </li>
             </ul>
         </div>
@@ -95,195 +94,35 @@
             <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/8e0dfeb4-25bf-4c7e-9ce0-b14f71955e0d" alt="이미지 3">
         </div>
     </div>
-
 </div>
-
 
 <div class="recipe_section popular_recipes">
     <h2>인기 레시피</h2>
     <div class="slider_container">
         <div class="slider_wrapper">
             <div class="slider_track">
-
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2167/c9d9173f-d3e1-43cd-871d-339614b0dbac.jpg?size=800x800" alt="떡볶이">
-                    <h3>떡볶이</h3>
-                    <p>황금 비율 양념으로 만드는 오리지널</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2195/0e15309f-8b59-4922-a4d7-1c8893fb5cfa.jpg?size=800x800" alt="간장비빔국수">
-                    <h3>간장비빔국수</h3>
-                    <p>입맛이 살아나는 간장국수</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1755/b584a62e-2319-4291-8604-250ae66778c7.jpg?size=800x800" alt="라이스페이퍼 만두">
-                    <h3>라이스페이퍼 만두</h3>
-                    <p>라이스페이퍼의 또 다른 변신!</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/958/b80937b8-0975-407a-aa69-818153ef03e9.jpg?size=500x500" alt="매생이전">
-                    <h3>매생이전</h3>
-                    <p>바다의 맛 그대로!</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2611/0ecd826c-34d0-409d-96f8-d3dc50aae4f5.jpg?size=800x800" alt="고깃집 된장찌개">
-                    <h3>고깃집 된장찌개</h3>
-                    <p>집에서 똑같은 맛 내는법</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <!-- 추가적인 레시피 카드들 -->
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2510/0d00422c-22e8-4898-b375-53094cca7aee.jpg?size=800x800" alt="고구마 당고">
-                    <h3>고구마 당고</h3>
-                    <p>인덕션 레시피</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-
+                <a class="recipe_card" th:each="recipe : ${popularRecipes}" th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
+                    <img th:src="@{${recipe.filepath}}" alt="메인 이미지" style="width: 210px; height: 210px;">
+                    <h3 th:text="${recipe.title}"></h3>
+                    <p th:text="${recipe.subject}"></p>
+                </a>
             </div>
         </div>
         <button class="prev_btn">◀</button>
         <button class="next_btn">▶</button>
     </div>
 </div>
-</div>
 
-<!-- 최신 레시피-->
 <div class="recipe_section latest_recipes">
     <h2>최신 레시피</h2>
     <div class="slider_container">
         <div class="slider_wrapper">
             <div class="slider_track">
-
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2167/c9d9173f-d3e1-43cd-871d-339614b0dbac.jpg?size=800x800" alt="떡볶이">
-                    <h3>떡볶이</h3>
-                    <p>황금 비율 양념으로 만드는 오리지널</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2195/0e15309f-8b59-4922-a4d7-1c8893fb5cfa.jpg?size=800x800" alt="간장비빔국수">
-                    <h3>간장비빔국수</h3>
-                    <p>입맛이 살아나는 간장국수</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1755/b584a62e-2319-4291-8604-250ae66778c7.jpg?size=800x800" alt="라이스페이퍼 만두">
-                    <h3>라이스페이퍼 만두</h3>
-                    <p>라이스페이퍼의 또 다른 변신!</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/958/b80937b8-0975-407a-aa69-818153ef03e9.jpg?size=500x500" alt="매생이전">
-                    <h3>매생이전</h3>
-                    <p>바다의 맛 그대로!</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2611/0ecd826c-34d0-409d-96f8-d3dc50aae4f5.jpg?size=800x800" alt="고깃집 된장찌개">
-                    <h3>고깃집 된장찌개</h3>
-                    <p>집에서 똑같은 맛 내는법</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <!-- 추가적인 레시피 카드들 -->
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/2510/0d00422c-22e8-4898-b375-53094cca7aee.jpg?size=800x800" alt="고구마 당고">
-                    <h3>고구마 당고</h3>
-                    <p>인덕션 레시피</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-                <div class="recipe_card">
-                    <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="만둣국">
-                    <h3>만둣국</h3>
-                    <p>뜨끈뜨끈한 만둣국</p>
-                </div>
-
+                <a class="recipe_card" th:each="recipe : ${latestRecipes}" th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
+                    <img th:src="@{${recipe.filepath}}" alt="메인 이미지" style="width: 210px; height: 210px;">
+                    <h3 th:text="${recipe.title}"></h3>
+                    <p th:text="${recipe.subject}"></p>
+                </a>
             </div>
         </div>
         <button class="prev_btn">◀</button>
@@ -296,66 +135,19 @@
 <div class="popular-recipes-section">
     <h2>지금 많이 조회되는 레시피</h2>
     <div class="popular-recipes-container">
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="https://static.wtable.co.kr/image/production/service/recipe/1003/39239dda-0d91-43d5-a0ea-133d0065df52.jpg?size=800x800" alt="Recipe 1">
-            </div>
-            <div class="recipe-info">
-                <h3>Recipe 1</h3>
-                <p>Description of Recipe 1</p>
-                <p>Difficulty: Easy</p>
-            </div>
+        <a class="popular-recipe-card" th:each="recipe : ${popularRecipes}" th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
+        <div class="recipe-image">
+            <img th:src="@{${recipe.filepath}}" alt="Recipe Image">
         </div>
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="recipe2.jpg" alt="Recipe 2">
-            </div>
             <div class="recipe-info">
-                <h3>Recipe 2</h3>
-                <p>Description of Recipe 2</p>
-                <p>Difficulty: Medium</p>
+                <h3 th:text="${recipe.title}">Recipe Title</h3>
+                <p th:text="${recipe.subject}"></p>
             </div>
-        </div>
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="recipe3.jpg" alt="Recipe 3">
+            <div class="recipe-view">
+                <t4>조회수</t4>
+                <div th:text="${recipe.view}">View</div>
             </div>
-            <div class="recipe-info">
-                <h3>Recipe 3</h3>
-                <p>Description of Recipe 3</p>
-                <p>Difficulty: Hard</p>
-            </div>
-        </div>
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="recipe4.jpg" alt="Recipe 4">
-            </div>
-            <div class="recipe-info">
-                <h3>Recipe 4</h3>
-                <p>Description of Recipe 4</p>
-                <p>Difficulty: Easy</p>
-            </div>
-        </div>
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="recipe5.jpg" alt="Recipe 5">
-            </div>
-            <div class="recipe-info">
-                <h3>Recipe 5</h3>
-                <p>Description of Recipe 5</p>
-                <p>Difficulty: Medium</p>
-            </div>
-        </div>
-        <div class="popular-recipe-card">
-            <div class="recipe-image">
-                <img src="recipe6.jpg" alt="Recipe 6">
-            </div>
-            <div class="recipe-info">
-                <h3>Recipe 6</h3>
-                <p>Description of Recipe 6</p>
-                <p>Difficulty: Hard</p>
-            </div>
-        </div>
+        </a>
     </div>
 </div>
 
@@ -367,20 +159,25 @@
 
 <!-- footer -->
 <footer>
-    <div class="foo_div">
-        <img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/ac703b2f-8c3a-4b14-b296-c17baa756a97">
+    <div class="foot_container">
+        <div class="foo_div1">
+            <span>(주) 오내요</span> <span>  |  </span>
+            <span>대표 : 안준수</span> <span>  |  </span>
+            <span>사업자등록번호 : 000-00-00000</span> <span>  |  </span>
+            <p>주소 : 대전 서구 대덕대로 179 9층 (우)35230</p>
+            <p>Copyright © Oh!naeyo Corp. All rights reserved.</p>
+        </div>
+        <div class="foo_div2">
+            <div style="color:white;">RECIPE BOOK</div>
+            <div>
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTA5MTlfMjU2/MDAxNjMyMDE3OTE1NTUy.y5BlLkFcMEwQDvo9zN3C-eoKS9YppYRPzNGvxkJglV0g.LK3g6zHRf6sQK6VCvIbpoNMNAidH3ySp4L4FDVBtRewg.PNG.brotherm1n/SE-f74581bb-b3a8-4e47-af52-281656aa17f4.png?type=w800">
+                <img src="https://blog.kakaocdn.net/dn/UGS0q/btree5Viurw/l07AH1VgWJHm4stsAHLdL0/img.png">
+                <img src="https://w7.pngwing.com/pngs/247/997/png-transparent-kakaotalk-hd-logo.png">
+                <img src="https://media.rocketpunch.com/cache/2e/d5/2ed5970e32545f0b1d74beac75914e7b.jpg">
+            </div>
+        </div>
     </div>
-    <div class="foo_div1">
-        <span>(주) 오내요</span> <span>  |  </span>
-        <span>대표 : 안준수</span> <span>  |  </span>
-        <span>사업자등록번호 : 000-00-00000</span> <span>  |  </span>
-        <p>주소 : 대전 서구 대덕대로 179 9층 (우)35230</p>
-        <p>RECIPE BOOK</p>
-        <img src="https://t1.daumcdn.net/cfile/tistory/2764774853DBB4C927">
-        <img src="http://www.newscj.com/news/photo/201610/380601_341606_5826.jpg">
-        <img src="https://lh5.ggpht.com/yVfPv-yLjIuBjpKj41NLkLXmuVv8XzH0m2hf-_sz9lQDv9WB9SX0McB8Jn4bQe4w5Q=w300">
-        <img src="https://media.rocketpunch.com/cache/2e/d5/2ed5970e32545f0b1d74beac75914e7b.jpg">
-    </div>
+
 </footer>
 <script th:src="@{mainjs/mainPage.js}"></script>
 </body>
