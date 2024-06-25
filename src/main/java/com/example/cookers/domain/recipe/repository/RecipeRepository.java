@@ -1,5 +1,6 @@
 package com.example.cookers.domain.recipe.repository;
 
+import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -29,3 +31,4 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     List<Recipe> findByAuthorNickname(String nickname);
 
 }
+

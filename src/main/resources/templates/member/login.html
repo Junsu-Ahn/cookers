@@ -6,21 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" th:href="@{/css/Login.css}">
 </head>
-<style>
-    .find {
-        text-align: center; /* Center align the buttons */
-        margin-top: 10px; /* Add margin at the top */
-    }
-
-    .find a {
-        display: inline-block; /* Display buttons inline */
-        margin-right: 10px; /* Add margin between the buttons */
-    }
-
-    .find button {
-        width: auto; /* Adjust button width */
-    }
-</style>
 <body>
 <div class="top_bar_section">
     <div class="main_logo">
@@ -29,11 +14,12 @@
             <div class='wave -two'></div>
             <div class='wave -three'></div>
             <div class='wave -four'></div>
-            <div class='title'><img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></div>
+            <div class='title'><a href="/"><img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a></div>
+        </div>
     </div>
 </div>
     <form th:action="@{/member/login}" method="POST">
-        <div>
+        <div style="margin-bottom:10px;">
             <span style="font-weight: 500;">아이디</span>
             <input type="text" name="username" placeholder="아이디">
         </div>
