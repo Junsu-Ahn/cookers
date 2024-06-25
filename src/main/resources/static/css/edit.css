@@ -138,7 +138,6 @@ body {
   height: 250px;
   width: 250px;
 }
-
-.container > form > .btn {
-    margin-top: 300px;
+.container > form > .button_class{
+    margin-top: 350px;
 }

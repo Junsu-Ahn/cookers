@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
+    private static final String UPLOAD_DIR = "/path/to/upload/directory/";
+    private static final Logger logger = LoggerFactory.getLogger(RecipeController.class);
+
     @Autowired
     private final RecipeRepository recipeRepository;
     @Autowired
@@ -182,4 +188,50 @@ public class RecipeService {
         this.recipeRepository.delete(recipe);
     }
 
+    // 인기 레시피 조회
+    public Page<Recipe> getPopularRecipes(Pageable pageable) {
+        return recipeRepository.findTop10ByOrderByHitDesc(pageable);
+    }
+    // 최근 레시피 조회
+    public Page<Recipe> getLatestRecipes(Pageable pageable) {
+        return recipeRepository.findTop10ByOrderByCreateDateDesc(pageable);
+    }
+
+    @Transactional
+    public Recipe saveRecipeWithThumbnail(Recipe recipe, MultipartFile thumbnail, List<MakingStep> steps, List<Ingredient> ingredients, List<Seasoning> seasonings) {
+        if (thumbnail != null && !thumbnail.isEmpty()) {
+            try {
+                String originalFilename = thumbnail.getOriginalFilename();
+                String newFilename = UUID.randomUUID().toString() + "_" + originalFilename;
+                Path imagePath = Paths.get(fileDirPath, newFilename);
+                Files.createDirectories(imagePath.getParent());
+                Files.write(imagePath, thumbnail.getBytes());
+                recipe.setFilename(originalFilename);
+                recipe.setFilepath("/imagefile/post/" + newFilename);  // 경로 수정
+                // 로그 출력
+                System.out.println("Thumbnail saved at: " + imagePath.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Recipe savedRecipe = recipeRepository.save(recipe);
+
+        for (MakingStep step : steps) {
+            step.setRecipe(savedRecipe);
+            makingStepRepository.save(step);
+        }
+
+        for (Ingredient ingredient : ingredients) {
+            ingredient.setRecipe(savedRecipe);
+            ingredientRepository.save(ingredient);
+        }
+
+        for (Seasoning seasoning : seasonings) {
+            seasoning.setRecipe(savedRecipe);
+            seasoningRepository.save(seasoning);
+        }
+
+        return savedRecipe;
+    }
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/ranking")
@@ -26,13 +27,17 @@ public class RankingController {
 
     @GetMapping
     public String showRankingPage(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-        int pageSize = 50; // 한 페이지에 표시할 멤버 수
-        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "hit")); // hit 기준으로 내림차순 정렬
+        int pageSize = 50;
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by(Sort.Direction.DESC, "hit"));
 
         Page<Member> rankedMembersPage = rankingService.getRankedMembers(pageable);
+        Long totalRecommendations = rankingService.getTotalRecommendations();
+        Map<Long, Long> memberRecommendations = rankingService.getMemberRecommendations();
 
         model.addAttribute("rankedMembersPage", rankedMembersPage);
         model.addAttribute("currentPage", page);
+        model.addAttribute("totalRecommendations", totalRecommendations);
+        model.addAttribute("memberRecommendations", memberRecommendations);
 
         return "ranking/ranking";
     }

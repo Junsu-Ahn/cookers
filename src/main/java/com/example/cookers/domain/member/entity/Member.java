@@ -7,7 +7,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,6 +33,7 @@ public class Member extends BaseEntity {
     private String nickname;
     private String email;
     private String providerTypeCode;
+    private String profile_url;
 
     @Enumerated(EnumType.STRING)
     private Role role;

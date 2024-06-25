@@ -1,10 +1,10 @@
 /* 버튼 커스텀 */
 .custom-btn {
-  width: 80px;
+  width: 50px;
   height: 50px;
   color: #fff;
   border-radius: 5px;
-  padding: 10px 25px;
+  padding: 10px 0;
   font-family: 'Lato', sans-serif;
   font-weight: 500;
   font-size: 13px;
@@ -17,6 +17,7 @@
    7px 7px 20px 0px rgba(0,0,0,.1),
    4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
+  margin-left: 10px;
 }
 
 .custom-nav{
@@ -108,6 +109,18 @@ background-image: linear-gradient(315deg, #7d1e11 0%, #b02a18 74%);
 .nav-13:active {
   top: 2px;
 }
+/* 2차 메뉴 */
+.two_btn {
+    display: inline-block;
+    width: 100%;
+    background-color: #6e1a0b;
+    background-image: linear-gradient(315deg, #6e1a0b 0%, #9c330e 74%);
+    border-radius: 5px;
+}
+
+.two_btn:hover{
+    color: #f78f07;
+}
 
 /* 노멀라이즈 */
 body, ul, li {
@@ -127,7 +140,6 @@ a{
 }
 
 .top_bar_section > .top_container > .nav_bar{
-
   width: 1240px;
   height: 110px;
   display: flex;
@@ -218,13 +230,13 @@ a{
 
 .user_page .user_two_menu {
     border: 2px solid #85B054;
-    left: 13%;
+    left: 20%;
     top: 100px; /* 위치 조정 */
 }
 
 .user_page .user_two_menu > li {
-    border-top: 2px solid #85B054;
-  border-bottom: 2px solid #85B054;
+    border-top: 1px solid #85B054;
+  border-bottom: 1px solid #85B054;
     background-color: white;
     display: flex;
     text-align: center;
@@ -243,7 +255,7 @@ a{
 
 .user_page .arrow-up {
     position: absolute;
-    left: 28%;
+    left: 34%;
     bottom: 10px; /* 위치 조정 */
     width: 0;
     height: 0;
@@ -257,16 +269,12 @@ a{
 }
 
 .top_bar_section > .top_container > .nav_bar >.user_page > a> img{
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
 }
 
 
 
-.top_bar_section > .middle_container > .nav_bar {
-  background-color: rgb(125, 30, 17);
-
-}
 
 .top_bar_section > .middle_container > .nav_bar > ul{
   display: flex;
@@ -277,7 +285,6 @@ a{
 }
 
 .top_bar_section > .middle_container > .nav_bar > ul > li{
-  border: 2px solid rgba(0,0,0,0.3);
   box-sizing: border-box;
   flex-grow: 1;
   flex-basis: 0;
@@ -297,13 +304,13 @@ a{
   width: 100%;
   height: 100%;
   align-content: center;
-  font-size: 30px;
+  font-size: 17px;
   font-weight: bold;
 }
 .top_bar_section > .middle_container > .nav_bar > ul > li > ul{
   position:absolute;
   top : 100%;
-  left: -101%;
+  left: -100%;
   width: 1239px;
   visibility:hidden;
   opacity:0;
@@ -311,7 +318,6 @@ a{
 }
 
 .top_bar_section > .middle_container > .nav_bar > ul > li > ul > li{
-  height: 100px;
   display: flex;
 
 }
@@ -319,15 +325,14 @@ a{
 .top_bar_section > .middle_container > .nav_bar > ul > li > ul > li > a{
   display: inline-block;
   width: 100%;
-  height: 100%;
+  padding: 20px 0;
   align-content: center;
-  font-size: 30px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
-  border: 3px solid rgba(255,255,255,0.2);
 }
 
-.top_bar_section > .middle_container > .nav_bar > ul > li > ul > li > a:hover{
+.top_bar_sction > .middle_container > .nav_bar > ul > li > ul > li > a:hover{
   color: #f78f07;
 }
 
@@ -336,6 +341,7 @@ a{
   transition:linear 500ms;
   opacity:1;
   z-index: 2;
+  width
 }
 
 /*  하단 게시판 만들기 */

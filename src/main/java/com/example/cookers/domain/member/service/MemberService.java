@@ -4,14 +4,20 @@ import com.example.cookers.domain.Email.EmailService;
 import com.example.cookers.domain.member.entity.Member;
 import com.example.cookers.domain.member.entity.Role;
 import com.example.cookers.domain.member.repository.MemberRepository;
+import com.example.cookers.domain.recipe.controller.RecipeController;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.entity.RecipeRecommendation;
+import com.example.cookers.domain.recipe.repository.RecipeRecommendationRepository;
 import com.example.cookers.domain.recipe.repository.RecipeRepository;
+import com.example.cookers.domain.recipe.service.RecipeService;
 import com.example.cookers.global.DataNotFoundException;
 import com.example.cookers.global.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +37,12 @@ import java.util.Set;
 @RequiredArgsConstructor
 
 public class MemberService {
+
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final RecipeRecommendationRepository recipeRecommendationRepository;
 
     private final EmailService emailService;
 
@@ -219,6 +228,25 @@ public class MemberService {
         } catch (IOException e) {
             throw new RuntimeException("파일 저장에 실패했습니다.", e);
         }
+    }
+
+    public Optional<Member> findByusername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
+    public boolean changePassword(String username, String currentPassword, String newPassword) {
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+
+        // 현재 비밀번호 확인
+        if (!passwordEncoder.matches(currentPassword, member.getPassword())) {
+            return false; // 현재 비밀번호가 일치하지 않는 경우 변경 실패
+        }
+
+        // 새로운 비밀번호 설정
+        member.setPassword(passwordEncoder.encode(newPassword));
+        memberRepository.save(member);
+        return true; // 비밀번호 변경 성공
     }
     //여기까지
 }

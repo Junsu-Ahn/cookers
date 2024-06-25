@@ -10,21 +10,28 @@ import com.example.cookers.domain.member.service.PasswordMismatchException;
 import com.example.cookers.domain.ranking.service.RankingService;
 import com.example.cookers.domain.recipe.entity.Recipe;
 import com.example.cookers.domain.recipe.service.RecipeService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -45,8 +52,6 @@ public class MemberController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
-
     @Data
     public static class LoginRequest {
         @NotBlank
@@ -60,26 +65,28 @@ public class MemberController {
     @ControllerAdvice
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
-        private final MemberService memberService;
+        private final MemberRepository memberRepository;
         @ModelAttribute
-        public void addAttributes(Model model) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-                String username = auth.getName();
-                Member member = memberService.findByUsername(username).orElse(null);
-                if (member != null) {
-                    model.addAttribute("currentMember", member);
+        public void addAttributes(Model model, Principal principal) {
+            if (principal != null) {
+                String username = principal.getName();
+                Optional<Member> memberOptional = memberRepository.findByUsername(username);
+                if (memberOptional.isPresent()) {
+                    Member member = memberOptional.get();
+                    String profileImageUrl = member.getProfile_url();
+                    model.addAttribute("profileImageUrl", profileImageUrl);
                 }
             }
         }
     }
-
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String loginPage() {
 
         return "member/login";
     }
+
+
 
     @PostMapping("/login")
     public String login() {
@@ -134,7 +141,7 @@ public class MemberController {
                     signForm.getNickname(),
                     signForm.getEmail(),
                     0L,
-                    signForm.getThumnailImg()
+                    signForm.getProfile_url()
             );
         } catch (DataIntegrityViolationException e) {
             model.addAttribute("message", e.getMessage());
@@ -273,55 +280,52 @@ public class MemberController {
     }
     // 추가
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit")
-    public String editMemberForm(Model model) {
+    public String editProfilePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Member member = memberService.findByUsername(username)
-                .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
         model.addAttribute("member", member);
+
         return "member/edit";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit")
-    public String editProfile(@Valid @ModelAttribute EditForm editForm, BindingResult bindingResult, Model model) {
+    public String editProfile(@Valid EditForm editForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             String username = auth.getName();
             Member member = memberService.findByUsername(username)
-                    .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
+                    .orElseThrow(() -> new IllegalArgumentException("회원을 찾을 수 없습니다."));
             model.addAttribute("member", member);
-            return "member/edit";
+            return "member/edit"; // 유효성 검사 오류 발생 시 다시 입력 폼으로 이동
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfileImg());
+        memberService.updateMember(username, editForm.getNickname(), editForm.getEmail(), editForm.getProfile_url());
 
-        return "redirect:/"; // 메인 화면으로 리디렉션
+        return "redirect:/member/edit?success";
     }
 
-    @PostMapping("/setDefaultProfile")
-    public String setDefaultProfile() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        memberService.setDefaultProfile(username);
-
-        return "redirect:/"; // 메인 화면으로 리디렉션
-    }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete")
-    @ResponseBody
     public String deleteMember() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        memberService.deleteMember(username);
-        SecurityContextHolder.clearContext(); // 로그아웃 처리
-
-        return "success"; // 클라이언트에 성공 메시지 전송
+        memberService.deleteMember(username);  // 회원 삭제 로직
+        SecurityContextHolder.clearContext();  // 로그아웃 처리
+        return "redirect:/?deleteSuccess";  // 메인 페이지로 리다이렉트
     }
 
+
     // 여기까지
+
+
+
 
     @ToString
     @Getter
@@ -344,7 +348,7 @@ public class MemberController {
 
         private Long hit;
 
-        private String thumnailImg;
+        private String profile_url;
 
         private String providerTypeCode;
 
