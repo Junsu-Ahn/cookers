@@ -18,4 +18,11 @@ public interface RecipeRecommendationRepository extends JpaRepository<RecipeReco
 
     @Query("SELECT SUM(r.hit) FROM Recipe r WHERE r.author = :author")
     Long sumHitByAuthor(@Param("author") Member author); // 반환 타입을 Long으로 변경
+
+    @Query("SELECT COUNT(r) FROM RecipeRecommendation r WHERE r.member.id = :memberId")
+    long countByMember(@Param("memberId") Long memberId);
+
+    @Query("SELECT COUNT(r) FROM RecipeRecommendation r")
+    long countTotalRecommendations();
+
 }

@@ -1,0 +1,115 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>비밀번호 변경</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .box {
+  background
+  width: 100%;
+  height: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 30px rgba(black, .2);
+  background: lighten(#f0f4c3, 10%);
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.wave {
+  opacity: .4;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  background: #0af;
+  width: 500px;
+  height: 500px;
+  margin-left: -250px;
+  margin-top: -250px;
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: drift 3000ms infinite linear;
+}
+.wave.-four {
+  animation: drift 10000ms infinite linear;
+  opacity: .1;
+  background: skyblue;
+}
+.wave.-three {
+  animation: drift 5000ms infinite linear;
+}
+
+.wave.-two {
+  animation: drift 7000ms infinite linear;
+  opacity: .1;
+  background: yellow;
+}
+
+.box:after {
+  content: '';
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(#e8a, 1), rgba(#def, 0) 80%, rgba(white, .5));
+  z-index: 11;
+  transform: translate3d(0, 0, 0);
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  line-height: 50px;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: 24px;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+@keyframes drift {
+  from { transform: rotate(0deg); }
+  from { transform: rotate(360deg); }
+}
+    </style>
+</head>
+<body>
+<div class="top_bar_section" style="margin-bottom: 30px;">
+    <div class="main_logo">
+        <div class='box'>
+            <div class='wave -one'></div>
+            <div class='wave -two'></div>
+            <div class='wave -three'></div>
+            <div class='wave -four'></div>
+            <div class='title'><a href="/"><img src="https://github.com/Junsu-Ahn/cookers/assets/132266117/377131c0-ea3d-42a7-bc52-87da88deaac2" alt="메인메뉴"></a></div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h1>비밀번호 변경</h1>
+    <form th:action="@{/member/editPw}" th:object="${editPasswordForm}" method="post" id="editPwForm">
+        <div class="form-group">
+            <label for="currentPassword">현재 비밀번호:</label>
+            <input type="password" class="form-control" id="currentPassword" name="currentPassword" th:field="*{currentPassword}" required>
+        </div>
+        <div class="form-group">
+            <label for="newPassword">새로운 비밀번호:</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" th:field="*{newPassword}" required>
+        </div>
+        <div class="form-group">
+            <label for="confirmPassword">새로운 비밀번호 확인:</label>
+            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+        <button class="btn btn-primary" value="뒤로가기" onclick="history.back(-1)" style="background-color: #6c757d;">뒤로가기</button>
+    </form>
+</div>
+</body>
+</html>

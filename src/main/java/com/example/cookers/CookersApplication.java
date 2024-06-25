@@ -9,6 +9,7 @@ import java.io.File;
 @SpringBootApplication
 @EnableJpaAuditing
 public class CookersApplication {
+
 	public static void main(String[] args) {
 		File file = new File("src/main/resources/templates/recipe/recipe_create_form.html");
 		if (file.exists()) {

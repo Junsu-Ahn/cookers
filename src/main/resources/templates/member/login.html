@@ -34,29 +34,30 @@
 </div>
     <form th:action="@{/member/login}" method="POST">
         <div>
-            <span>유저 아이디</span>
+            <span style="font-weight: 500;">아이디</span>
             <input type="text" name="username" placeholder="아이디">
         </div>
         <div>
-            <span>유저 비밀번호</span>
+            <span style="font-weight: 500;">비밀번호</span>
             <input type="password" name="password" placeholder="비밀번호">
         </div>
         <div>
             <button type="submit">로그인</button>
         </div>
         <div class="signup">
-            <a href="/member/signup">
-                <button type="button">회원가입</button>
-            </a>
-        </div>
-        <div class="find">
             <a href="/member/findId">
-                <button type="button">아이디 찾기</button>
+                아이디 찾기
             </a>
+            <div> | </div>
             <a href="/member/findPw">
-                <button type="button">비밀번호 찾기</button>
+                비밀번호 찾기
+            </a>
+            <div> | </div>
+            <a href="/member/signup">
+                회원가입
             </a>
         </div>
+
         <div class="login">
             <a href="/oauth2/authorization/kakao">
                 <div class="logo"><img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/6183c7c2-d209-4d1a-8276-9232162d1226" alt="카카오"></div>
@@ -71,6 +72,7 @@
                 <div class="name">구글 로그인</div>
             </a>
         </div>
+
 
 
 </form>

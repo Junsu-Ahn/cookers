@@ -32,7 +32,6 @@
             <label for="email">이메일:</label>
             <input type="email" class="form-control" id="email" name="email" th:field="*{email}" required>
         </div>
-
         <div class="image_bar">
             <div id="divMainPhotoBox">
                 <div class="input_1">
@@ -42,9 +41,12 @@
                 <input type="file" name="profileImg" accept="image/png, image/gif, image/jpeg" id="profileImgInput" style="cursor: pointer;">
             </div>
         </div>
-        <button type="button" class="btn btn-secondary default-profile-button">기본 프로필로 변경</button>
-        <button type="submit" class="btn btn-primary save-button" style="margin-left:790px;">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
-        <button type="button" class="btn btn-danger delete-button">회원탈퇴</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
+        <div class="button_class">
+            <a th:href="@{/member/editPw}" class="btn btn-info" style="margin-left: 10px;">비밀번호 변경</a>
+            <button type="button" class="btn btn-secondary default-profile-button">기본 프로필로 변경</button>
+            <button type="submit" class="btn btn-primary save-button" style="margin-left:640px;">저장</button> <!-- 저장 버튼을 클릭 시 JavaScript가 실행됩니다. -->
+            <button type="button" class="btn btn-danger delete-button">회원탈퇴</button> <!-- 탈퇴하기 버튼을 추가합니다. -->
+        </div>
     </form>
 </div>
 <script th:src="@{/editjs/edit.js}"></script>
