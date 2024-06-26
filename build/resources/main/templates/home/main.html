@@ -24,6 +24,12 @@
                 </form>
             </div>
             <div class="user_page">
+
+                <a sec:authorize="isAuthenticated()" href="/member/admin/memberList">
+                    <img th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
+                         th:src="@{'https://github.com/Junsu-Ahn/cookers/assets/134615615/8634d640-17fe-4371-899a-0abdde174a48'}" alt="관리자 페이지">
+                </a>
+
                 <a sec:authorize="isAnonymous()" href="/member/login">
                     <img src="https://github.com/Junsu-Ahn/cookers/assets/156152342/b0693f56-339e-4b19-9c69-49bce1e6a43f" alt="로그인">
                 </a>

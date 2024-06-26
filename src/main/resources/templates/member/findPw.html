@@ -148,7 +148,7 @@
     <h2>비밀번호 찾기</h2>
     <form th:action="@{/member/findPw}" method="POST">
         <div class="input-container">
-            <input type="text" name="username" placeholder="아이디 입력">
+            <input type="text" name="username" placeholder="아이디 입력" required>
             <button type="submit">비밀번호 찾기</button>
         </div>
     </form>
