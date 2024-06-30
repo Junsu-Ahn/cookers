@@ -2,6 +2,17 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 폰트 수정 */
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html, html > body {
+    font-family: 'Pretendard-Regular';
+}
 /* 버튼 커스텀 */
 .custom-btn {
   box-sizing: border-box;
@@ -192,14 +203,14 @@ padding-top: 20px;
 }
 
 .user_page .user_two_menu {
-    border: 2px solid #85B054;
-    left: 20%;
+    border: 2px solid #792626;
+    left: 53%;
     top: 100px; /* 위치 조정 */
 }
 
 .user_page .user_two_menu > li {
-    border-top: 1px solid #85B054;
-  border-bottom: 1px solid #85B054;
+    border-top: 1px solid #792626;
+  border-bottom: 1px solid #792626;
     background-color: white;
     display: flex;
     text-align: center;
@@ -218,11 +229,11 @@ padding-top: 20px;
 
 .user_page .arrow-up {
     position: absolute;
-    left: 34%;
+    left: 66%;
     bottom: 10px; /* 위치 조정 */
     width: 0;
     height: 0;
-    border-bottom: 20px solid #85B054; /* 화살표 */
+    border-bottom: 20px solid #792626; /* 화살표 */
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
 }
@@ -314,7 +325,7 @@ padding-top: 20px;
   width: 100%;
   padding: 20px 0;
   align-content: center;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: bold;
   color: white;
   border-radius: 5px;
@@ -330,12 +341,13 @@ padding-top: 20px;
 
 .top_bar_section > .middle_container > .nav_bar > ul > li:nth-child(2):hover > ul{
   visibility:visible;
-  transition:linear 500ms;
+  transition: all .3s;
   opacity:1;
   z-index: 2;
-  background-color:  rgba(0,0,0,0.7);
+  background-color:  rgba(121, 38, 38,0.95);
   transform: scale(1.05);
 }
+
 /* 하단 리스트 만들기 */
 .bottom_bar_section > .top_container{
   height: 20px;
@@ -402,11 +414,12 @@ padding-top: 20px;
 .container_bar{
 
   background-color: #fff;
-  width: 1280px;
+  width: 1240px;
   padding-top: 50px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 30px;
+  box-sizing: border-box;
 }
 
 .container_bar > .top_text-menu > .main_img_box{
@@ -516,9 +529,10 @@ padding-top: 20px;
 
 .middle_text_menu {
   background-color: white;
-  width: 1280px;
+  width: 1240px;
   border-radius: 30px;
   margin: 20px auto;
+  box-sizing: border-box;
 }
 
 .middle_text_menu > .title_bar{
@@ -584,9 +598,10 @@ padding-top: 20px;
 
 .bottom_text_menu {
   background-color: white;
-  width: 1280px;
+  width: 1240px;
   border-radius: 30px;
   margin: 20px auto;
+  box-sizing: border-box;
 }
 
 .bottom_text_menu > .title_bar{
@@ -606,9 +621,8 @@ padding-top: 20px;
 
 .bottom_text_menu > .cooking_order{
   display: flex;
-  width: 1320px;
   margin-top: 15px;
-  padding: 6px 10px 60px 50px;
+  padding: 6px 10px 60px 25px;
 }
 
 .step_number {
@@ -646,6 +660,7 @@ padding-top: 20px;
   border-radius: 30px;
   width: 300px;
   height: 300px;
+  object-fit: cover;
 }
 
 .bottom_text_menu > .cooking_order > .step_content > .tip_bar {
@@ -653,7 +668,6 @@ padding-top: 20px;
   flex-grow: 1;
 }
 .bottom_text_menu > .cooking_order > .step_content > .tip_bar > .tip_text{
-  width: 1120px;
   padding: 5px 10px;
   color: rgb(100, 100, 100);
 }
@@ -779,7 +793,7 @@ background: linear-gradient(315deg, #7d1e11 0%, #b02a18 74%);
 .star_rating {
     display: flex;
     align-items: center;
-    background-color: black;
+    background-color: #792626;
     border-radius: 30px;
     padding: 5px 10px;
     margin-left: 10px; /* 난이도 텍스트와 별 사이 간격 조절 */
@@ -801,11 +815,12 @@ background: linear-gradient(315deg, #7d1e11 0%, #b02a18 74%);
 
 .comment_section {
   background-color: white;
-  width: 1280px;
+  width: 1240px;
   border-radius: 30px;
   margin: 0px auto 20px ;
   display: flex;
   flex-direction:column;
+  box-sizing: border-box;
 }
 
 .comment_section > .title_bar{

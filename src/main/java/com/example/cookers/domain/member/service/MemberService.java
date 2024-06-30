@@ -117,7 +117,6 @@ public class MemberService {
         memberRepository.delete(member);
     }
 
-
     public Optional<Member> findByUsername(String username) {
         return memberRepository.findByUsername(username);
     }
@@ -155,7 +154,6 @@ public class MemberService {
                 .orElseThrow(() -> new ResourceNotFoundException("Member not found"));
     }
 
-
     @Transactional(readOnly = true)
     public Long calculateTotalHitsForMember(Long memberId) {
         Member member = memberRepository.findById(memberId).orElse(null);
@@ -181,7 +179,6 @@ public class MemberService {
     public void delete(Member member) {memberRepository.delete(member);}
 
     // 추가//
-
 
     @Transactional
     public Member updateMember(String username, String nickname, String email, MultipartFile profileImg) {
