@@ -96,6 +96,9 @@
     <div class="recipes-section">
         <h2>레시피 목록</h2>
         <div class="recipes">
+            <div th:if="${#lists.isEmpty(recipes)}">
+                <p style="margin: 40px 0px;">작성된 레시피가 없습니다!</p>
+            </div>
             <a th:each="recipe : ${recipes}" class="recipe-card" th:href="@{/recipe/detail/{id}(id=${recipe.id})}">
                 <img th:src="@{${recipe.filepath}}" alt="Recipe Image" style="width: 210px; height: 210px;">
                 <h3 th:text="${recipe.title}"></h3>

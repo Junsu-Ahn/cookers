@@ -23,9 +23,11 @@ public class HomeController {
     public String home(Model model, @PageableDefault(size = 10) Pageable pageable) {
         Page<Recipe> popularRecipes = recipeService.getPopularRecipes(pageable);
         Page<Recipe> latestRecipes = recipeService.getLatestRecipes(pageable);
+        Page<Recipe> checkRecipes = recipeService.getCheckRecipes(pageable);
 
         model.addAttribute("popularRecipes", popularRecipes);
         model.addAttribute("latestRecipes", latestRecipes);
+        model.addAttribute("checkRecipes", checkRecipes);
 
         return "home/main";
     }

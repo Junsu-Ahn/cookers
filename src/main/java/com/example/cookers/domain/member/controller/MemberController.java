@@ -13,15 +13,19 @@ import com.example.cookers.domain.recipe.service.RecipeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -29,6 +33,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -49,8 +54,6 @@ public class MemberController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-
-
     @Data
     public static class LoginRequest {
         @NotBlank
@@ -64,20 +67,32 @@ public class MemberController {
     @ControllerAdvice
     @RequiredArgsConstructor
     public class GlobalControllerAdvice {
-        private final MemberRepository memberService;
+        private final MemberRepository memberRepository;
 
         @ModelAttribute
-        public void addAttributes(Model model) {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
-                String username = auth.getName();
-                Member member = memberService.findByUsername(username).orElse(null);
-                if (member != null) {
-                    model.addAttribute("currentMember", member);
+        public void addAttributes(Model model, Principal principal) {
+            if (principal != null) {
+                String username = principal.getName();
+                Optional<Member> memberOptional = memberRepository.findByUsername(username);
+                if (memberOptional.isPresent()) {
+                    Member member = memberOptional.get();
+                    String profileImageUrl = member.getThumnailImg();
+                    model.addAttribute("profileImageUrl", profileImageUrl);
                 }
             }
         }
+    }
 
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated() && !"anonymousUser".equals(auth.getPrincipal())) {
+            String username = auth.getName();
+            Member member = memberService.findByUsername(username).orElse(null);
+            if (member != null) {
+                model.addAttribute("currentMember", member);
+            }
+        }
     }
 
 
@@ -282,6 +297,7 @@ public class MemberController {
     }
     // 추가
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/edit")
     public String editMemberForm(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -289,9 +305,11 @@ public class MemberController {
         Member member = memberService.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("회원 정보를 찾을 수 없습니다."));
         model.addAttribute("member", member);
+
         return "member/edit";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit")
     public String editProfile(@Valid @ModelAttribute EditForm editForm, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
@@ -319,6 +337,7 @@ public class MemberController {
         return "redirect:/"; // 메인 화면으로 리디렉션
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/delete")
     @ResponseBody
     public String deleteMember(HttpServletRequest request, HttpServletResponse response) {
@@ -331,6 +350,9 @@ public class MemberController {
     }
 
     // 여기까지
+
+
+
 
     @ToString
     @Getter

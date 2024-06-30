@@ -324,9 +324,9 @@ public class RecipeController {
             seasonings.add(seasoning);
         }
 
-        recipeService.saveRecipe(recipe, steps, ingredients, seasonings);
+        recipeService.saveRecipeWithThumbnail(recipe, thumbnail, steps, ingredients, seasonings);
 
-        return "recipe_create_form";
+        return "recipe/recipe_create_form";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -334,7 +334,7 @@ public class RecipeController {
     public String recipeModify(@Valid RecipeForm recipeForm, BindingResult bindingResult,
                                  Principal principal, @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()) {
-            return "recipe_create_form";
+            return "recipe/recipe_create_form";
         }
         Recipe recipe = this.recipeService.getRecipe(id);
         if (!recipe.getAuthor().getUsername().equals(principal.getName())) {
@@ -355,17 +355,5 @@ public class RecipeController {
         this.recipeService.delete(recipe);
         return "redirect:/";
     }
-
-    // 메인메뉴에 레시피 불러오기
-//    @GetMapping("/recipes")
-//    public String showRecipes(Model model) {
-//        List<Recipe> popularRecipes = recipeService.getPopularRecipes();
-//        List<Recipe> latestRecipes = recipeService.getLatestRecipes();
-//
-//        model.addAttribute("popularRecipes", popularRecipes);
-//        model.addAttribute("latestRecipes", latestRecipes);
-//
-//        return "recipes";
-//    }
 
 }
