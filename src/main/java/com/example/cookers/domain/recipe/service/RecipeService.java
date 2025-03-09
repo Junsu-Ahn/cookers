@@ -199,6 +199,10 @@ public class RecipeService {
     public Page<Recipe> getLatestRecipes(Pageable pageable) {
         return recipeRepository.findTop10ByOrderByCreateDateDesc(pageable);
     }
+    // 조회수 많은 순으로 조회
+    public Page<Recipe> getCheckRecipes(Pageable pageable) {
+        return recipeRepository.findTop10ByOrderByViewDesc(pageable);
+    }
 
     @Transactional
     public Recipe saveRecipeWithThumbnail(Recipe recipe, MultipartFile thumbnail, List<MakingStep> steps, List<Ingredient> ingredients, List<Seasoning> seasonings) {

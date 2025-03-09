@@ -25,3 +25,22 @@ public class RecipeRecommendation extends BaseEntity {
     @ManyToOne
     private Recipe recipe;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -24,6 +24,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     Page<Recipe> findTop10ByOrderByHitDesc(Pageable pageable);
     Page<Recipe> findTop10ByOrderByCreateDateDesc(Pageable pageable);
+    Page<Recipe> findTop10ByOrderByViewDesc(Pageable pageable);
 
     @Query("SELECT COALESCE(SUM(r.hit), 0) FROM Recipe r WHERE r.author.id = :authorId")
     Long sumHitsByAuthor(@Param("authorId") Long authorId);

@@ -179,16 +179,15 @@
     </div>
     <div class="move_category">
         <div class="modify_btn">
-            <!--            <form th:action="@{|/recipe/modify/${recipe.id}|}" method="post" class="modify-form" sec:authorize="isAuthenticated()" th:if="${recipe.author != null and #authentication.getPrincipal().getUsername() == recipe.author.username}">-->
-            <!--                <button type="submit" class="category_btn ct_ctn">-->
-            <!--                    <span>가잣 !</span>-->
-            <!--                    <span>게시물 수정</span>-->
-            <!--                </button>-->
-            <!--            </form>-->
-            <!--                <a th:href="@{|/recipe/modify/${recipe.id}|}" class="btn btn-sm btn-outline-secondary"-->
-            <!--                   sec:authorize="isAuthenticated()"-->
-            <!--                   th:if="${recipe.author != null and #authentication.getPrincipal().getUsername() == recipe.author.username}"-->
-            <!--                   th:text="수정"></a>-->
+            <form th:action="@{|/recipe/modify/${recipe.id}|}" method="post" class="modify-form" sec:authorize="isAuthenticated()" th:if="${recipe.author != null and #authentication.getPrincipal().getUsername() == recipe.author.username}">
+                <button type="submit" class="category_btn ct_ctn">
+                        <span>가잣 !</span>
+                        <span>게시물 수정</span>
+                </button>
+            </form>
+                <a th:href="@{|/recipe/modify/${recipe.id}|}" class="btn btn-sm btn-outline-secondary"
+                   sec:authorize="isAuthenticated()"
+                    th:if="${recipe.author != null and #authentication.getPrincipal().getUsername() == recipe.author.username}"></a>
             <button th:data-uri="@{|/recipe/delete/${recipe.id}|}" class="delete category_btn ct_ctn"
                     sec:authorize="isAuthenticated()"
                     th:if="${recipe.author != null and #authentication.getPrincipal().getUsername() == recipe.author.username}">
@@ -219,6 +218,7 @@
                     <div class="left_bar">
                         <div class="d-flex justify-content-end">
                             <div class="badge bg-light text-dark p-2 text-start">
+
                                 <div th:text="${#temporals.format(comment.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                             </div>
                         </div>

@@ -81,7 +81,7 @@
     </div>
 </div>
 
-<form class="bottom_bar_section" action="/recipe/recipe_create_form" method="post" enctype="multipart/form-data">
+<form class="bottom_bar_section" action="/recipe/recipe_create_form" th:object="${recipe}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="${_csrf.token}" />
     <div class="top_container"></div>
     <div class="recipe_write">

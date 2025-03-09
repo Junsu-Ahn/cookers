@@ -13,9 +13,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
 }
-
 .top_bar_section {
   height: 150px;
+  margin-bottom: 20px;
 }
 .top_bar_section > .main_logo{
 margin-bottom: 20px;
