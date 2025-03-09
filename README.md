@@ -75,7 +75,7 @@
 * 랭킹 기능
 
 ## 🔗 ER - Diagram
-# <img src="https://github.com/Junsu-Ahn/cookers/assets/134615615/8ef42ef8-8c9e-4667-b9f7-9fbc1806cefd">
+# <img src="[https://github.com/Junsu-Ahn/cookers/assets/134615615/8ef42ef8-8c9e-4667-b9f7-9fbc1806cefd](https://github.com/Junsu-Ahn/cookers/assets/134615615/d20285ff-4f28-4900-a5d5-2842c0a75fc1)">
 
 ## 📝 USE CASE
 # <img src="https://github.com/user-attachments/assets/f9e968ea-a756-4551-ac47-70530079b44c">
